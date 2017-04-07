@@ -1,6 +1,7 @@
 package libSource;
 
 import javax.swing.*;
+import java.awt.event.*;
 import java.util.Iterator;
 
 /**
@@ -13,6 +14,17 @@ public class mainwindow {
     private JTextField textField2;
     private JTextField textField3;
     private JTable table1;
+    private JButton openCardButton;
+
+    public mainwindow() {
+        openCardButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CardForm();
+
+            }
+        });
+    }
 
     public static void main(String[] args)
     {
@@ -62,7 +74,7 @@ public class mainwindow {
         frame.pack();
         frame.setVisible(true);
 
-        int a = 0;
+        int a = 0;  // это что?
         a++;
     }
 
