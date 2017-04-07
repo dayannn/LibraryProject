@@ -16,7 +16,8 @@ public class CardForm {
 
 
     public CardForm() {
-        frame.setSize(500, 500);
+        frame.setSize(500, 200);
+        frame.setResizable(false);
         frame.setContentPane(CardPanel);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setVisible(true);
