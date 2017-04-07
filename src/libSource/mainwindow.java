@@ -1,6 +1,8 @@
 package libSource;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.Iterator;
 
@@ -15,15 +17,25 @@ public class mainwindow {
     private JTextField textField3;
     private JTable table1;
     private JButton openCardButton;
+    private JTextField textField4;
+    private JTextField textField5;
+    private JTextField textField6;
+    private JRadioButton nameRadioButton;
+    private JRadioButton sourceRadioButton;
+    private JRadioButton themeRadioButton;
 
     public mainwindow() {
-        openCardButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new CardForm();
+        DefaultTableModel model = new DefaultTableModel();
 
-            }
-        });
+        table1.setAutoCreateRowSorter(true);
+        table1.setFillsViewportHeight(true);
+        table1.setPreferredScrollableViewportSize(new Dimension(550, 200));
+        model.addColumn("Name");
+        model.addColumn("Source");
+        model.addColumn("Theme");
+        model.addColumn("Description");
+        model.addColumn("Access Type");
+        table1.setModel(model);
     }
 
     public static void main(String[] args)
@@ -67,6 +79,8 @@ public class mainwindow {
         System.out.println(source.getDescription());
         System.out.println(source.getLink());
         System.out.println(source.getTheme());
+
+
 
         JFrame frame = new JFrame("mainwindow");
         frame.setContentPane(new mainwindow().panel1);
