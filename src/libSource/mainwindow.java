@@ -36,6 +36,12 @@ public class mainwindow {
         model.addColumn("Description");
         model.addColumn("Access Type");
         table1.setModel(model);
+        openCardButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CardForm();
+            }
+        });
     }
 
     public static void main(String[] args)
