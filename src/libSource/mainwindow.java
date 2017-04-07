@@ -1,10 +1,19 @@
-import libSource.*;
+package libSource;
 
+import javax.swing.*;
 import java.util.Iterator;
 
+/**
+ * Created by admin on 07/04/17.
+ */
+public class mainwindow {
+    private JPanel panel1;
+    private JButton changeUserButton;
+    private JTextField textField1;
+    private JTextField textField2;
+    private JTextField textField3;
+    private JTable table1;
 
-public class MainClass
-{
     public static void main(String[] args)
     {
         //  Attributes test
@@ -47,7 +56,15 @@ public class MainClass
         System.out.println(source.getLink());
         System.out.println(source.getTheme());
 
+        JFrame frame = new JFrame("mainwindow");
+        frame.setContentPane(new mainwindow().panel1);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+
         int a = 0;
         a++;
     }
+
+
 }
