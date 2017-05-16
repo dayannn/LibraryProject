@@ -61,7 +61,7 @@ public class mainwindow {
         getbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AttributeList temp = new AttributeList();
+                /*AttributeList temp = new AttributeList();
                 temp.add(new AttributeName());
                 temp.add(new AttributeDescription());
                 Managerofdata mgr = new Managerofdata;
@@ -83,7 +83,7 @@ public class mainwindow {
 
                 }
 
-                table1.setModel(model);
+                table1.setModel(model);*/
 
             }
         });

@@ -103,7 +103,16 @@ public class myGui {
     // Кнопка, демонстрирующая простой поиск
     private void button2_clicked() {
         try {
-            table1.setModel(buildTableModel(dbFacade.simpleSearch(searchEdit.getText())));
+            AttributeList lst = new AttributeList();
+
+            AttributeName           atn = new AttributeName("");
+            AttributeDescription    atd = new AttributeDescription("");
+            AttributeLink           atl = new AttributeLink("");
+            AttributeTheme          ath = new AttributeTheme("");
+            AttributeType           atp = new AttributeType("");
+            AttributeAccessType     atat = new AttributeAccessType("");
+
+            table1.setModel(buildTableModel(dbFacade.simpleSearch(lst, searchEdit.getText())));
         } catch (Exception ex) {
             ex.printStackTrace();
             System.err.println(ex.getClass().getName() + ": " + ex.getMessage());

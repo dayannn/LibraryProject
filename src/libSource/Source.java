@@ -7,6 +7,33 @@ public class Source extends  BaseSource
 {
     public Source()
     {
+        attributeList.add(new AttributeAccessType(""));
+        attributeList.add(new AttributeAmount(""));
+        attributeList.add(new AttributeArchivationDate(""));
+        attributeList.add(new AttributeArchiveKey(""));
+        attributeList.add(new AttributeChronologic(""));
+        attributeList.add(new AttributeContent(""));
+        attributeList.add(new AttributeContractDetails(""));
+        attributeList.add(new AttributeContractDuration(""));
+        attributeList.add(new AttributeDescription(""));
+        attributeList.add(new AttributeID(""));
+        attributeList.add(new AttributeKind(""));
+        attributeList.add(new AttributeLanguage(""));
+        attributeList.add(new AttributeLink(""));
+        attributeList.add(new AttributeName(""));
+        attributeList.add(new AttributeOperator(""));
+        attributeList.add(new AttributePayType(""));
+        attributeList.add(new AttributePublicationArchive(""));
+        attributeList.add(new AttributeSourceInfo(""));
+        attributeList.add(new AttributeStatus(""));
+        attributeList.add(new AttributeSubscriptionAccessType(""));
+        attributeList.add(new AttributeSubscriptionPrice(""));
+        attributeList.add(new AttributeSubscriptionSource(""));
+        attributeList.add(new AttributeSubscriptionType(""));
+        attributeList.add(new AttributeTestAccess(""));
+        attributeList.add(new AttributeTestAccessConclusion(""));
+        attributeList.add(new AttributeTheme(""));
+        attributeList.add(new AttributeType(""));
 
     }
 
@@ -15,6 +42,39 @@ public class Source extends  BaseSource
         Iterator<BaseAttribute> itr = _attributeList.getIterator();
         while (itr.hasNext())
             attributeList.add(itr.next());
+    }
+
+    @Override
+    public String getAttributeValueByName(String attributeName)
+    {
+        for (int i = 0; i < attributeList.size(); i++)
+        {
+            if (attributeList.get(i).getAttributeName() == attributeName)
+                return attributeList.get(i).getAttributeValue();
+        }
+        return "";
+    }
+
+    @Override
+    public void setAttributeValueByName(String attributeName, String attributeValue)
+    {
+        for (int i = 0; i < attributeList.size(); i++)
+        {
+            if (attributeList.get(i).getAttributeName() == attributeName)
+                attributeList.get(i).setAttributeValue(attributeValue);
+        }
+    }
+
+    @Override
+    public int getAttributeCount()
+    {
+        return attributeList.size();
+    }
+
+    @Override
+    public BaseAttribute getAttribute (int index)
+    {
+        return attributeList.get(index);
     }
 
     @Override

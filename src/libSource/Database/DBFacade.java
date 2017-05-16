@@ -44,7 +44,8 @@ public class DBFacade {
     }
 
     // Простой поиск
-    public ResultSet simpleSearch(String searchQuery) throws SQLException {
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    public ResultSet simpleSearch(AttributeList lstOut, String searchQuery) throws SQLException {
         return dbManager.ExecQuery(queryManager.simpleSearchResource(searchQuery));
     }
 

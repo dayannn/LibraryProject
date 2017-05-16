@@ -1,13 +1,20 @@
 package libSource;
 
 
-
+import libSource.Attributes.BaseAttribute;
 
 abstract public class BaseSource
 {
     protected AttributeList attributeList = new AttributeList();
 
     protected BaseAttributeListWorker attributeSearcher = new AttributeListWorker();
+
+    abstract public String getAttributeValueByName(String attributeName);
+    abstract public void setAttributeValueByName(String attributeName, String attributeValue);
+    abstract public int getAttributeCount();
+    abstract public BaseAttribute getAttribute (int index);
+
+
 
 
     abstract public String getName();
