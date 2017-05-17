@@ -1,4 +1,5 @@
 package libSource;
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import  libSource.Attributes.*;
 
 import javax.swing.*;
@@ -40,7 +41,7 @@ public class mainwindow {
     private DataBaseWorker mgr;
     private ChangeUser chgUser;
     private CardForm cardForm;
-    private boolean UserRole;
+    private boolean UserRole = false;
 
 
     public mainwindow() {
@@ -63,6 +64,7 @@ public class mainwindow {
         openCardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                cardForm.setAdmin(UserRole);
                 int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
                 getCardForTable();
 
@@ -194,6 +196,7 @@ public class mainwindow {
             changeUserButton.setText("Change user role (now Admin)");
         else
             changeUserButton.setText("Change user role (now User)");
+        cardForm.setAdmin(role);
     }
 
 

@@ -49,6 +49,38 @@ public class CardForm {
     private JTextField testAccessTextField;
     private JComboBox accessTypeComboBox;
     private JScrollPane accessTypeScrollPanel;
+    private boolean IsAdmin;
+
+    public boolean isAdmin() {
+        return IsAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        IsAdmin = admin;
+        if (IsAdmin) {
+                catInfoLabel.setText("Это Админ");
+                setFieldsEditable();
+                saveButton.setVisible(true);
+                discardButton.setVisible(true);
+                editButton.setVisible(false);
+            }
+
+        else {
+            catInfoLabel.setText("Вы хотите им стать?");
+            setFieldsUneditable();
+            saveButton.setVisible(false);
+            discardButton.setVisible(false);
+            editButton.setVisible(true);setFieldsEditable();
+            saveButton.setVisible(true);
+            discardButton.setVisible(true);
+            editButton.setVisible(false);
+        }
+
+    }
+
+
+
+
 
 
     private java.util.List<JTextArea> textAreasList = new ArrayList<>();
@@ -116,6 +148,7 @@ public class CardForm {
         return true;
     }
 
+
     public CardForm() {
         ImageIcon catIcon = new ImageIcon("Docs/cat.png"); // <temporary_shit>
         catImageLabel.setIcon(catIcon);                             //
@@ -168,7 +201,7 @@ public class CardForm {
         showArchiveButton.addActionListener(new ActionListener() {          // this listener to be deleted
             @Override
             public void actionPerformed(ActionEvent e) {
-                catInfoLabel.setText("Архива нет, но есть котейка на пицце");
+
                 catImageLabel.setVisible(true);
                 catInfoLabel.setVisible(true);
                 showArchiveButton.setVisible(false);

@@ -100,6 +100,7 @@ public class myGui {
             System.exit(-1);
         }
     }
+
     // Кнопка, демонстрирующая простой поиск
     private void button2_clicked() {
         try {
@@ -195,8 +196,8 @@ public class myGui {
         frame.setVisible(true);
     }
 
-    public static TableModel buildTableModel(final ResultSet resultSet) throws SQLException {
-        int columnCount = resultSet.getMetaData().getColumnCount();
+     public static TableModel buildTableModel(final ResultSet resultSet) throws SQLException {
+       /* int columnCount = resultSet.getMetaData().getColumnCount();
 
         // Column names.
         Vector<String> columnNames = new Vector<>();
@@ -214,7 +215,8 @@ public class myGui {
             dataVector.add(rowVector);
         }
 
-        return new DefaultTableModel(dataVector, columnNames);
+        return new DefaultTableModel(dataVector, columnNames);*/
+       return null;
     }
 }
 
