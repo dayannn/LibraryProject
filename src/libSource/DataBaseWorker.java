@@ -1,6 +1,7 @@
 package libSource;
 
 
+import libSource.Attributes.AttributeName;
 import libSource.Attributes.BaseAttribute;
 import libSource.Database.DBFacade;
 
@@ -51,7 +52,7 @@ public class DataBaseWorker
                 BaseAttribute currentAttribute = new BaseAttribute();
                 currentAttribute.setAttributeName(lstOut.get(i).getAttributeName());
                 currentAttribute.setAttributeValue(rs.getString(lstOut.get(i).getAttributeName()));
-                currentList.add(currentAttribute);                
+                currentList.add(currentAttribute);
             }
             sources.add(currentList);
         }
@@ -117,4 +118,19 @@ public class DataBaseWorker
         }
         return source;
     }
+
+    public Archive getArchive(int id) throws SQLException {
+        ResultSet rs = dbFacade.getArchiveForSourceID(id);
+        Archive archive = new Archive();
+        while(rs.next()) {
+            ArchiveRecord archiveR = new ArchiveRecord();
+            archiveR.setChg_dscr(rs.getString("resource_chg_description"));
+            archiveR.addAttribute(new AttributeName(rs.getString("resource_name")));
+            archiveR.setDate(rs.getString("archive_date"));
+            archive.addArchiveRecord(archiveR);
+        }
+        return archive;
+    }
+
+
 }

@@ -131,4 +131,10 @@ public class QueryManager {
 
         return query;
     }
+
+    public String getArchiveBySourceID(int ID) {
+        String query =  "SELECT key, archive_date, resource_name, resource_chg_description FROM archive WHERE  resource_id = \n" +
+                        "(SELECT resource_archive_id FROM web_resources WHERE resource_id = " + String.valueOf(ID) + ") ";
+        return query;
+    }
 }

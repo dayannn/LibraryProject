@@ -1,9 +1,12 @@
 package libSource;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.*;
 
 /**
@@ -49,6 +52,10 @@ public class CardForm {
     private JTextField testAccessTextField;
     private JComboBox accessTypeComboBox;
     private JScrollPane accessTypeScrollPanel;
+    private JList ArchiveList;
+    private JTextArea archiveName;
+    private JTextArea changeDescr;
+    private Archive archive;
 
 
     private java.util.List<JTextArea> textAreasList = new ArrayList<>();
@@ -174,6 +181,16 @@ public class CardForm {
                 showArchiveButton.setVisible(false);
             }
         });
+        ArchiveList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                // отобразить iтый архив
+                int ID = ArchiveList.getSelectedIndex();
+                archiveName.setText(archive.getArchiveRecords().get(ID).getAttributeList().get(0).getAttributeValue());
+                changeDescr.setText(archive.getArchiveRecords().get(ID).getChg_dscr());
+            }
+        });
     }
 
     public void setFieldsBySource(BaseSource src) {
@@ -181,8 +198,25 @@ public class CardForm {
             textAreasList.get(i).setText(src.getAttribute(i).getAttributeValue());
         }
     }
+    public void setArchive(Archive arch) {
+        archive = arch;
+        DefaultListModel listModel = new DefaultListModel();
+        archiveName.removeAll();
+        changeDescr.removeAll();
+
+        //TODO: Возможно, переделать список дат под табличку
+        for (int i = 0; i < arch.getArchiveRecords().size(); i++) {
+            listModel.addElement(arch.getArchiveRecords().get(i).getDate());
+        }
+
+        ArchiveList.setModel(listModel);//arch.getArchiveRecords().get(i).getDate(
+    }
 
     public void show() {
         frame.setVisible(true);
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }

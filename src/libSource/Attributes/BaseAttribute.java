@@ -7,6 +7,12 @@ public class BaseAttribute
     protected String name = "";
     protected String value = "";
 
+    public BaseAttribute(String value) {
+        tableName = "";
+        name = "";
+        this.value = value;
+    }
+
     public BaseAttribute()
     {
         tableName = "";

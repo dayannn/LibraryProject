@@ -10,8 +10,6 @@ public class AttributeList
 {
     private List<BaseAttribute> list = new ArrayList<BaseAttribute>();
 
-
-
     public AttributeList()
     {
 

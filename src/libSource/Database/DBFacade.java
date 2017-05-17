@@ -68,7 +68,7 @@ public class DBFacade {
         return 0;
     }
 
-
-
-
+    public ResultSet getArchiveForSourceID(int id) throws  SQLException {
+        return dbManager.ExecQuery(queryManager.getArchiveBySourceID(id));
+    }
 }

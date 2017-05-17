@@ -3,12 +3,6 @@ import  libSource.Attributes.*;
 
 import java.util.Iterator;
 
-
-
-
-
-
-
 public class Source extends  BaseSource
 {
     public Source()

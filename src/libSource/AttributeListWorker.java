@@ -27,14 +27,14 @@ public class AttributeListWorker extends BaseAttributeListWorker
     {
         BaseAttribute attribute;
         for (int i = 0; i < attributeList.size(); i++)
+    {
+        attribute = attributeList.get(i);
+        if (attribute.getAttributeName().equals(attributeName))
         {
-            attribute = attributeList.get(i);
-            if (attribute.getAttributeName().equals(attributeName))
-            {
-                attributeList.setAttributeValue(i, attributeValue);
-                return;
-            }
+            attributeList.setAttributeValue(i, attributeValue);
+            return;
         }
-        return;
     }
+        return;
+}
 }

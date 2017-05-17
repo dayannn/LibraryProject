@@ -175,17 +175,14 @@ public class mainwindow {
                 }
             }
         });
-
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         JFrame frame = new JFrame("mainwindow");
         frame.setContentPane(new mainwindow().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-
     }
 
     public void setUserRole(boolean role) {
@@ -236,6 +233,7 @@ public class mainwindow {
             int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
             try {
                 cardForm.setFieldsBySource(mgr.getCard(ID));
+                cardForm.setArchive(mgr.getArchive(ID));
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
