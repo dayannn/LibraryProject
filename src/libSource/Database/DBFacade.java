@@ -29,24 +29,23 @@ public class DBFacade {
     }
 
     // Получить некоторые ресурсы
-    public ResultSet getSomeResources(AttributeList lst, BaseAttribute sortAttr) throws SQLException {
-        return dbManager.ExecQuery(queryManager.extendedSelectFromMainTable(lst) + queryManager.orderBy(sortAttr));
+    public ResultSet getSomeResources(AttributeList lst) throws SQLException {
+        return dbManager.ExecQuery(queryManager.extendedSelectFromMainTable(lst));
     }
 
     // Получить все темы
-    public ResultSet getThemes(BaseAttribute sortAttr) throws SQLException {
-        return dbManager.ExecQuery(queryManager.selectThemes() + queryManager.orderBy(sortAttr));
+    public ResultSet getThemes() throws SQLException {
+        return dbManager.ExecQuery(queryManager.selectThemes());
     }
 
     // Получить все типы
-    public ResultSet getTypes(BaseAttribute sortAttr) throws SQLException {
-        return dbManager.ExecQuery(queryManager.selectTypes() + queryManager.orderBy(sortAttr));
+    public ResultSet getTypes() throws SQLException {
+        return dbManager.ExecQuery(queryManager.selectTypes());
     }
 
     // Простой поиск
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public ResultSet simpleSearch(AttributeList lstOut, String searchQuery) throws SQLException {
-        return dbManager.ExecQuery(queryManager.simpleSearchResource(searchQuery));
+        return dbManager.ExecQuery(queryManager.simpleSearchResource(lstOut, searchQuery));
     }
 
     public ResultSet extendedSearch(AttributeList lstOut, AttributeList lst) throws SQLException {
@@ -54,7 +53,7 @@ public class DBFacade {
     }
 
     public ResultSet getCard(int id) throws  SQLException {
-        return null;
+        return dbManager.ExecQuery(queryManager.getCardByID(id));
     }
 
     public void deleteSource(int id) throws  SQLException {

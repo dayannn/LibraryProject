@@ -89,7 +89,7 @@ public class QueryManager {
             query = query + " " + lst.get(i).getAttributeTableName() + "." + lst.get(i).getAttributeName();
             if (i != lst.size()-1) query = query + ", ";
         }
-        query = query + " FROM web_resources ";
+        query = query + " FROM " + MAINTABLE + " ";
         return query;
     }
 
@@ -106,22 +106,29 @@ public class QueryManager {
     }
 
     // Простой поиск - по имени и описанию
-    public String simpleSearchResource(String searchQuery) {
-        return selectAll() + " AND " +
+    public String simpleSearchResource(AttributeList lstOut, String searchQuery) {
+        return extendedSelectFromMainTable(lstOut) + " AND " +
                 "       ( resource_description LIKE  '%"+searchQuery+"%' OR" +
                 "        resource_name LIKE         '%"+searchQuery+"%' )";
     }
 
     // Расширенный поиск - по кастомным атрибутам
     public String extendedSearch(AttributeList lst) {
-
         String query;
         query = " WHERE " + " ( ";
         for (Integer i = 0; i < lst.size(); i++) {
             query = query + " "+lst.get(i).getAttributeTableName()+"."+lst.get(i).getAttributeName()+" LIKE '%"+lst.get(i).getAttributeValue()+"%' ";
-            if (i != lst.size()-1) query = query + "OR ";
+            if (i != lst.size()-1) query = query + "AND ";
         }
         query = query + ")";
+        return query;
+    }
+
+    public String getCardByID(int ID) {
+        Source src = new Source();
+        String query = this.extendedSelectFromMainTable(src.getList());
+        query = query + " WHERE resource_id = " + String.valueOf(ID) + " ";
+
         return query;
     }
 }

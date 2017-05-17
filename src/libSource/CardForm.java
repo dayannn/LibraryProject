@@ -18,8 +18,8 @@ public class CardForm {
     private JTabbedPane tabbedPane1;
     private JTextArea annotationTextArea;
     private JTextArea resourseNameTextArea;
-    private JTextArea resoureseOperatorTextArea;
-    private JTextArea adressTextArea;
+    private JTextArea resourseOperatorTextArea;
+    private JTextArea addressTextArea;
     private JTextArea subjectsTextArea;
     private JTextArea resourseTypeTextArea;
     private JTextArea infoKindTextArea;
@@ -34,7 +34,7 @@ public class CardForm {
     private JPanel additionalInfoTab;
     private JTextArea providerTextArea;
     private JTextArea subscriptionModelTextArea;
-    private JTextArea paymentMethonTextArea;
+    private JTextArea paymentMethodTextArea;
     private JTextArea contractTimeTextArea;
     private JTextArea documentPropsTextArea;
     private JTextArea subscriptionCostTextArea;
@@ -51,31 +51,32 @@ public class CardForm {
     private JScrollPane accessTypeScrollPanel;
 
     private java.util.List<JTextArea> textAreasList = new ArrayList<>();
-        // говнокод? :/
+        // говнокод? :/ не, заебись
     private void fillTextAreasList(){
-        textAreasList.add(annotationTextArea);
         textAreasList.add(resourseNameTextArea);
-        textAreasList.add(resoureseOperatorTextArea);
+        textAreasList.add(annotationTextArea);
         textAreasList.add(subjectsTextArea);
-        textAreasList.add(adressTextArea);
+        textAreasList.add(addressTextArea);
+        textAreasList.add(accessTypeTextArea);
         textAreasList.add(resourseTypeTextArea);
         textAreasList.add(infoKindTextArea);
-        textAreasList.add(resourseVolumeTextArea);
+
         textAreasList.add(languageTextArea);
+        /*
+        textAreasList.add(resourseOperatorTextArea);
+
+        textAreasList.add(resourseVolumeTextArea);
         textAreasList.add(timeTextArea);
         textAreasList.add(archiveInfoTextArea);
         textAreasList.add(providerTextArea);
         textAreasList.add(subscriptionModelTextArea);
-        textAreasList.add(paymentMethonTextArea);
+        textAreasList.add(paymentMethodTextArea);
         textAreasList.add(contractTimeTextArea);
         textAreasList.add(documentPropsTextArea);
         textAreasList.add(subscriptionCostTextArea);
         textAreasList.add(accessModeTextArea);
-        textAreasList.add(testAccessConclusionTextArea);
-        textAreasList.add(accessTypeTextArea);
-
+        textAreasList.add(testAccessConclusionTextArea);*/
     }
-
 
     private void setFieldsUneditable(){
         for (JTextArea area : textAreasList
@@ -115,8 +116,6 @@ public class CardForm {
     }
 
     public CardForm() {
-
-
         ImageIcon catIcon = new ImageIcon("Docs/cat.png"); // <temporary_shit>
         catImageLabel.setIcon(catIcon);                             //
         catInfoLabel.setVisible(false);                                        //
@@ -128,7 +127,7 @@ public class CardForm {
        // frame.setResizable(false);
         frame.setContentPane(CardPanel);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frame.setVisible(true);
+
 
         fillTextAreasList();
         setFieldsUneditable();
@@ -174,5 +173,15 @@ public class CardForm {
                 showArchiveButton.setVisible(false);
             }
         });
+    }
+
+    public void setFieldsBySource(BaseSource src) {
+        for (int i = 0; i < src.getLength(); i++) {
+            textAreasList.get(i).setText(src.getAttribute(i).getAttributeValue());
+        }
+    }
+
+    public void show() {
+        frame.setVisible(true);
     }
 }

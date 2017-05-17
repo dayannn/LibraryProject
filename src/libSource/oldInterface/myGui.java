@@ -92,7 +92,7 @@ public class myGui {
             lst.add(atk);
 
 
-            table1.setModel(buildTableModel(dbFacade.getSomeResources(lst, atn)));
+            table1.setModel(buildTableModel(dbFacade.getSomeResources(lst)));
 
         } catch (Exception ex) {
             ex.printStackTrace();

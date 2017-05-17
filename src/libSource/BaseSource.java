@@ -14,9 +14,6 @@ abstract public class BaseSource
     abstract public int getAttributeCount();
     abstract public BaseAttribute getAttribute (int index);
 
-
-
-
     abstract public String getName();
 
     abstract public String getAccessType();
@@ -29,7 +26,7 @@ abstract public class BaseSource
 
     abstract public String getType();
 
-
+    abstract public int getLength();
 
     abstract public void setName(String name);
 

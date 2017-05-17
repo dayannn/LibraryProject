@@ -11,17 +11,18 @@ import java.util.List;
 
 public class DataBaseWorker
 {
-    DBFacade dbFacade = new DBFacade();
+    private DBFacade dbFacade;
 
     public DataBaseWorker() throws SQLException
     {
+        dbFacade = new DBFacade();
         dbFacade.connectDB();
     }
 
-    public List<AttributeList> getSomeResources(AttributeList lst, BaseAttribute sortAttr) throws SQLException
+    public List<AttributeList> getSomeResources(AttributeList lst) throws SQLException
     {
         List<AttributeList> sources = new ArrayList<AttributeList>();
-        ResultSet rs = dbFacade.getSomeResources(lst, sortAttr);
+        ResultSet rs = dbFacade.getSomeResources(lst);
         while (rs.next())
         {
             AttributeList currentList = new AttributeList();
@@ -58,6 +59,18 @@ public class DataBaseWorker
         return sources;
     }
 
+    public Source getSource(int id) throws SQLException
+    {
+        Source src = new Source();
+
+        ResultSet rs = dbFacade.getCard(id);
+
+        for(int i = 0; i < rs.getMetaData().getColumnCount(); i++)
+            src.getAttribute(i).setAttributeName(rs.getString(src.getAttribute(i).getAttributeName()));
+
+        return src;
+    }
+
     public List<AttributeList> extendedSearch(AttributeList lstOut, AttributeList lst) throws SQLException
     {
         List<AttributeList> sources = new ArrayList<AttributeList>();
@@ -90,24 +103,18 @@ public class DataBaseWorker
     }
 
     //  Returns ID
-    public int addSource(BaseSource src) throws  SQLException
-    {
+    public int addSource(BaseSource src) throws  SQLException {
         return dbFacade.addSource(src);
     }
 
-    public BaseSource getCard(int id) throws SQLException
-    {
+    public BaseSource getCard(int id) throws SQLException {
         BaseSource source = new Source();
-
         ResultSet rs = dbFacade.getCard(id);
-        rs.next();
-        AttributeList currentList = new AttributeList();
-        for(int i = 0; i < source.getAttributeCount(); i++)
-        {
+        //rs.next();
+        for (int i = 0; i < source.getAttributeCount(); i++) {
             String attributeName = source.getAttribute(i).getAttributeName();
             source.setAttributeValueByName(attributeName, rs.getString(attributeName));
         }
-
         return source;
     }
 }

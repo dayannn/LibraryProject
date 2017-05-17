@@ -7,7 +7,19 @@ public class Source extends  BaseSource
 {
     public Source()
     {
+        attributeList.add(new AttributeName(""));
+        attributeList.add(new AttributeDescription(""));
+        attributeList.add(new AttributeTheme(""));
+        attributeList.add(new AttributeLink(""));
         attributeList.add(new AttributeAccessType(""));
+        attributeList.add(new AttributeType(""));
+        attributeList.add(new AttributeKind(""));
+
+
+/*      пока так
+        attributeList.add(new AttributeLanguage(""));
+
+
         attributeList.add(new AttributeAmount(""));
         attributeList.add(new AttributeArchivationDate(""));
         attributeList.add(new AttributeArchiveKey(""));
@@ -15,12 +27,8 @@ public class Source extends  BaseSource
         attributeList.add(new AttributeContent(""));
         attributeList.add(new AttributeContractDetails(""));
         attributeList.add(new AttributeContractDuration(""));
-        attributeList.add(new AttributeDescription(""));
         attributeList.add(new AttributeID(""));
-        attributeList.add(new AttributeKind(""));
-        attributeList.add(new AttributeLanguage(""));
-        attributeList.add(new AttributeLink(""));
-        attributeList.add(new AttributeName(""));
+
         attributeList.add(new AttributeOperator(""));
         attributeList.add(new AttributePayType(""));
         attributeList.add(new AttributePublicationArchive(""));
@@ -32,10 +40,14 @@ public class Source extends  BaseSource
         attributeList.add(new AttributeSubscriptionType(""));
         attributeList.add(new AttributeTestAccess(""));
         attributeList.add(new AttributeTestAccessConclusion(""));
-        attributeList.add(new AttributeTheme(""));
-        attributeList.add(new AttributeType(""));
-
+*/
     }
+
+    public int getLength() {
+        return attributeList.size();
+    }
+
+    public AttributeList getList() { return attributeList; }
 
     public Source(AttributeList _attributeList)
     {
@@ -47,8 +59,7 @@ public class Source extends  BaseSource
     @Override
     public String getAttributeValueByName(String attributeName)
     {
-        for (int i = 0; i < attributeList.size(); i++)
-        {
+        for (int i = 0; i < attributeList.size(); i++) {
             if (attributeList.get(i).getAttributeName() == attributeName)
                 return attributeList.get(i).getAttributeValue();
         }
@@ -58,28 +69,24 @@ public class Source extends  BaseSource
     @Override
     public void setAttributeValueByName(String attributeName, String attributeValue)
     {
-        for (int i = 0; i < attributeList.size(); i++)
-        {
+        for (int i = 0; i < attributeList.size(); i++) {
             if (attributeList.get(i).getAttributeName() == attributeName)
                 attributeList.get(i).setAttributeValue(attributeValue);
         }
     }
 
     @Override
-    public int getAttributeCount()
-    {
+    public int getAttributeCount() {
         return attributeList.size();
     }
 
     @Override
-    public BaseAttribute getAttribute (int index)
-    {
+    public BaseAttribute getAttribute (int index) {
         return attributeList.get(index);
     }
 
     @Override
-    public String getName()
-    {
+    public String getName() {
         BaseAttribute attr = attributeSearcher.getAttribute(attributeList, "Name");
         if (attr != null)
             return attr.getAttributeValue();
@@ -87,8 +94,7 @@ public class Source extends  BaseSource
     }
 
     @Override
-    public String getAccessType()
-    {
+    public String getAccessType() {
         BaseAttribute attr = attributeSearcher.getAttribute(attributeList, "AccessType");
         if (attr != null)
             return attr.getAttributeValue();
@@ -96,8 +102,7 @@ public class Source extends  BaseSource
     }
 
     @Override
-    public String getDescription()
-    {
+    public String getDescription() {
         BaseAttribute attr = attributeSearcher.getAttribute(attributeList, "Description");
         if (attr != null)
             return attr.getAttributeValue();
@@ -105,8 +110,7 @@ public class Source extends  BaseSource
     }
 
     @Override
-    public String getLink()
-    {
+    public String getLink() {
         BaseAttribute attr = attributeSearcher.getAttribute(attributeList, "Link");
         if (attr != null)
             return attr.getAttributeValue();
@@ -130,11 +134,6 @@ public class Source extends  BaseSource
             return attr.getAttributeValue();
         return "";
     }
-
-
-
-
-
     @Override
     public void setName(String name)
     {

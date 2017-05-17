@@ -144,7 +144,6 @@
                   <component id="28896" class="javax.swing.JTextArea" binding="annotationTextArea">
                     <constraints/>
                     <properties>
-                      <caretPosition value="0"/>
                       <columns value="0"/>
                       <editable value="true"/>
                       <enabled value="true"/>
@@ -276,7 +275,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="6891d" class="javax.swing.JTextArea" binding="adressTextArea">
+                  <component id="6891d" class="javax.swing.JTextArea" binding="addressTextArea">
                     <constraints/>
                     <properties>
                       <lineWrap value="true"/>
@@ -293,7 +292,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="9ef2f" class="javax.swing.JTextArea" binding="resoureseOperatorTextArea">
+                  <component id="9ef2f" class="javax.swing.JTextArea" binding="resourseOperatorTextArea">
                     <constraints/>
                     <properties>
                       <lineWrap value="true"/>
@@ -459,7 +458,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="d5207" class="javax.swing.JTextArea" binding="paymentMethonTextArea">
+                  <component id="d5207" class="javax.swing.JTextArea" binding="paymentMethodTextArea">
                     <constraints/>
                     <properties>
                       <lineWrap value="true"/>

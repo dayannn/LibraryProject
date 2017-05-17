@@ -14,15 +14,12 @@ import java.sql.ResultSet;
 public class DBManager {
 
     private Connection dbConnection;
-    private Statement dbStatement;
 
     public DBManager() {};
 
     public Connection ConnectSQLiteDB() throws SQLException {
-        Connection c = null;
 
         dbConnection = DriverManager.getConnection("jdbc:sqlite:./db/db.sqlite3");
-        dbStatement = dbConnection.createStatement();
 
         System.out.println("Database was opened!");
         return getConnection();
@@ -32,11 +29,7 @@ public class DBManager {
         return dbConnection;
     }
 
-    public Statement getStatement() {
-        return dbStatement;
-    }
-
     public ResultSet ExecQuery(String query_str) throws SQLException {
-        return dbStatement.executeQuery(query_str);
+        return dbConnection.createStatement().executeQuery(query_str);
     }
 }
