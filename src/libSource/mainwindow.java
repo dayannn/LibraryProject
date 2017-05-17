@@ -2,6 +2,9 @@ package libSource;
 import  libSource.Attributes.*;
 
 import javax.swing.*;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.RowSorterEvent;
+import javax.swing.event.RowSorterListener;
 import javax.swing.plaf.synth.SynthEditorPaneUI;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
@@ -22,6 +25,7 @@ public class mainwindow {
     private JTextField SearchEdit;
     private JTextField NameEdit;
     private JTextField DescrEdit;
+    private JScrollPane sp;
     private JTable table1;
     private JButton openCardButton;
     private JTextField LinkEdit;
@@ -32,6 +36,7 @@ public class mainwindow {
     private JButton добавитьРесурсButton;
     private JButton getbutton;
     private JButton расширенныйПоискButton;
+    private JScrollPane jp;
     private DataBaseWorker mgr;
     private ChangeUser chgUser;
     private CardForm cardForm;
@@ -58,17 +63,12 @@ public class mainwindow {
         openCardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int ID = Integer.parseInt(table1.getModel().getValueAt(table1.getSelectedRow(),0).toString());
-                try {
-                    cardForm.setFieldsBySource(mgr.getCard(ID));
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
+                int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+                getCardForTable();
 
                 cardForm.show();
             }
         });
-
 
         changeUserButton.addActionListener(new ActionListener() {
             @Override
@@ -91,13 +91,8 @@ public class mainwindow {
                     LALtoModel(model, mgr.getSomeResources(temp));
                     table1.setModel(model);
 
-                    // убираем ID
-                    //table1.removeColumn(table1.getColumnModel().getColumn(0));
-                    table1.getColumnModel().getColumn(0).setMaxWidth(0);
-                    table1.getColumnModel().getColumn(0).setMinWidth(0);
-                    table1.getColumnModel().getColumn(0).setPreferredWidth(0);
-                }
-                catch (Exception e1) {
+                    hideIDColumn();
+                } catch (Exception e1) {
                     e1.printStackTrace();
                 }
             }
@@ -105,14 +100,8 @@ public class mainwindow {
         table1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
                 super.mouseClicked(e);
-                int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
-                try {
-                    cardForm.setFieldsBySource(mgr.getCard(ID));
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
+                getCardForTable();
             }
         });
         расширенныйПоискButton.addActionListener(new ActionListener() {
@@ -158,14 +147,8 @@ public class mainwindow {
                 try {
                     LALtoModel(model, mgr.extendedSearch(lstOut, lst));
                     table1.setModel(model);
-
-                    // убираем ID
-                    //table1.removeColumn(table1.getColumnModel().getColumn(0));
-                    table1.getColumnModel().getColumn(0).setMaxWidth(0);
-                    table1.getColumnModel().getColumn(0).setMinWidth(0);
-                    table1.getColumnModel().getColumn(0).setPreferredWidth(0);
-                }
-                catch (Exception e1) {
+                    hideIDColumn();
+                } catch (Exception e1) {
                     e1.printStackTrace();
                 }
 
@@ -186,17 +169,13 @@ public class mainwindow {
                     LALtoModel(model, mgr.simpleSearch(lstOut, SearchEdit.getText()));
                     table1.setModel(model);
 
-                    // убираем ID
-                    //table1.removeColumn(table1.getColumnModel().getColumn(0));
-                    table1.getColumnModel().getColumn(0).setMaxWidth(0);
-                    table1.getColumnModel().getColumn(0).setMinWidth(0);
-                    table1.getColumnModel().getColumn(0).setPreferredWidth(0);
-                }
-                catch (Exception e1) {
+                    hideIDColumn();
+                } catch (Exception e1) {
                     e1.printStackTrace();
                 }
             }
         });
+
     }
 
     public static void main(String[] args)
@@ -244,4 +223,23 @@ public class mainwindow {
             tm.addRow(vct);
         }
     }
+
+    private void hideIDColumn() {
+        table1.getColumnModel().getColumn(0).setResizable(false);
+        table1.getColumnModel().getColumn(0).setMaxWidth(0);
+        table1.getColumnModel().getColumn(0).setMinWidth(0);
+        table1.getColumnModel().getColumn(0).setPreferredWidth(0);
+    }
+
+    private void getCardForTable() {
+        if (table1.getSelectedRow() >= 0) {
+            int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+            try {
+                cardForm.setFieldsBySource(mgr.getCard(ID));
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
 }

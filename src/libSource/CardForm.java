@@ -50,6 +50,7 @@ public class CardForm {
     private JComboBox accessTypeComboBox;
     private JScrollPane accessTypeScrollPanel;
 
+
     private java.util.List<JTextArea> textAreasList = new ArrayList<>();
         // говнокод? :/ не, заебись
     private void fillTextAreasList(){
@@ -62,7 +63,7 @@ public class CardForm {
         textAreasList.add(infoKindTextArea);
 
         textAreasList.add(languageTextArea);
-        /*
+
         textAreasList.add(resourseOperatorTextArea);
 
         textAreasList.add(resourseVolumeTextArea);
@@ -75,7 +76,7 @@ public class CardForm {
         textAreasList.add(documentPropsTextArea);
         textAreasList.add(subscriptionCostTextArea);
         textAreasList.add(accessModeTextArea);
-        textAreasList.add(testAccessConclusionTextArea);*/
+        textAreasList.add(testAccessConclusionTextArea);
     }
 
     private void setFieldsUneditable(){

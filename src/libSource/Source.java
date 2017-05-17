@@ -3,6 +3,12 @@ import  libSource.Attributes.*;
 
 import java.util.Iterator;
 
+
+
+
+
+
+
 public class Source extends  BaseSource
 {
     public Source()
@@ -18,8 +24,6 @@ public class Source extends  BaseSource
 
 /*      пока так
         attributeList.add(new AttributeLanguage(""));
-
-
         attributeList.add(new AttributeAmount(""));
         attributeList.add(new AttributeArchivationDate(""));
         attributeList.add(new AttributeArchiveKey(""));
