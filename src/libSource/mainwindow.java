@@ -1,5 +1,4 @@
 package libSource;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import  libSource.Attributes.*;
 
 import javax.swing.*;
