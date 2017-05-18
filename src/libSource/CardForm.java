@@ -1,7 +1,6 @@
 package libSource;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,15 +45,12 @@ public class CardForm {
     private JTextField testTimeTextField;
     private JTextArea testAccessConclusionTextArea;
     private JTextArea accessTypeTextArea;
-    private JButton showArchiveButton;
-    private JLabel catImageLabel;
-    private JLabel catInfoLabel;
     private JTextField testAccessTextField;
     private JComboBox accessTypeComboBox;
     private JScrollPane accessTypeScrollPanel;
     private JList ArchiveList;
-    private JTextArea archiveName;
-    private JTextArea changeDescr;
+    private JTextArea archiveNameTextArea;
+    private JTextArea changeDescrTextArea;
     private Archive archive;
     private boolean IsAdmin;
 
@@ -65,7 +61,6 @@ public class CardForm {
     public void setAdmin(boolean admin) {
         IsAdmin = admin;
         if (IsAdmin) {
-            catInfoLabel.setText("Это Админ");
             setFieldsEditable();
             saveButton.setVisible(true);
             discardButton.setVisible(true);
@@ -73,7 +68,6 @@ public class CardForm {
         }
 
         else {
-            catInfoLabel.setText("Вы хотите им стать?");
             setFieldsUneditable();
             saveButton.setVisible(false);
             discardButton.setVisible(false);
@@ -152,11 +146,6 @@ public class CardForm {
     }
 
     public CardForm() {
-        ImageIcon catIcon = new ImageIcon("Docs/cat.png"); // <temporary_shit>
-        catImageLabel.setIcon(catIcon);                             //
-        catInfoLabel.setVisible(false);                                        //
-        catImageLabel.setVisible(false);                                       // </temporary_shit>
-
         saveButton.setVisible(false);
         discardButton.setVisible(false);
         frame.setSize(650, 550);
@@ -200,23 +189,14 @@ public class CardForm {
             }
         });
 
-        showArchiveButton.addActionListener(new ActionListener() {          // this listener to be deleted
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                catInfoLabel.setText("Архива нет, но есть котейка на пицце");
-                catImageLabel.setVisible(true);
-                catInfoLabel.setVisible(true);
-                showArchiveButton.setVisible(false);
-            }
-        });
         ArchiveList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 // отобразить iтый архив
                 int ID = ArchiveList.getSelectedIndex();
-                archiveName.setText(archive.getArchiveRecords().get(ID).getAttributeList().get(0).getAttributeValue());
-                changeDescr.setText(archive.getArchiveRecords().get(ID).getChg_dscr());
+                archiveNameTextArea.setText(archive.getArchiveRecords().get(ID).getAttributeList().get(0).getAttributeValue());
+                changeDescrTextArea.setText(archive.getArchiveRecords().get(ID).getChg_dscr());
             }
         });
     }
@@ -229,8 +209,8 @@ public class CardForm {
     public void setArchive(Archive arch) {
         archive = arch;
         DefaultListModel listModel = new DefaultListModel();
-        archiveName.removeAll();
-        changeDescr.removeAll();
+        archiveNameTextArea.removeAll();
+        changeDescrTextArea.removeAll();
 
         //TODO: Возможно, переделать список дат под табличку
         for (int i = 0; i < arch.getArchiveRecords().size(); i++) {
