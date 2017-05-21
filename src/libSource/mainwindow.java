@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by admin on 07/04/17.
  */
-public class mainwindow {
+public class mainwindow extends JFrame{
     private JPanel panel1;
     private JButton changeUserButton;
     private JTextField SearchEdit;
@@ -39,7 +39,7 @@ public class mainwindow {
     public mainwindow() {
         DefaultTableModel model = new DefaultTableModel();
         chgUser = new ChangeUser(this);
-        cardForm = new CardForm();
+        cardForm = new CardForm(this);
         changeUserButton.setText("Change user role (now User)");
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tablePopupMenu = new JPopupMenu();
@@ -62,7 +62,7 @@ public class mainwindow {
                 cardForm.setAdmin(UserRole);
                 int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
                 getCardForTable();
-
+                cardForm.setMode(CardMode.EDITING);
                 cardForm.show();
             }
         });
@@ -73,6 +73,7 @@ public class mainwindow {
                 chgUser.show();
             }
         });
+
         getbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -212,6 +213,13 @@ public class mainwindow {
                 deleteSelectedRow(r);
             }
         });
+        addResourceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardForm.setMode(CardMode.ADDDITION);
+                cardForm.show();
+            }
+        });
     }
 
 
@@ -221,7 +229,14 @@ public class mainwindow {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+
     }
+
+    public  void setTableColor ()
+    {
+        table1.setBackground(Color.red);
+    }
+
 
     public void setUserRole(boolean role) {
         UserRole = role;
@@ -237,7 +252,7 @@ public class mainwindow {
         // TODO: place custom component creation code here
     }
 
-    public void setUpPopupMenu()
+    private void setUpPopupMenu()
     {
         JMenuItem deleteItem = new JMenuItem("Удалить запись");
         deleteItem.addActionListener(new ActionListener() {
@@ -250,10 +265,7 @@ public class mainwindow {
             }
         });
         tablePopupMenu.add(deleteItem);
-
-
     }
-
 
     private void doPop(MouseEvent e) {
         if (table1.getSelectedRowCount() == 0) {
@@ -309,8 +321,12 @@ public class mainwindow {
     }
 
     private void deleteSelectedRow(int row){
-        //deleteFromDatabase (row); // smth like dis ?
+        // TODO: deleteFromDatabase (id); // smth like dis
         ((DefaultTableModel)table1.getModel()).removeRow(row);
+    }
+
+    public void additionConfirmed(){
+       // ((DefaultTableModel)table1.getModel()).addRow();
     }
 
 }

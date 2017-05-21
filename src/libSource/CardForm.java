@@ -13,8 +13,8 @@ import java.util.*;
  */
 
 
-public class CardForm {
-    private JFrame frame = new JFrame("CardForm");
+public class CardForm{
+    private JDialog frame;
     private JPanel CardPanel;
     private JButton editButton;
     private JButton saveButton;
@@ -56,7 +56,8 @@ public class CardForm {
     private Archive archive;
 
     private boolean IsAdmin;
-
+    CardMode mode;
+    mainwindow _parent; // that's not very good, I suppose?
 
     public boolean isAdmin() {
         return IsAdmin;
@@ -65,24 +66,14 @@ public class CardForm {
     public void setAdmin(boolean admin) {
         IsAdmin = admin;
         if (IsAdmin) {
-            setFieldsEditable();
-            saveButton.setVisible(true);
-            discardButton.setVisible(true);
-            editButton.setVisible(false);
+            // admin job
         }
 
         else {
-            setFieldsUneditable();
-            saveButton.setVisible(false);
-            discardButton.setVisible(false);
-            editButton.setVisible(true);setFieldsEditable();
-            saveButton.setVisible(true);
-            discardButton.setVisible(true);
-            editButton.setVisible(false);
+            // librarian job
         }
 
     }
-
 
     private java.util.List<JTextArea> textAreasList = new ArrayList<>();
         // говнокод? :/ не, заебись
@@ -94,11 +85,8 @@ public class CardForm {
         textAreasList.add(accessTypeTextArea);
         textAreasList.add(resourсeTypeTextArea);
         textAreasList.add(infoKindTextArea);
-
         textAreasList.add(languageTextArea);
-
         textAreasList.add(resourсeOperatorTextArea);
-
         textAreasList.add(resourсeVolumeTextArea);
         textAreasList.add(timeTextArea);
         textAreasList.add(archiveInfoTextArea);
@@ -117,13 +105,13 @@ public class CardForm {
              ) {
             area.setEditable(false);
             area.setBackground(Color.lightGray);
-            testAccessComboBox.setVisible(false);
-            testAccessTextField.setVisible(true);
-            testTimeTextField.setEditable(false);
-            testTimeTextField.setBackground(Color.lightGray);
-            accessTypeScrollPanel.setVisible(true);
-            accessTypeComboBox.setVisible(false);
         }
+        testAccessComboBox.setVisible(false);
+        testAccessTextField.setVisible(true);
+        testTimeTextField.setEditable(false);
+        testTimeTextField.setBackground(Color.lightGray);
+        accessTypeScrollPanel.setVisible(true);
+        accessTypeComboBox.setVisible(false);
 
     }
 
@@ -132,31 +120,38 @@ public class CardForm {
                 ) {
             area.setEditable(true);
             area.setBackground(Color.white);
-            testAccessTextField.setVisible(false);
-            testAccessComboBox.setVisible(true);
-            testTimeTextField.setEditable(true);
-            testTimeTextField.setBackground(Color.white);
-            accessTypeScrollPanel.setVisible(false);
-            accessTypeComboBox.setVisible(true);
+        }
+        testAccessTextField.setVisible(false);
+        testAccessComboBox.setVisible(true);
+        testTimeTextField.setEditable(true);
+        testTimeTextField.setBackground(Color.white);
+        accessTypeScrollPanel.setVisible(false);
+        accessTypeComboBox.setVisible(true);
+    }
+
+    private void clearFields(){
+        for (JTextArea area : textAreasList){
+            area.setText("");
         }
     }
 
     private boolean fieldsAreCorrect(){
-
         /*
         HERE TO BE CHECKING
          */
         return true;
     }
 
-    public CardForm() {
+    public CardForm(mainwindow parent) {
+        frame = new JDialog(_parent, "Card Form", true);
+        _parent = parent;
+
         saveButton.setVisible(false);
         discardButton.setVisible(false);
         frame.setSize(650, 550);
        // frame.setResizable(false);
         frame.setContentPane(CardPanel);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
 
         fillTextAreasList();
         setFieldsUneditable();
@@ -180,6 +175,12 @@ public class CardForm {
                 editButton.setVisible(true);
                 discardButton.setVisible(false);
                 saveButton.setVisible(false);
+                if (mode == CardMode.ADDDITION)
+                {
+                    _parent.additionConfirmed();
+                    frame.setVisible(false);
+                }
+
             }
         });
 
@@ -190,6 +191,10 @@ public class CardForm {
                 editButton.setVisible(true);
                 saveButton.setVisible(false);
                 discardButton.setVisible(false);
+                if (mode == CardMode.ADDDITION)
+                {
+                    frame.setVisible(false);
+                }
             }
         });
 
@@ -200,8 +205,6 @@ public class CardForm {
                 // отобразить iтый архив
                 int ID = ArchiveList.getSelectedIndex();
                 archiveNameTextArea.setText(archive.getArchiveRecords().get(ID).getAttributeList().get(0).getAttributeValue());
-
-
                 changeDescrTextArea.setText(archive.getArchiveRecords().get(ID).getChg_dscr());
             }
         });
@@ -228,6 +231,26 @@ public class CardForm {
 
     public void show() {
         frame.setVisible(true);
+    }
+
+    public void setMode(CardMode cardMode)
+    {
+        mode = cardMode;
+        if (mode == CardMode.ADDDITION)
+        {
+            saveButton.setVisible(true);
+            discardButton.setVisible(true);
+            editButton.setVisible(false);
+            setFieldsEditable();
+            clearFields();
+        }
+        else
+        {
+            saveButton.setVisible(false);
+            discardButton.setVisible(false);
+            editButton.setVisible(true);
+            setFieldsUneditable();
+        }
     }
 
     private void createUIComponents() {
