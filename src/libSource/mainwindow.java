@@ -2,14 +2,7 @@ package libSource;
 import  libSource.Attributes.*;
 
 import javax.swing.*;
-import javax.swing.event.AncestorListener;
-import javax.swing.event.RowSorterEvent;
-import javax.swing.event.RowSorterListener;
-import javax.swing.plaf.synth.SynthEditorPaneUI;
-import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Vector;
@@ -31,23 +24,26 @@ public class mainwindow {
     private JTextField LinkEdit;
     private JTextField ThemeEdit;
     private JTextField AccessTypeEdit;
-    private JButton простойПоискButton;
-    private JButton удалитьРесурсButton;
-    private JButton добавитьРесурсButton;
+    private JButton simpleSearchButton;
+    private JButton deleteResourceButton;
+    private JButton addResourceButton;
     private JButton getbutton;
-    private JButton расширенныйПоискButton;
+    private JButton extendedSearchButton;
     private JScrollPane jp;
     private DataBaseWorker mgr;
     private ChangeUser chgUser;
     private CardForm cardForm;
     private boolean UserRole = false;
-
+    private JPopupMenu tablePopupMenu;
 
     public mainwindow() {
         DefaultTableModel model = new DefaultTableModel();
         chgUser = new ChangeUser(this);
         cardForm = new CardForm();
         changeUserButton.setText("Change user role (now User)");
+        table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tablePopupMenu = new JPopupMenu();
+        setUpPopupMenu();
 
         try {
             mgr = new DataBaseWorker();
@@ -104,8 +100,38 @@ public class mainwindow {
                 super.mouseClicked(e);
                 getCardForTable();
             }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                if (SwingUtilities.isRightMouseButton(e))
+                {
+                    int r = table1.rowAtPoint(e.getPoint());
+                    if (r >= 0 && r < table1.getRowCount())
+                        table1.setRowSelectionInterval(r, r);
+                    else
+                        table1.clearSelection();
+
+                    int rowindex = table1.getSelectedRow();
+                    if (rowindex < 0)
+                        return;
+                }
+                if (e.isPopupTrigger() && e.getComponent() instanceof JTable )
+                    doPop(e);
+                else
+                    hidePop();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                if (e.isPopupTrigger() && e.getComponent() instanceof JTable )
+                    doPop(e);
+                else
+                    hidePop();
+            }
         });
-        расширенныйПоискButton.addActionListener(new ActionListener() {
+        extendedSearchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AttributeList lst = new AttributeList();
@@ -155,7 +181,7 @@ public class mainwindow {
 
             }
         });
-        простойПоискButton.addActionListener(new ActionListener() {
+        simpleSearchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AttributeList lstOut = new AttributeList();
@@ -176,7 +202,18 @@ public class mainwindow {
                 }
             }
         });
+
+        deleteResourceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int r = table1.getSelectedRow();
+                if (r < 0 || r > table1.getRowCount())
+                    return;
+                deleteSelectedRow(r);
+            }
+        });
     }
+
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("mainwindow");
@@ -200,6 +237,35 @@ public class mainwindow {
         // TODO: place custom component creation code here
     }
 
+    public void setUpPopupMenu()
+    {
+        JMenuItem deleteItem = new JMenuItem("Удалить запись");
+        deleteItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int r = table1.getSelectedRow();
+                if (r < 0 || r > table1.getColumnCount())
+                    return;
+                deleteSelectedRow(r);
+            }
+        });
+        tablePopupMenu.add(deleteItem);
+
+
+    }
+
+
+    private void doPop(MouseEvent e) {
+        if (table1.getSelectedRowCount() == 0) {
+            return;
+        }
+        tablePopupMenu.setVisible(true);
+        tablePopupMenu.show(e.getComponent(), e.getX(), e.getY());
+    }
+
+    private void hidePop() {
+        tablePopupMenu.setVisible(false);
+    }
 
     private void LALtoModel(DefaultTableModel tm, List<AttributeList> LAL) {
         tm.setColumnCount(0);
@@ -242,4 +308,10 @@ public class mainwindow {
         }
     }
 
+    private void deleteSelectedRow(int row){
+        //deleteFromDatabase (row); // smth like dis ?
+        ((DefaultTableModel)table1.getModel()).removeRow(row);
+    }
+
 }
+

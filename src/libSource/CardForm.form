@@ -210,7 +210,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="55a93" class="javax.swing.JTextArea" binding="resourseVolumeTextArea">
+                  <component id="55a93" class="javax.swing.JTextArea" binding="resourсeVolumeTextArea">
                     <constraints/>
                     <properties>
                       <lineWrap value="true"/>
@@ -242,7 +242,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="b7eec" class="javax.swing.JTextArea" binding="resourseTypeTextArea">
+                  <component id="b7eec" class="javax.swing.JTextArea" binding="resourсeTypeTextArea">
                     <constraints/>
                     <properties>
                       <lineWrap value="true"/>
@@ -292,7 +292,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="9ef2f" class="javax.swing.JTextArea" binding="resourseOperatorTextArea">
+                  <component id="9ef2f" class="javax.swing.JTextArea" binding="resourсeOperatorTextArea">
                     <constraints/>
                     <properties>
                       <lineWrap value="true"/>
@@ -309,7 +309,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="f6e4c" class="javax.swing.JTextArea" binding="resourseNameTextArea">
+                  <component id="f6e4c" class="javax.swing.JTextArea" binding="resourсeNameTextArea">
                     <constraints/>
                     <properties>
                       <lineWrap value="true"/>

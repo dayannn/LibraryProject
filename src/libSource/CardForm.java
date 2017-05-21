@@ -11,6 +11,8 @@ import java.util.*;
 /**
  * Created by dayan on 07.04.2017.
  */
+
+
 public class CardForm {
     private JFrame frame = new JFrame("CardForm");
     private JPanel CardPanel;
@@ -19,13 +21,13 @@ public class CardForm {
     private JButton discardButton;
     private JTabbedPane tabbedPane1;
     private JTextArea annotationTextArea;
-    private JTextArea resourseNameTextArea;
-    private JTextArea resourseOperatorTextArea;
+    private JTextArea resourсeNameTextArea;
+    private JTextArea resourсeOperatorTextArea;
     private JTextArea addressTextArea;
     private JTextArea subjectsTextArea;
-    private JTextArea resourseTypeTextArea;
+    private JTextArea resourсeTypeTextArea;
     private JTextArea infoKindTextArea;
-    private JTextArea resourseVolumeTextArea;
+    private JTextArea resourсeVolumeTextArea;
     private JTextArea languageTextArea;
     private JTextArea timeTextArea;
     private JTextArea archiveInfoTextArea;
@@ -52,7 +54,9 @@ public class CardForm {
     private JTextArea archiveNameTextArea;
     private JTextArea changeDescrTextArea;
     private Archive archive;
+
     private boolean IsAdmin;
+
 
     public boolean isAdmin() {
         return IsAdmin;
@@ -83,19 +87,19 @@ public class CardForm {
     private java.util.List<JTextArea> textAreasList = new ArrayList<>();
         // говнокод? :/ не, заебись
     private void fillTextAreasList(){
-        textAreasList.add(resourseNameTextArea);
+        textAreasList.add(resourсeNameTextArea);
         textAreasList.add(annotationTextArea);
         textAreasList.add(subjectsTextArea);
         textAreasList.add(addressTextArea);
         textAreasList.add(accessTypeTextArea);
-        textAreasList.add(resourseTypeTextArea);
+        textAreasList.add(resourсeTypeTextArea);
         textAreasList.add(infoKindTextArea);
 
         textAreasList.add(languageTextArea);
 
-        textAreasList.add(resourseOperatorTextArea);
+        textAreasList.add(resourсeOperatorTextArea);
 
-        textAreasList.add(resourseVolumeTextArea);
+        textAreasList.add(resourсeVolumeTextArea);
         textAreasList.add(timeTextArea);
         textAreasList.add(archiveInfoTextArea);
         textAreasList.add(providerTextArea);
@@ -196,6 +200,8 @@ public class CardForm {
                 // отобразить iтый архив
                 int ID = ArchiveList.getSelectedIndex();
                 archiveNameTextArea.setText(archive.getArchiveRecords().get(ID).getAttributeList().get(0).getAttributeValue());
+
+
                 changeDescrTextArea.setText(archive.getArchiveRecords().get(ID).getChg_dscr());
             }
         });

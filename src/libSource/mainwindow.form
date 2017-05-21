@@ -138,7 +138,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="5e516" class="javax.swing.JButton" binding="удалитьРесурсButton" default-binding="true">
+          <component id="5e516" class="javax.swing.JButton" binding="deleteResourceButton">
             <constraints>
               <grid row="17" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -146,7 +146,7 @@
               <text value="Удалить ресурс"/>
             </properties>
           </component>
-          <component id="c955" class="javax.swing.JButton" binding="добавитьРесурсButton" default-binding="true">
+          <component id="c955" class="javax.swing.JButton" binding="addResourceButton">
             <constraints>
               <grid row="18" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -162,7 +162,7 @@
               <text value="Get"/>
             </properties>
           </component>
-          <component id="324f0" class="javax.swing.JButton" binding="простойПоискButton" default-binding="true">
+          <component id="324f0" class="javax.swing.JButton" binding="simpleSearchButton">
             <constraints>
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -170,7 +170,7 @@
               <text value="Простой поиск"/>
             </properties>
           </component>
-          <component id="cec30" class="javax.swing.JButton" binding="расширенныйПоискButton">
+          <component id="cec30" class="javax.swing.JButton" binding="extendedSearchButton">
             <constraints>
               <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
