@@ -8,7 +8,6 @@ import java.awt.event.*;
 import java.util.Vector;
 import java.util.List;
 
-
 /**
  * Created by admin on 07/04/17.
  */
@@ -37,6 +36,7 @@ public class mainwindow extends JFrame{
     private JPopupMenu tablePopupMenu;
     private DefaultTableModel model;
 
+
     public mainwindow() {
         model = new DefaultTableModel();
         chgUser = new ChangeUser(this);
@@ -48,6 +48,10 @@ public class mainwindow extends JFrame{
 
         try {
             mgr = new DataBaseWorker();
+            cardForm.setAccessTypeDictionary(mgr.getAccessTypeDictionary());
+            cardForm.setKindDictionary(mgr.getKindDictionary());
+            cardForm.setTypeDictionary(mgr.getTypeDictionary());
+            cardForm.setThemeDictionary(mgr.getThemeDictionary());
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -144,6 +148,7 @@ public class mainwindow extends JFrame{
                     ath.setAttributeValue(ThemeEdit.getText());
                     lst.add(ath);
                 }
+
                 if (!AccessTypeEdit.getText().isEmpty()) {
                     atat.setAttributeValue(AccessTypeEdit.getText());
                     lst.add(atat);
@@ -314,6 +319,7 @@ public class mainwindow extends JFrame{
         if (table1.getSelectedRow() >= 0) {
             int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
             try {
+
                 cardForm.setFieldsBySource(mgr.getCard(ID));
                 cardForm.setArchive(mgr.getArchive(ID));
             } catch (Exception e1) {

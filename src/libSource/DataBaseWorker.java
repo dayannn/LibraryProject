@@ -5,6 +5,7 @@ import libSource.Attributes.AttributeName;
 import libSource.Attributes.BaseAttribute;
 import libSource.Database.DBFacade;
 
+import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -129,4 +130,47 @@ public class DataBaseWorker
         dbFacade.addSource(source);
     }
 
+    public DefaultListModel getAccessTypeDictionary() throws SQLException {
+        DefaultListModel lst = new DefaultListModel();
+
+        ResultSet rs = dbFacade.GetAccessTypeDictionary();
+        while (rs.next()){
+            lst.addElement(rs.getString(1));
+        }
+
+        return lst;
+    }
+
+    public DefaultListModel getKindDictionary() throws SQLException {
+        DefaultListModel lst = new DefaultListModel();
+
+        ResultSet rs = dbFacade.GetKindDictionary();
+        while (rs.next()){
+            lst.addElement(rs.getString(1));
+        }
+
+        return lst;
+    }
+
+    public DefaultListModel getTypeDictionary() throws SQLException {
+        DefaultListModel lst = new DefaultListModel();
+
+        ResultSet rs = dbFacade.GetTypeDictionary();
+        while (rs.next()){
+            lst.addElement(rs.getString(1));
+        }
+
+        return lst;
+    }
+
+    public DefaultListModel getThemeDictionary() throws SQLException {
+        DefaultListModel lst = new DefaultListModel();
+
+        ResultSet rs = dbFacade.GetThemeDictionary();
+        while (rs.next()){
+            lst.addElement(rs.getString(1));
+        }
+
+        return lst;
+    }
 }

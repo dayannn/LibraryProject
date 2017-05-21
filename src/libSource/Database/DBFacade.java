@@ -2,6 +2,7 @@ package libSource.Database;
 import  libSource.Attributes.*;
 import  libSource.*;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -80,5 +81,23 @@ public class DBFacade {
     public void deleteSource(int id) throws SQLException {
         dbManager.ExecQueryWOResultSet(queryManager.deleteRow(id));
     }
+
+    public ResultSet GetThemeDictionary() throws SQLException {
+       return dbManager.ExecQuery(queryManager.GetThemeDictionary());
+    }
+
+
+    public ResultSet GetTypeDictionary() throws SQLException {
+        return dbManager.ExecQuery(queryManager.GetTypeDictionary());
+    }
+
+    public ResultSet GetKindDictionary() throws SQLException {
+        return dbManager.ExecQuery(queryManager.GetKindDictionary());
+    }
+
+    public ResultSet GetAccessTypeDictionary() throws SQLException {
+        return dbManager.ExecQuery(queryManager.GetAccessTypeDictionary());
+    }
+
 
 }

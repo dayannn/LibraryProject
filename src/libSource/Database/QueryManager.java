@@ -227,4 +227,30 @@ public class QueryManager {
 
         return query;
     }
+
+    public String GetThemeDictionary()
+    {
+        String query = "SELECT theme_value FROM theme";
+        return query;
+    }
+
+    public String GetKindDictionary()
+    {
+        String query = "SELECT kind_value FROM kind";
+        return query;
+    }
+
+    public String GetTypeDictionary()
+    {
+        String query = "SELECT type_value FROM type";
+        return query;
+
+    }
+
+    public String GetAccessTypeDictionary()
+    {
+        String query = "SELECT access_type_value FROM access_type";
+        return query;
+
+    }
 }

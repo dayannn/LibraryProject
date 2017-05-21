@@ -272,7 +272,7 @@ public class CardForm{
             listModel.addElement(arch.getArchiveRecords().get(i).getDate());
         }
 
-        ArchiveList.setModel(listModel);//arch.getArchiveRecords().get(i).getDate(
+        ArchiveList.setModel(listModel);
     }
 
     public void show(CardMode cardMode) {
@@ -324,4 +324,21 @@ public class CardForm{
     }
 
 
+    public void setAccessTypeDictionary(DefaultListModel dictionary) {
+        for(int i= 0; i< dictionary.getSize();i++) accessTypeComboBox.addItem(dictionary.elementAt(i));
+    }
+
+
+    public void setThemeDictionary(DefaultListModel dictionary) {
+        //for(int i= 0; i< dictionary.getSize();i++) subjectsTextArea.(dictionary.elementAt(i));
+
+    }
+
+    public void setTypeDictionary(DefaultListModel dictionary) {
+        for(int i= 0; i< dictionary.getSize();i++) resourceTypeComboBox.addItem(dictionary.elementAt(i));
+    }
+
+    public void setKindDictionary(DefaultListModel dictionary) {
+        for(int i= 0; i< dictionary.getSize();i++) resourceKindComboBox.addItem(dictionary.elementAt(i));
+    }
 }

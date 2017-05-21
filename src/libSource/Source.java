@@ -15,7 +15,6 @@ public class Source extends  BaseSource
         attributeList.add(new AttributeType(""));
         attributeList.add(new AttributeKind(""));
 
-
 /*      пока так
         attributeList.add(new AttributeLanguage(""));
         attributeList.add(new AttributeAmount(""));
