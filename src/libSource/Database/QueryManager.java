@@ -63,10 +63,18 @@ public class QueryManager {
     // SELECT - по кастомным атрибутам
     public String extendedSelectFromMainTable(AttributeList lst) {
         String query;
+
         query = "SELECT ";
         for (Integer i = 0; i < lst.size(); i++) {
-            query = query + " " + lst.get(i).getAttributeTableName() + "." + lst.get(i).getAttributeName();
-            if (i != lst.size()-1) query = query + ", ";
+            if (lst.get(i).getMidT().isEmpty()) {
+                query = query + " " + lst.get(i).getAttributeTableName() + "." + lst.get(i).getAttributeName();
+            } else {
+                query = query + " group_concat(" +
+                        lst.get(i).getAttributeTableName() + "." + lst.get(i).getAttributeName() + ") AS " +
+                        lst.get(i).getAttributeName();
+            }
+
+            if (i != lst.size() - 1) query = query + ", ";
         }
         query = query + " FROM " + MAINTABLE + " ";
 
@@ -74,11 +82,20 @@ public class QueryManager {
             if (lst.get(i).getAttributeTableName() == MAINTABLE)
                 continue;
 
-            query = query + " INNER JOIN " + lst.get(i).getAttributeTableName();
-            query = query + " ON " + MAINTABLE + ".resource_" + lst.get(i).getAttributeTableName() + " = " +
-                    lst.get(i).getAttributeTableName() + ".key ";
-        }
+            if (lst.get(i).getMidT().isEmpty()) {
+                query = query + " INNER JOIN " + lst.get(i).getAttributeTableName();
+                query = query + " ON " + MAINTABLE + ".resource_" + lst.get(i).getAttributeTableName() + " = " +
+                        lst.get(i).getAttributeTableName() + ".key ";
+            } else {
+                query = query + " INNER JOIN " + lst.get(i).getMidT();
+                query = query + " ON " + lst.get(i).getMidT() + ".resource_id = " + MAINTABLE +
+                        ".resource_" + lst.get(i).getAttributeTableName();
 
+                query = query + " INNER JOIN " + lst.get(i).getAttributeTableName();
+                query = query + " ON " + lst.get(i).getAttributeTableName() + ".key = " +
+                        lst.get(i).getMidT() + "." + lst.get(i).getAttributeTableName() + "_id ";
+            }
+        }
         return query;
     }
 
@@ -127,14 +144,24 @@ public class QueryManager {
     public String getCardByID(int ID) {
         Source src = new Source();
         String query = this.extendedSelectFromMainTable(src.getList());
-        query = query + " WHERE resource_id = " + String.valueOf(ID) + " ";
+        query = query + " WHERE " + MAINTABLE + ".resource_id = " + String.valueOf(ID) + " ";
 
         return query;
     }
 
     public String getArchiveBySourceID(int ID) {
-        String query =  "SELECT key, archive_date, resource_name, resource_chg_description FROM archive WHERE  resource_id = \n" +
-                        "(SELECT resource_archive_id FROM web_resources WHERE resource_id = " + String.valueOf(ID) + ") ";
+        String query =  "SELECT key, archive_date, resource_name, resource_chg_description FROM archive WHERE resource_id = \n" +
+                        "(SELECT resource_archive_id FROM " + MAINTABLE + " WHERE " + MAINTABLE + ".resource_id = " + String.valueOf(ID) + ") ";
+        return query;
+    }
+
+    public String groupBy() {
+        return " GROUP BY " + MAINTABLE + ".resource_id ";
+    }
+
+    public String deleteRow(int ID) {
+        String query;
+        query = " DELETE FROM " + MAINTABLE + ", archive, resource_theme WHERE resource_id = " + String.valueOf(ID) + " ";
         return query;
     }
 }

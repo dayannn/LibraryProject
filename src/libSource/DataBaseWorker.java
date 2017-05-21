@@ -93,8 +93,7 @@ public class DataBaseWorker
         return sources;
     }
 
-    public void deleteSource(int id) throws  SQLException
-    {
+    public void deleteSource(int id) throws SQLException {
         dbFacade.deleteSource(id);
     }
 

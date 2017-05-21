@@ -69,9 +69,7 @@ public class CardForm {
             saveButton.setVisible(true);
             discardButton.setVisible(true);
             editButton.setVisible(false);
-        }
-
-        else {
+        } else {
             setFieldsUneditable();
             saveButton.setVisible(false);
             discardButton.setVisible(false);
@@ -113,8 +111,7 @@ public class CardForm {
     }
 
     private void setFieldsUneditable(){
-        for (JTextArea area : textAreasList
-             ) {
+        for (JTextArea area : textAreasList) {
             area.setEditable(false);
             area.setBackground(Color.lightGray);
             testAccessComboBox.setVisible(false);
@@ -129,6 +126,7 @@ public class CardForm {
 
     private void setFieldsEditable(){
         for (JTextArea area : textAreasList
+
                 ) {
             area.setEditable(true);
             area.setBackground(Color.white);
@@ -215,8 +213,8 @@ public class CardForm {
     public void setArchive(Archive arch) {
         archive = arch;
         DefaultListModel listModel = new DefaultListModel();
-        archiveNameTextArea.removeAll();
-        changeDescrTextArea.removeAll();
+        archiveNameTextArea.setText("");
+        changeDescrTextArea.setText("");
 
         //TODO: Возможно, переделать список дат под табличку
         for (int i = 0; i < arch.getArchiveRecords().size(); i++) {

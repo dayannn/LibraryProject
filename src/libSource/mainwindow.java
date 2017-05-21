@@ -308,8 +308,14 @@ public class mainwindow {
         }
     }
 
-    private void deleteSelectedRow(int row){
-        //deleteFromDatabase (row); // smth like dis ?
+    private void deleteSelectedRow(int row) {
+        int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+        try {
+            mgr.deleteSource(ID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         ((DefaultTableModel)table1.getModel()).removeRow(row);
     }
 

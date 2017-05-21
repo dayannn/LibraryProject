@@ -30,7 +30,7 @@ public class DBFacade {
 
     // Получить некоторые ресурсы
     public ResultSet getSomeResources(AttributeList lst) throws SQLException {
-        return dbManager.ExecQuery(queryManager.extendedSelectFromMainTable(lst));
+        return dbManager.ExecQuery(queryManager.extendedSelectFromMainTable(lst) + queryManager.groupBy());
     }
 
     // Получить все темы
@@ -56,10 +56,6 @@ public class DBFacade {
         return dbManager.ExecQuery(queryManager.getCardByID(id));
     }
 
-    public void deleteSource(int id) throws  SQLException {
-        return;
-    }
-
     public void editSource(int id, BaseSource src) throws  SQLException {
         return;
     }
@@ -71,4 +67,9 @@ public class DBFacade {
     public ResultSet getArchiveForSourceID(int id) throws  SQLException {
         return dbManager.ExecQuery(queryManager.getArchiveBySourceID(id));
     }
+
+    public void deleteSource(int id) throws SQLException {
+        dbManager.ExecQueryWOResultSet(queryManager.deleteRow(id));
+    }
+
 }
