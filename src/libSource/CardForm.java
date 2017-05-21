@@ -49,10 +49,30 @@ public class CardForm{
     private JTextArea accessTypeTextArea;
     private JTextField testAccessTextField;
     private JComboBox accessTypeComboBox;
-    private JScrollPane accessTypeScrollPanel;
+    private JScrollPane accessTypeScrollPane;
     private JList ArchiveList;
     private JTextArea archiveNameTextArea;
     private JTextArea changeDescrTextArea;
+    private JComboBox resourceTypeComboBox;
+    private JTextArea resourceKindTextArea;
+    private JComboBox resourceKindComboBox;
+    private JComboBox infoKindComboBox;
+    private JTextArea resourceStatusTextArea;
+    private JComboBox resourceStatusComboBox;
+    private JComboBox subscriptionModelComboBox;
+    private JComboBox paymentMethodComboBox;
+    private JComboBox accessModeComboBox;
+    private JScrollPane resourсeTypeScrollPane;
+    private JScrollPane resourceKindScrollPane;
+    private JScrollPane infoKindScrollPane;
+    private JScrollPane resourceStatusScrollPane;
+    private JScrollPane accessModeScrollPane;
+    private JScrollPane paymentMethodScrollPane;
+    private JScrollPane subscriptionModelScrollPane;
+    private JTextArea testAccessTextArea;
+    private JScrollPane testAccessScrollPane;
+    private JTextArea testTimeTextArea;
+    private JScrollPane testTimeScrollPane;
     private Archive archive;
 
     private boolean IsAdmin;
@@ -98,6 +118,10 @@ public class CardForm{
         textAreasList.add(subscriptionCostTextArea);
         textAreasList.add(accessModeTextArea);
         textAreasList.add(testAccessConclusionTextArea);
+        textAreasList.add(resourceKindTextArea);
+        textAreasList.add(resourceStatusTextArea);
+        textAreasList.add(testAccessTextArea);
+        textAreasList.add(testTimeTextArea);
     }
 
     private void setFieldsUneditable(){
@@ -107,12 +131,23 @@ public class CardForm{
             area.setBackground(Color.lightGray);
         }
         testAccessComboBox.setVisible(false);
-        testAccessTextField.setVisible(true);
-        testTimeTextField.setEditable(false);
-        testTimeTextField.setBackground(Color.lightGray);
-        accessTypeScrollPanel.setVisible(true);
+        testAccessScrollPane.setVisible(true);
+        accessTypeScrollPane.setVisible(true);
         accessTypeComboBox.setVisible(false);
-
+        resourceTypeComboBox.setVisible(false);
+        resourсeTypeScrollPane.setVisible(true);
+        infoKindComboBox.setVisible(false);
+        infoKindScrollPane.setVisible(true);
+        resourceKindComboBox.setVisible(false);
+        resourceKindScrollPane.setVisible(true);
+        resourceStatusComboBox.setVisible(false);
+        resourceStatusScrollPane.setVisible(true);
+        subscriptionModelComboBox.setVisible(false);
+        subscriptionModelScrollPane.setVisible(true);
+        paymentMethodComboBox.setVisible(false);
+        paymentMethodScrollPane.setVisible(true);
+        accessModeComboBox.setVisible(false);
+        accessModeScrollPane.setVisible(true);
     }
 
     private void setFieldsEditable(){
@@ -121,12 +156,24 @@ public class CardForm{
             area.setEditable(true);
             area.setBackground(Color.white);
         }
-        testAccessTextField.setVisible(false);
+        testAccessScrollPane.setVisible(false);
         testAccessComboBox.setVisible(true);
-        testTimeTextField.setEditable(true);
-        testTimeTextField.setBackground(Color.white);
-        accessTypeScrollPanel.setVisible(false);
+        accessTypeScrollPane.setVisible(false);
         accessTypeComboBox.setVisible(true);
+        resourceTypeComboBox.setVisible(true);
+        resourсeTypeScrollPane.setVisible(false);
+        infoKindComboBox.setVisible(true);
+        infoKindScrollPane.setVisible(false);
+        resourceKindComboBox.setVisible(true);
+        resourceKindScrollPane.setVisible(false);
+        resourceStatusComboBox.setVisible(true);
+        resourceStatusScrollPane.setVisible(false);
+        subscriptionModelComboBox.setVisible(true);
+        subscriptionModelScrollPane.setVisible(false);
+        paymentMethodComboBox.setVisible(true);
+        paymentMethodScrollPane.setVisible(false);
+        accessModeComboBox.setVisible(true);
+        accessModeScrollPane.setVisible(false);
     }
 
     private void clearFields(){
