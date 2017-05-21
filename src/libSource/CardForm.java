@@ -261,4 +261,16 @@ public class CardForm{
     private void createUIComponents() {
         // TODO: place custom component creation code here
     }
+
+    public Source getSource(){
+        Source res = new Source() ;
+        res.setName(resourсeNameTextArea.getText());
+        res.setAccessType(accessTypeComboBox.getSelectedItem().toString());
+        res.setLink(addressTextArea.getText());
+        res.setDescription(annotationTextArea.getText());
+        res.setTheme(subjectsTextArea.getText());
+        return res;
+    }
+
+
 }

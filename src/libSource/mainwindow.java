@@ -35,9 +35,10 @@ public class mainwindow extends JFrame{
     private CardForm cardForm;
     private boolean UserRole = false;
     private JPopupMenu tablePopupMenu;
+    private DefaultTableModel model;
 
     public mainwindow() {
-        DefaultTableModel model = new DefaultTableModel();
+        model = new DefaultTableModel();
         chgUser = new ChangeUser(this);
         cardForm = new CardForm(this);
         changeUserButton.setText("Change user role (now User)");
@@ -76,22 +77,7 @@ public class mainwindow extends JFrame{
         getbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AttributeList temp = new AttributeList();
-                temp.add(new AttributeID(""));
-                temp.add(new AttributeName(""));
-                temp.add(new AttributeDescription(""));
-                temp.add(new AttributeLink(""));
-                temp.add(new AttributeTheme(""));
-                temp.add(new AttributeAccessType(""));
-
-                try {
-                    LALtoModel(model, mgr.getSomeResources(temp));
-                    table1.setModel(model);
-
-                    hideIDColumn();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
+                updateTable();
             }
         });
         table1.addMouseListener(new MouseAdapter() {
@@ -306,6 +292,25 @@ public class mainwindow extends JFrame{
         table1.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
 
+    private void updateTable(){
+        AttributeList temp = new AttributeList();
+        temp.add(new AttributeID(""));
+        temp.add(new AttributeName(""));
+        temp.add(new AttributeDescription(""));
+        temp.add(new AttributeLink(""));
+        temp.add(new AttributeTheme(""));
+        temp.add(new AttributeAccessType(""));
+
+        try {
+            LALtoModel(model, mgr.getSomeResources(temp));
+            table1.setModel(model);
+
+            hideIDColumn();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+    }
+
     private void getCardForTable() {
         if (table1.getSelectedRow() >= 0) {
             int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
@@ -324,7 +329,10 @@ public class mainwindow extends JFrame{
     }
 
     public void additionConfirmed(){
-       // ((DefaultTableModel)table1.getModel()).addRow();
+        Source src = cardForm.getSource();
+
+        // TODO: addToDataBase (src/ attrList??)
+        // updateTable();
     }
 
 }
