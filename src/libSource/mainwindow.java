@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by admin on 07/04/17.
  */
-public class mainwindow {
+public class mainwindow extends JFrame{
     private JPanel panel1;
     private JButton changeUserButton;
     private JTextField SearchEdit;

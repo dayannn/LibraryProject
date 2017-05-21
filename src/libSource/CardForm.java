@@ -13,8 +13,8 @@ import java.util.*;
  */
 
 
-public class CardForm {
-    private JFrame frame = new JFrame("CardForm");
+public class CardForm{
+    private JDialog frame;
     private JPanel CardPanel;
     private JButton editButton;
     private JButton saveButton;
@@ -56,7 +56,8 @@ public class CardForm {
     private Archive archive;
 
     private boolean IsAdmin;
-
+    CardMode mode;
+    mainwindow _parent; // that's not very good, I suppose?
 
     public boolean isAdmin() {
         return IsAdmin;
@@ -67,12 +68,12 @@ public class CardForm {
         if (IsAdmin) {
             // admin job
         }
+
         else {
             // librarian job
         }
 
     }
-
 
     private java.util.List<JTextArea> textAreasList = new ArrayList<>();
         // говнокод? :/ не, заебись
