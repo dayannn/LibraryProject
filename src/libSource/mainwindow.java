@@ -62,8 +62,7 @@ public class mainwindow extends JFrame{
                 cardForm.setAdmin(UserRole);
                 int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
                 getCardForTable();
-                cardForm.setMode(CardMode.EDITING);
-                cardForm.show();
+                cardForm.show(CardMode.EDITING);
             }
         });
 
@@ -216,8 +215,7 @@ public class mainwindow extends JFrame{
         addResourceButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cardForm.setMode(CardMode.ADDDITION);
-                cardForm.show();
+                cardForm.show(CardMode.ADDDITION);
             }
         });
     }

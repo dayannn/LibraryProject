@@ -145,7 +145,6 @@ public class CardForm{
     public CardForm(mainwindow parent) {
         frame = new JDialog(_parent, "Card Form", true);
         _parent = parent;
-
         saveButton.setVisible(false);
         discardButton.setVisible(false);
         frame.setSize(650, 550);
@@ -229,7 +228,9 @@ public class CardForm{
         ArchiveList.setModel(listModel);//arch.getArchiveRecords().get(i).getDate(
     }
 
-    public void show() {
+    public void show(CardMode cardMode) {
+        setMode(cardMode);
+        frame.setVisible(false);
         frame.setVisible(true);
     }
 
@@ -243,6 +244,8 @@ public class CardForm{
             editButton.setVisible(false);
             setFieldsEditable();
             clearFields();
+
+            frame.setModal(true);
         }
         else
         {
@@ -250,6 +253,8 @@ public class CardForm{
             discardButton.setVisible(false);
             editButton.setVisible(true);
             setFieldsUneditable();
+
+            frame.setModal(false);
         }
     }
 
