@@ -277,7 +277,13 @@ public class CardForm{
 
     public void show(CardMode cardMode) {
         setMode(cardMode);
-        // frame.setVisible(false); ????????
+        frame.setVisible(false);  // This strange thing is necessary to change modality correctly.
+                                  // (it's correctly changed when you hide and show the frame again)
+                                  // Without it if you open a card and then click 'Добавить ресурс'
+                                  // the CardForm won't be modal
+
+                                  // off topic: everything was working without that 'modality'
+                                  // but I couldn't live without it
         frame.setVisible(true);
     }
 
@@ -291,7 +297,6 @@ public class CardForm{
             editButton.setVisible(false);
             setFieldsEditable();
             clearFields();
-
             frame.setModal(true);
         }
         else
@@ -300,7 +305,6 @@ public class CardForm{
             discardButton.setVisible(false);
             editButton.setVisible(true);
             setFieldsUneditable();
-
             frame.setModal(false);
         }
     }
