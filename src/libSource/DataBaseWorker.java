@@ -97,14 +97,8 @@ public class DataBaseWorker
         dbFacade.deleteSource(id);
     }
 
-    public void editSource(int id, BaseSource src) throws  SQLException
-    {
+    public void editSource(int id, BaseSource src) throws  SQLException     {
         dbFacade.editSource(id, src);
-    }
-
-    //  Returns ID
-    public int addSource(BaseSource src) throws  SQLException {
-        return dbFacade.addSource(src);
     }
 
     public BaseSource getCard(int id) throws SQLException {
@@ -131,5 +125,8 @@ public class DataBaseWorker
         return archive;
     }
 
+    public void addSource(Source source) throws SQLException {
+        dbFacade.addSource(source);
+    }
 
 }

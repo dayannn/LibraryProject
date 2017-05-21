@@ -34,6 +34,7 @@ public class DBManager {
     }
 
     public void ExecQueryWOResultSet(String query_str) throws SQLException {
+        System.out.print(query_str);
         dbConnection.createStatement().executeUpdate(query_str);
     }
 }

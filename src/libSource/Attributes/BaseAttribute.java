@@ -1,18 +1,31 @@
 package libSource.Attributes;
 
 
+import javax.swing.*;
+import java.util.List;
+
 public class BaseAttribute
 {
     protected String tableName = "";
     protected String name = "";
     protected String value = "";
     protected String midT = "";
+    protected DefaultListModel<String> values = new DefaultListModel<String>();
+
+    public DefaultListModel<String> getValues() {
+        return values;
+    }
+
+    public void setValues(DefaultListModel<String> values) {
+        this.values = values;
+    }
 
     public BaseAttribute(String value) {
         tableName = "";
         name = "";
         this.value = value;
         midT = "";
+        values.clear();
     }
 
     public BaseAttribute()
@@ -21,6 +34,7 @@ public class BaseAttribute
         name = "";
         value = "";
         midT = "";
+        values.clear();
     }
 
     public BaseAttribute(String _tableName, String _name, String _value, String _midT)
@@ -29,6 +43,7 @@ public class BaseAttribute
         name = _name;
         value = _value;
         midT = _midT;
+        values.clear();
     }
 
     public BaseAttribute(BaseAttribute attr)
@@ -37,6 +52,7 @@ public class BaseAttribute
         name = attr.name;
         value = attr.value;
         midT = attr.midT;
+        values.clear();
     }
 
 

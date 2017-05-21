@@ -57,11 +57,20 @@ public class DBFacade {
     }
 
     public void editSource(int id, BaseSource src) throws  SQLException {
-        return;
+
     }
 
-    public int addSource(BaseSource src) throws  SQLException {
-        return 0;
+    public void addSource(Source src) throws  SQLException {
+        AttributeList list;
+        list = src.getList();
+
+        // Вставка в MainTable
+        dbManager.ExecQueryWOResultSet(queryManager.addSourceInMainTable(list));
+        // получаем ID новоприбывшего
+        ResultSet rs = dbManager.ExecQuery(queryManager.getIDForSource(list));
+        Integer id = Integer.parseInt(rs.getString("resource_id"));
+        // Вставка в остальные таблицы
+        dbManager.ExecQueryWOResultSet(queryManager.addSourceInOtherTable(id, list));
     }
 
     public ResultSet getArchiveForSourceID(int id) throws  SQLException {

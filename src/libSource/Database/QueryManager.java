@@ -1,6 +1,8 @@
 package libSource.Database;
 import  libSource.Attributes.*;
 import  libSource.*;
+import java.util.List;
+import javax.swing.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -89,7 +91,7 @@ public class QueryManager {
             } else {
                 query = query + " INNER JOIN " + lst.get(i).getMidT();
                 query = query + " ON " + lst.get(i).getMidT() + ".resource_id = " + MAINTABLE +
-                        ".resource_" + lst.get(i).getAttributeTableName();
+                        ".resource_id ";
 
                 query = query + " INNER JOIN " + lst.get(i).getAttributeTableName();
                 query = query + " ON " + lst.get(i).getAttributeTableName() + ".key = " +
@@ -150,8 +152,7 @@ public class QueryManager {
     }
 
     public String getArchiveBySourceID(int ID) {
-        String query =  "SELECT key, archive_date, resource_name, resource_chg_description FROM archive WHERE resource_id = \n" +
-                        "(SELECT resource_archive_id FROM " + MAINTABLE + " WHERE " + MAINTABLE + ".resource_id = " + String.valueOf(ID) + ") ";
+        String query =  "SELECT key, archive_date, resource_name, resource_chg_description FROM archive WHERE resource_id = " + String.valueOf(ID) + "; ";
         return query;
     }
 
@@ -160,8 +161,70 @@ public class QueryManager {
     }
 
     public String deleteRow(int ID) {
+        String query = "";
+        query = query + " DELETE FROM " + MAINTABLE + " WHERE resource_id = " + String.valueOf(ID) + "; ";
+        query = query + " DELETE FROM archive WHERE resource_id = " + String.valueOf(ID) + "; ";
+        query = query + " DELETE FROM resource_theme WHERE resource_id = " + String.valueOf(ID) + "; ";
+        return query;
+    }
+
+    public String addSourceInMainTable(AttributeList attributeList) {
         String query;
-        query = " DELETE FROM " + MAINTABLE + ", archive, resource_theme WHERE resource_id = " + String.valueOf(ID) + " ";
+        query = " INSERT INTO " + MAINTABLE + " (";
+        for (Integer i = 0; i < attributeList.size(); i++) {
+            if (attributeList.get(i).getMidT().isEmpty()) {
+                query = query + attributeList.get(i).getAttributeName();
+            }
+            if (i != attributeList.size() - 1) query = query + ", ";
+        }
+        query = query + ") VALUES (";
+        for (Integer i = 0; i < attributeList.size(); i++) {
+            if (attributeList.get(i).getMidT().isEmpty()) {
+                query = query + "'" + attributeList.get(i).getAttributeValue() + "'";
+            }
+            if (i != attributeList.size() - 1) query = query + ", ";
+        }
+        query = query + "); ";
+        return query;
+    }
+
+
+    public String getIDForSource(AttributeList attributeList) {
+        String query;
+        query = "SELECT resource_id FROM " + MAINTABLE + " ";
+        query = query + "WHERE ";
+        for (Integer i = 0; i < attributeList.size(); i++) {
+            if (attributeList.get(i).getMidT().isEmpty()) {
+                query = query + attributeList.get(i).getAttributeName();
+                query = query + " = ";
+                query = query + attributeList.get(i).getAttributeValue();
+            }
+            if (i != attributeList.size() - 1) query = query + " AND ";
+        }
+        return query;
+    }
+
+
+    public String addSourceInOtherTable(Integer ID, AttributeList attributeList) {
+        String query = "";
+
+        // Вставка в таблицы "многие ко многим"
+        for(Integer i = 0; i < attributeList.size(); i++) {
+            if (!attributeList.get(i).getMidT().isEmpty()) {
+
+                DefaultListModel<String> values;
+                values = attributeList.get(i).getValues();
+                for (Integer j = 0; j < values.size(); j++) {
+                    String value = values.get(j);
+
+                    query = query + " INSERT INTO " + attributeList.get(i).getMidT() +
+                            " (resource_id, " + attributeList.get(i).getAttributeTableName() + "_id) VALUES (";
+                    query = query + String.valueOf(ID) + ", " + value + "); ";
+                }
+
+            }
+        }
+
         return query;
     }
 }

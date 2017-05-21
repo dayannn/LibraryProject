@@ -336,7 +336,7 @@ public class mainwindow extends JFrame{
     public void additionConfirmed(){
         Source src = cardForm.getSource();
 
-        // TODO: addToDataBase (src/ attrList??)
+        // TODO: addToDataBase (src/attrList??)
         // updateTable();
     }
 
