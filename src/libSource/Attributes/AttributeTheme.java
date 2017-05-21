@@ -10,5 +10,6 @@ public class AttributeTheme extends BaseAttribute
         tableName = "theme";
         name = "theme_value";
         value = _value;
+        midT = "resource_theme";
     }
 }

@@ -6,11 +6,13 @@ public class BaseAttribute
     protected String tableName = "";
     protected String name = "";
     protected String value = "";
+    protected String midT = "";
 
     public BaseAttribute(String value) {
         tableName = "";
         name = "";
         this.value = value;
+        midT = "";
     }
 
     public BaseAttribute()
@@ -18,13 +20,15 @@ public class BaseAttribute
         tableName = "";
         name = "";
         value = "";
+        midT = "";
     }
 
-    public BaseAttribute(String _tableName, String _name, String _value)
+    public BaseAttribute(String _tableName, String _name, String _value, String _midT)
     {
         tableName = _tableName;
         name = _name;
         value = _value;
+        midT = _midT;
     }
 
     public BaseAttribute(BaseAttribute attr)
@@ -32,6 +36,16 @@ public class BaseAttribute
         tableName = attr.tableName;
         name = attr.name;
         value = attr.value;
+        midT = attr.midT;
+    }
+
+
+    public String getMidT() {
+        return midT;
+    }
+
+    public void setMidT(String _midT) {
+        this.midT = _midT;
     }
 
     public String getAttributeTableName()

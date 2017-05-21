@@ -264,8 +264,8 @@ public class CardForm{
     public void setArchive(Archive arch) {
         archive = arch;
         DefaultListModel listModel = new DefaultListModel();
-        archiveNameTextArea.removeAll();
-        changeDescrTextArea.removeAll();
+        archiveNameTextArea.setText("");
+        changeDescrTextArea.setText("");
 
         //TODO: Возможно, переделать список дат под табличку
         for (int i = 0; i < arch.getArchiveRecords().size(); i++) {
@@ -277,7 +277,7 @@ public class CardForm{
 
     public void show(CardMode cardMode) {
         setMode(cardMode);
-        frame.setVisible(false);
+        // frame.setVisible(false); ????????
         frame.setVisible(true);
     }
 

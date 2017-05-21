@@ -213,7 +213,6 @@ public class mainwindow extends JFrame{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-
     }
 
     public  void setTableColor ()
@@ -323,8 +322,14 @@ public class mainwindow extends JFrame{
         }
     }
 
-    private void deleteSelectedRow(int row){
-        // TODO: deleteFromDatabase (id); // smth like dis
+    private void deleteSelectedRow(int row) {
+        int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+        try {
+            mgr.deleteSource(ID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         ((DefaultTableModel)table1.getModel()).removeRow(row);
     }
 
