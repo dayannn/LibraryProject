@@ -35,11 +35,12 @@ public class mainwindow {
     private CardForm cardForm;
     private boolean UserRole = false;
     private JPopupMenu tablePopupMenu;
+    private DefaultTableModel model;
 
     public mainwindow() {
-        DefaultTableModel model = new DefaultTableModel();
+        model = new DefaultTableModel();
         chgUser = new ChangeUser(this);
-        cardForm = new CardForm();
+        cardForm = new CardForm(this);
         changeUserButton.setText("Change user role (now User)");
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tablePopupMenu = new JPopupMenu();
@@ -62,8 +63,7 @@ public class mainwindow {
                 cardForm.setAdmin(UserRole);
                 int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
                 getCardForTable();
-
-                cardForm.show();
+                cardForm.show(CardMode.EDITING);
             }
         });
 
@@ -73,25 +73,11 @@ public class mainwindow {
                 chgUser.show();
             }
         });
+
         getbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AttributeList temp = new AttributeList();
-                temp.add(new AttributeID(""));
-                temp.add(new AttributeName(""));
-                temp.add(new AttributeDescription(""));
-                temp.add(new AttributeLink(""));
-                temp.add(new AttributeTheme(""));
-                temp.add(new AttributeAccessType(""));
-
-                try {
-                    LALtoModel(model, mgr.getSomeResources(temp));
-                    table1.setModel(model);
-
-                    hideIDColumn();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
+                updateTable();
             }
         });
         table1.addMouseListener(new MouseAdapter() {
@@ -212,6 +198,12 @@ public class mainwindow {
                 deleteSelectedRow(r);
             }
         });
+        addResourceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardForm.show(CardMode.ADDDITION);
+            }
+        });
     }
 
 
@@ -222,6 +214,12 @@ public class mainwindow {
         frame.pack();
         frame.setVisible(true);
     }
+
+    public  void setTableColor ()
+    {
+        table1.setBackground(Color.red);
+    }
+
 
     public void setUserRole(boolean role) {
         UserRole = role;
@@ -237,7 +235,7 @@ public class mainwindow {
         // TODO: place custom component creation code here
     }
 
-    public void setUpPopupMenu()
+    private void setUpPopupMenu()
     {
         JMenuItem deleteItem = new JMenuItem("Удалить запись");
         deleteItem.addActionListener(new ActionListener() {
@@ -250,10 +248,7 @@ public class mainwindow {
             }
         });
         tablePopupMenu.add(deleteItem);
-
-
     }
-
 
     private void doPop(MouseEvent e) {
         if (table1.getSelectedRowCount() == 0) {
@@ -296,6 +291,25 @@ public class mainwindow {
         table1.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
 
+    private void updateTable(){
+        AttributeList temp = new AttributeList();
+        temp.add(new AttributeID(""));
+        temp.add(new AttributeName(""));
+        temp.add(new AttributeDescription(""));
+        temp.add(new AttributeLink(""));
+        temp.add(new AttributeTheme(""));
+        temp.add(new AttributeAccessType(""));
+
+        try {
+            LALtoModel(model, mgr.getSomeResources(temp));
+            table1.setModel(model);
+
+            hideIDColumn();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+    }
+
     private void getCardForTable() {
         if (table1.getSelectedRow() >= 0) {
             int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
@@ -317,6 +331,13 @@ public class mainwindow {
         }
 
         ((DefaultTableModel)table1.getModel()).removeRow(row);
+    }
+
+    public void additionConfirmed(){
+        Source src = cardForm.getSource();
+
+        // TODO: addToDataBase (src/ attrList??)
+        // updateTable();
     }
 
 }
