@@ -173,16 +173,22 @@ public class QueryManager {
         query = " INSERT INTO " + MAINTABLE + " (";
         for (Integer i = 0; i < attributeList.size(); i++) {
             if (attributeList.get(i).getMidT().isEmpty()) {
-                query = query + attributeList.get(i).getAttributeName();
+
+                if (attributeList.get(i).getAttributeTableName() == MAINTABLE)
+                    query = query + attributeList.get(i).getAttributeName();
+                else
+                    query = query + "resource_" + attributeList.get(i).getAttributeTableName();
+
+                if (i != attributeList.size() - 2) query = query + ", ";
             }
-            if (i != attributeList.size() - 1) query = query + ", ";
         }
         query = query + ") VALUES (";
         for (Integer i = 0; i < attributeList.size(); i++) {
             if (attributeList.get(i).getMidT().isEmpty()) {
-                query = query + "'" + attributeList.get(i).getAttributeValue() + "'";
+                query = query + "\"" + attributeList.get(i).getAttributeValue() + "\"";
+                if (i != attributeList.size() - 2) query = query + ", ";
             }
-            if (i != attributeList.size() - 1) query = query + ", ";
+
         }
         query = query + "); ";
         return query;
@@ -195,11 +201,14 @@ public class QueryManager {
         query = query + "WHERE ";
         for (Integer i = 0; i < attributeList.size(); i++) {
             if (attributeList.get(i).getMidT().isEmpty()) {
-                query = query + attributeList.get(i).getAttributeName();
-                query = query + " = ";
-                query = query + attributeList.get(i).getAttributeValue();
+                if (attributeList.get(i).getAttributeTableName() == MAINTABLE)
+                    query = query + attributeList.get(i).getAttributeName();
+                else
+                    query = query + "resource_" + attributeList.get(i).getAttributeTableName();
+                query = query + " = \"";
+                query = query + attributeList.get(i).getAttributeValue() + "\"";
+                if (i != attributeList.size() - 2) query = query + " AND ";
             }
-            if (i != attributeList.size() - 1) query = query + " AND ";
         }
         return query;
     }

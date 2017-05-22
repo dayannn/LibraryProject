@@ -103,7 +103,7 @@ public class CardForm{
     }
 
     private java.util.List<JTextArea> textAreasList = new ArrayList<>();
-        // говнокод? :/ не, заебись
+    // говнокод? :/ не, заебись
     private void fillTextAreasList(){
         textAreasList.add(resourсeNameTextArea);
         textAreasList.add(annotationTextArea);
@@ -133,7 +133,7 @@ public class CardForm{
 
     private void setFieldsUneditable(){
         for (JTextArea area : textAreasList
-             ) {
+                ) {
             area.setEditable(false);
             area.setBackground(Color.lightGray);
         }
@@ -214,7 +214,7 @@ public class CardForm{
         saveButton.setVisible(false);
         discardButton.setVisible(false);
         frame.setSize(650, 550);
-       // frame.setResizable(false);
+        // frame.setResizable(false);
         frame.setContentPane(CardPanel);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
@@ -301,12 +301,12 @@ public class CardForm{
     public void show(CardMode cardMode) {
         setMode(cardMode);
         frame.setVisible(false);  // This strange thing is necessary to change modality correctly.
-                                  // (it's correctly changed when you hide and show the frame again)
-                                  // Without it if you open a card and then click 'Добавить ресурс'
-                                  // the CardForm won't be modal
+        // (it's correctly changed when you hide and show the frame again)
+        // Without it if you open a card and then click 'Добавить ресурс'
+        // the CardForm won't be modal
 
-                                  // off topic: everything was working without that 'modality'
-                                  // but I couldn't live without it
+        // off topic: everything was working without that 'modality'
+        // but I couldn't live without it
         frame.setVisible(true);
     }
 

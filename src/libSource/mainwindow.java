@@ -342,8 +342,13 @@ public class mainwindow extends JFrame{
     public void additionConfirmed(){
         Source src = cardForm.getSource();
 
-        // TODO: addToDataBase (src/attrList??)
-        // updateTable();
+        try {
+            mgr.addSource(src);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        updateTable();
     }
 
 }

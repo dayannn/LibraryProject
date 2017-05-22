@@ -46,11 +46,11 @@ public class DBFacade {
 
     // Простой поиск
     public ResultSet simpleSearch(AttributeList lstOut, String searchQuery) throws SQLException {
-        return dbManager.ExecQuery(queryManager.simpleSearchResource(lstOut, searchQuery));
+        return dbManager.ExecQuery(queryManager.simpleSearchResource(lstOut, searchQuery)  + queryManager.groupBy());
     }
 
     public ResultSet extendedSearch(AttributeList lstOut, AttributeList lst) throws SQLException {
-        return dbManager.ExecQuery(queryManager.extendedSelectFromMainTable(lstOut) + queryManager.extendedSearch(lst));
+        return dbManager.ExecQuery(queryManager.extendedSelectFromMainTable(lstOut) + queryManager.extendedSearch(lst) + queryManager.groupBy());
     }
 
     public ResultSet getCard(int id) throws  SQLException {

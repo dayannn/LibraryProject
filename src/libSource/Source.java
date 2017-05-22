@@ -1,22 +1,30 @@
 package libSource;
 import  libSource.Attributes.*;
 
+import javax.swing.*;
 import java.util.Iterator;
 
 public class Source extends  BaseSource
 {
     public Source()
     {
+        // обычные
         attributeList.add(new AttributeName(""));
         attributeList.add(new AttributeDescription(""));
-        attributeList.add(new AttributeTheme(""));
         attributeList.add(new AttributeLink(""));
+
+        // индексные
         attributeList.add(new AttributeAccessType(""));
         attributeList.add(new AttributeType(""));
         attributeList.add(new AttributeKind(""));
 
+        // расширенные
+        attributeList.add(new AttributeTheme(""));
+        //  attributeList.add(new AttributeLanguage(""));
+        //  attributeList.add(new AttributeOperator(""));
+
 /*      пока так
-        attributeList.add(new AttributeLanguage(""));
+
         attributeList.add(new AttributeAmount(""));
         attributeList.add(new AttributeArchivationDate(""));
         attributeList.add(new AttributeArchiveKey(""));
@@ -26,7 +34,7 @@ public class Source extends  BaseSource
         attributeList.add(new AttributeContractDuration(""));
         attributeList.add(new AttributeID(""));
 
-        attributeList.add(new AttributeOperator(""));
+
         attributeList.add(new AttributePayType(""));
         attributeList.add(new AttributePublicationArchive(""));
         attributeList.add(new AttributeSourceInfo(""));
@@ -132,8 +140,7 @@ public class Source extends  BaseSource
         return "";
     }
     @Override
-    public void setName(String name)
-    {
+    public void setName(String name) {
         attributeSearcher.setAttributeValue(attributeList, "Name", name);
     }
 
@@ -156,14 +163,21 @@ public class Source extends  BaseSource
     }
 
     @Override
-    public void setTheme(String theme)
-    {
-        attributeSearcher.setAttributeValue(attributeList, "Theme", theme);
+    public void setTheme(String theme) {
+        attributeSearcher.setAttributeValue(attributeList, "theme", theme);
     }
 
     @Override
-    public void setType(String type)
-    {
+    public void setThemeList(DefaultListModel<String> list) {
+        attributeSearcher.getAttribute(attributeList, "theme_value").setValues(list);
+    }
+
+    @Override
+    public void setType(String type) {
         attributeSearcher.setAttributeValue(attributeList, "Type", type);
+    }
+
+    public void setAttribute(BaseAttribute attribute) {
+        attributeSearcher.setAttributeValue(attributeList, attribute.getAttributeName(), attribute.getAttributeValue());
     }
 }
