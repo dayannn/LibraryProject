@@ -8,7 +8,7 @@ public class AttributeAmount extends BaseAttribute
     public AttributeAmount(String _value)
     {
         tableName = "web_resources";
-        name = "resourse_amount";
+        name = "resource_amount";
         value = _value;
     }
 }

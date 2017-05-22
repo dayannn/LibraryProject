@@ -71,7 +71,7 @@ public class QueryManager {
             if (lst.get(i).getMidT().isEmpty()) {
                 query = query + " " + lst.get(i).getAttributeTableName() + "." + lst.get(i).getAttributeName();
             } else {
-                query = query + " group_concat(" +
+                query = query + " group_concat(DISTINCT " +
                         lst.get(i).getAttributeTableName() + "." + lst.get(i).getAttributeName() + ") AS " +
                         lst.get(i).getAttributeName();
             }
@@ -173,16 +173,22 @@ public class QueryManager {
         query = " INSERT INTO " + MAINTABLE + " (";
         for (Integer i = 0; i < attributeList.size(); i++) {
             if (attributeList.get(i).getMidT().isEmpty()) {
-                query = query + attributeList.get(i).getAttributeName();
+
+                if (attributeList.get(i).getAttributeTableName() == MAINTABLE)
+                    query = query + attributeList.get(i).getAttributeName();
+                else
+                    query = query + "resource_" + attributeList.get(i).getAttributeTableName();
+
+                if (i != attributeList.size() - 2) query = query + ", ";
             }
-            if (i != attributeList.size() - 1) query = query + ", ";
         }
         query = query + ") VALUES (";
         for (Integer i = 0; i < attributeList.size(); i++) {
             if (attributeList.get(i).getMidT().isEmpty()) {
-                query = query + "'" + attributeList.get(i).getAttributeValue() + "'";
+                query = query + "\"" + attributeList.get(i).getAttributeValue() + "\"";
+                if (i != attributeList.size() - 2) query = query + ", ";
             }
-            if (i != attributeList.size() - 1) query = query + ", ";
+
         }
         query = query + "); ";
         return query;
@@ -195,11 +201,14 @@ public class QueryManager {
         query = query + "WHERE ";
         for (Integer i = 0; i < attributeList.size(); i++) {
             if (attributeList.get(i).getMidT().isEmpty()) {
-                query = query + attributeList.get(i).getAttributeName();
-                query = query + " = ";
-                query = query + attributeList.get(i).getAttributeValue();
+                if (attributeList.get(i).getAttributeTableName() == MAINTABLE)
+                    query = query + attributeList.get(i).getAttributeName();
+                else
+                    query = query + "resource_" + attributeList.get(i).getAttributeTableName();
+                query = query + " = \"";
+                query = query + attributeList.get(i).getAttributeValue() + "\"";
+                if (i != attributeList.size() - 2) query = query + " AND ";
             }
-            if (i != attributeList.size() - 1) query = query + " AND ";
         }
         return query;
     }
@@ -228,29 +237,7 @@ public class QueryManager {
         return query;
     }
 
-    public String GetThemeDictionary()
-    {
-        String query = "SELECT theme_value FROM theme";
-        return query;
-    }
-
-    public String GetKindDictionary()
-    {
-        String query = "SELECT kind_value FROM kind";
-        return query;
-    }
-
-    public String GetTypeDictionary()
-    {
-        String query = "SELECT type_value FROM type";
-        return query;
-
-    }
-
-    public String GetAccessTypeDictionary()
-    {
-        String query = "SELECT access_type_value FROM access_type";
-        return query;
-
+    public String getDictionaryForTable(String table) {
+        return "SELECT " + table + "_value FROM " + table + " ";
     }
 }

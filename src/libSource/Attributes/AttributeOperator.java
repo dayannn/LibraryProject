@@ -7,8 +7,9 @@ public class AttributeOperator extends BaseAttribute
 {
     public AttributeOperator(String _value)
     {
-        tableName = "web_resources";
-        name = "resourse_operator";
+        tableName = "operator";
+        name = "operator_value";
         value = _value;
+        midT = "resource_operator";
     }
 }

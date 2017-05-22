@@ -8,7 +8,7 @@ public class AttributeTestAccess extends BaseAttribute
     public AttributeTestAccess(String _value)
     {
         tableName = "web_resources";
-        name = "test_access";
+        name = "resource_test_mode";
         value = _value;
     }
 }

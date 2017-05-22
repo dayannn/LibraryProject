@@ -7,8 +7,8 @@ public class AttributeSubscriptionType extends BaseAttribute
 {
     public AttributeSubscriptionType(String _value)
     {
-        tableName = "subscription_type";
-        name = "subscription_type_value";
+        tableName = "subscription_model";
+        name = "subscription_model_value";
         value = _value;
     }
 }

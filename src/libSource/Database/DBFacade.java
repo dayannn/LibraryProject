@@ -46,15 +46,15 @@ public class DBFacade {
 
     // Простой поиск
     public ResultSet simpleSearch(AttributeList lstOut, String searchQuery) throws SQLException {
-        return dbManager.ExecQuery(queryManager.simpleSearchResource(lstOut, searchQuery));
+        return dbManager.ExecQuery(queryManager.simpleSearchResource(lstOut, searchQuery)  + queryManager.groupBy());
     }
 
     public ResultSet extendedSearch(AttributeList lstOut, AttributeList lst) throws SQLException {
-        return dbManager.ExecQuery(queryManager.extendedSelectFromMainTable(lstOut) + queryManager.extendedSearch(lst));
+        return dbManager.ExecQuery(queryManager.extendedSelectFromMainTable(lstOut) + queryManager.extendedSearch(lst) + queryManager.groupBy());
     }
 
     public ResultSet getCard(int id) throws  SQLException {
-        return dbManager.ExecQuery(queryManager.getCardByID(id));
+        return dbManager.ExecQuery(queryManager.getCardByID(id) + queryManager.groupBy());
     }
 
     public void editSource(int id, BaseSource src) throws  SQLException {
@@ -82,22 +82,8 @@ public class DBFacade {
         dbManager.ExecQueryWOResultSet(queryManager.deleteRow(id));
     }
 
-    public ResultSet GetThemeDictionary() throws SQLException {
-       return dbManager.ExecQuery(queryManager.GetThemeDictionary());
+    public ResultSet getDictionary(String tableName) throws SQLException {
+        return dbManager.ExecQuery(queryManager.getDictionaryForTable(tableName));
     }
-
-
-    public ResultSet GetTypeDictionary() throws SQLException {
-        return dbManager.ExecQuery(queryManager.GetTypeDictionary());
-    }
-
-    public ResultSet GetKindDictionary() throws SQLException {
-        return dbManager.ExecQuery(queryManager.GetKindDictionary());
-    }
-
-    public ResultSet GetAccessTypeDictionary() throws SQLException {
-        return dbManager.ExecQuery(queryManager.GetAccessTypeDictionary());
-    }
-
 
 }

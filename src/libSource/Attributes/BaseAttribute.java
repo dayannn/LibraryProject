@@ -13,6 +13,8 @@ public class BaseAttribute
     protected DefaultListModel<String> values = new DefaultListModel<String>();
 
     public DefaultListModel<String> getValues() {
+        if (values.size() == 0)
+            values.addElement("0");
         return values;
     }
 

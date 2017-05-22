@@ -48,10 +48,12 @@ public class mainwindow extends JFrame{
 
         try {
             mgr = new DataBaseWorker();
-            cardForm.setAccessTypeDictionary(mgr.getAccessTypeDictionary());
-            cardForm.setKindDictionary(mgr.getKindDictionary());
-            cardForm.setTypeDictionary(mgr.getTypeDictionary());
-            cardForm.setThemeDictionary(mgr.getThemeDictionary());
+            cardForm.setAccessTypeDictionary(mgr.getDictionary("access_type"));
+            cardForm.setKindDictionary(mgr.getDictionary("kind"));
+            cardForm.setTypeDictionary(mgr.getDictionary("type"));
+            cardForm.setThemeDictionary(mgr.getDictionary("theme"));
+            cardForm.setLanguageDictionary(mgr.getDictionary("language"));
+            cardForm.setOperatorDictionary(mgr.getDictionary("operator"));
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -342,8 +344,13 @@ public class mainwindow extends JFrame{
     public void additionConfirmed(){
         Source src = cardForm.getSource();
 
-        // TODO: addToDataBase (src/attrList??)
-        // updateTable();
+        try {
+            mgr.addSource(src);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        updateTable();
     }
 
 }

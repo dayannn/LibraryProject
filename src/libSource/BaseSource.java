@@ -3,6 +3,8 @@ package libSource;
 
 import libSource.Attributes.BaseAttribute;
 
+import javax.swing.*;
+
 abstract public class BaseSource
 {
     protected AttributeList attributeList = new AttributeList();
@@ -35,6 +37,8 @@ abstract public class BaseSource
     abstract public void setDescription(String description);
 
     abstract public void setLink(String link);
+
+    abstract public void setThemeList(DefaultListModel<String> lst);
 
     abstract public void setTheme(String theme);
 
