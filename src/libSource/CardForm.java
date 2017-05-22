@@ -237,6 +237,22 @@ public class CardForm{
         subjectsList.setCellRenderer(new CheckboxListCellRenderer());
         resourceOperatorList.setCellRenderer(new CheckboxListCellRenderer());
 
+        DefaultListSelectionModel mdl  = new DefaultListSelectionModel() {
+            @Override
+            public void setSelectionInterval(int index0, int index1) {
+                if(super.isSelectedIndex(index0)) {
+                    super.removeSelectionInterval(index0, index1);
+                }
+                else {
+                    super.addSelectionInterval(index0, index1);
+                }
+            }
+        };
+
+        languageList.setSelectionModel(mdl);
+        subjectsList.setSelectionModel(mdl);
+        resourceOperatorList.setSelectionModel(mdl);
+
         fillTextAreasList();
         setFieldsUneditable();
 
