@@ -1,5 +1,7 @@
 package libSource;
 
+import javafx.scene.control.SelectionMode;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -44,10 +46,8 @@ public class CardForm{
     private JTextArea subscriptionCostTextArea;
     private JTextArea accessModeTextArea;
     private JComboBox testAccessComboBox;
-    private JTextField testTimeTextField;
     private JTextArea testAccessConclusionTextArea;
     private JTextArea accessTypeTextArea;
-    private JTextField testAccessTextField;
     private JComboBox accessTypeComboBox;
     private JScrollPane accessTypeScrollPane;
     private JList ArchiveList;
@@ -73,6 +73,13 @@ public class CardForm{
     private JScrollPane testAccessScrollPane;
     private JTextArea testTimeTextArea;
     private JScrollPane testTimeScrollPane;
+    private JList languageList;
+    private JScrollPane languageListScrollPanel;
+    private JScrollPane languageTextAreaScrollPanel;
+    private JScrollPane subjectsTextAreaScrollPane;
+    private JList subjectsList;
+    private JScrollPane subjectsListScrollPane;
+    private JList resourceOperatorList;
     private Archive archive;
 
     private boolean IsAdmin;
@@ -148,6 +155,12 @@ public class CardForm{
         paymentMethodScrollPane.setVisible(true);
         accessModeComboBox.setVisible(false);
         accessModeScrollPane.setVisible(true);
+        languageList.setVisible(false);
+        languageTextAreaScrollPanel.setVisible(true);
+        subjectsList.setVisible(false);
+        subjectsTextAreaScrollPane.setVisible(true);
+        resourceOperatorList.setVisible(false);
+        resourсeOperatorTextArea.setVisible(true);
     }
 
     private void setFieldsEditable(){
@@ -174,6 +187,12 @@ public class CardForm{
         paymentMethodScrollPane.setVisible(false);
         accessModeComboBox.setVisible(true);
         accessModeScrollPane.setVisible(false);
+        languageList.setVisible(true);
+        languageTextAreaScrollPanel.setVisible(false);
+        subjectsList.setVisible(true);
+        subjectsTextAreaScrollPane.setVisible(false);
+        resourceOperatorList.setVisible(true);
+        resourсeOperatorTextArea.setVisible(false);
     }
 
     private void clearFields(){
@@ -198,6 +217,10 @@ public class CardForm{
        // frame.setResizable(false);
         frame.setContentPane(CardPanel);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+        languageList.setCellRenderer(new CheckboxListCellRenderer());
+        subjectsList.setCellRenderer(new CheckboxListCellRenderer());
+        resourceOperatorList.setCellRenderer(new CheckboxListCellRenderer());
 
         fillTextAreasList();
         setFieldsUneditable();
@@ -325,7 +348,10 @@ public class CardForm{
 
 
     public void setAccessTypeDictionary(DefaultListModel dictionary) {
-        for(int i= 0; i< dictionary.getSize();i++) accessTypeComboBox.addItem(dictionary.elementAt(i));
+        for(int i = 0; i< dictionary.getSize();i++) {
+            accessTypeComboBox.addItem(dictionary.elementAt(i));
+        }
+
     }
 
 
