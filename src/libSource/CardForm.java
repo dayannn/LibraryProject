@@ -107,13 +107,15 @@ public class CardForm{
     private void fillTextAreasList(){
         textAreasList.add(resourсeNameTextArea);
         textAreasList.add(annotationTextArea);
-        textAreasList.add(subjectsTextArea);
         textAreasList.add(addressTextArea);
         textAreasList.add(accessTypeTextArea);
         textAreasList.add(resourсeTypeTextArea);
         textAreasList.add(infoKindTextArea);
+        textAreasList.add(subjectsTextArea);
         textAreasList.add(languageTextArea);
         textAreasList.add(resourсeOperatorTextArea);
+
+
         textAreasList.add(resourсeVolumeTextArea);
         textAreasList.add(timeTextArea);
         textAreasList.add(archiveInfoTextArea);
@@ -351,20 +353,28 @@ public class CardForm{
         for(int i = 0; i< dictionary.getSize();i++) {
             accessTypeComboBox.addItem(dictionary.elementAt(i));
         }
-
     }
 
-
     public void setThemeDictionary(DefaultListModel dictionary) {
-        //for(int i= 0; i< dictionary.getSize();i++) subjectsTextArea.(dictionary.elementAt(i));
-
+        DefaultListModel listModel = new DefaultListModel();
+        for(int i = 0; i < dictionary.getSize(); i++)
+            listModel.addElement(dictionary.getElementAt(i).toString());
+        subjectsList.setModel(listModel);
+    }
+    public void setLanguageDictionary(DefaultListModel dictionary) {
+        DefaultListModel listModel = new DefaultListModel();
+        for(int i = 0; i < dictionary.getSize(); i++)
+            listModel.addElement(dictionary.getElementAt(i).toString());
+        languageList.setModel(listModel);
     }
 
     public void setTypeDictionary(DefaultListModel dictionary) {
-        for(int i= 0; i< dictionary.getSize();i++) resourceTypeComboBox.addItem(dictionary.elementAt(i));
+        for(int i = 0; i< dictionary.getSize(); i++)
+            resourceTypeComboBox.addItem(dictionary.elementAt(i));
     }
 
     public void setKindDictionary(DefaultListModel dictionary) {
-        for(int i= 0; i< dictionary.getSize();i++) resourceKindComboBox.addItem(dictionary.elementAt(i));
+        for(int i = 0; i < dictionary.getSize(); i++)
+            resourceKindComboBox.addItem(dictionary.elementAt(i));
     }
 }

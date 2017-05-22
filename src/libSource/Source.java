@@ -20,8 +20,8 @@ public class Source extends  BaseSource
 
         // расширенные
         attributeList.add(new AttributeTheme(""));
-        //  attributeList.add(new AttributeLanguage(""));
-        //  attributeList.add(new AttributeOperator(""));
+        attributeList.add(new AttributeLanguage(""));
+        attributeList.add(new AttributeOperator(""));
 
 /*      пока так
 

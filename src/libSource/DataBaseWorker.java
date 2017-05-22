@@ -130,43 +130,10 @@ public class DataBaseWorker
         dbFacade.addSource(source);
     }
 
-    public DefaultListModel getAccessTypeDictionary() throws SQLException {
+    public DefaultListModel getDictionary(String table_name) throws SQLException {
         DefaultListModel lst = new DefaultListModel();
 
-        ResultSet rs = dbFacade.GetAccessTypeDictionary();
-        while (rs.next()){
-            lst.addElement(rs.getString(1));
-        }
-
-        return lst;
-    }
-
-    public DefaultListModel getKindDictionary() throws SQLException {
-        DefaultListModel lst = new DefaultListModel();
-
-        ResultSet rs = dbFacade.GetKindDictionary();
-        while (rs.next()){
-            lst.addElement(rs.getString(1));
-        }
-
-        return lst;
-    }
-
-    public DefaultListModel getTypeDictionary() throws SQLException {
-        DefaultListModel lst = new DefaultListModel();
-
-        ResultSet rs = dbFacade.GetTypeDictionary();
-        while (rs.next()){
-            lst.addElement(rs.getString(1));
-        }
-
-        return lst;
-    }
-
-    public DefaultListModel getThemeDictionary() throws SQLException {
-        DefaultListModel lst = new DefaultListModel();
-
-        ResultSet rs = dbFacade.GetThemeDictionary();
+        ResultSet rs = dbFacade.getDictionary(table_name);
         while (rs.next()){
             lst.addElement(rs.getString(1));
         }

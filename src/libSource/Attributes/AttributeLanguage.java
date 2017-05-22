@@ -10,5 +10,6 @@ public class AttributeLanguage extends BaseAttribute
         tableName = "language";
         name = "language_value";
         value = _value;
+        midT = "resource_language";
     }
 }
