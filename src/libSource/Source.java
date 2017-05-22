@@ -16,6 +16,7 @@ public class Source extends  BaseSource
         // индексные
         attributeList.add(new AttributeAccessType(""));
         attributeList.add(new AttributeType(""));
+        attributeList.add(new AttributeContent(""));
         attributeList.add(new AttributeKind(""));
 
         // расширенные
@@ -23,27 +24,26 @@ public class Source extends  BaseSource
         attributeList.add(new AttributeLanguage(""));
         attributeList.add(new AttributeOperator(""));
 
-/*      пока так
-
+        attributeList.add(new AttributeChronologic(""));
+        attributeList.add(new AttributePayType(""));
+        attributeList.add(new AttributeContractDuration(""));
+        attributeList.add(new AttributeStatus(""));
         attributeList.add(new AttributeAmount(""));
+        attributeList.add(new AttributeSubscriptionPrice(""));
+        attributeList.add(new AttributeTestAccess(""));
+        attributeList.add(new AttributeAccessMode(""));
+        attributeList.add(new AttributeSubscriptionType(""));
+
+
+/*      пока так
         attributeList.add(new AttributeArchivationDate(""));
         attributeList.add(new AttributeArchiveKey(""));
-        attributeList.add(new AttributeChronologic(""));
-        attributeList.add(new AttributeContent(""));
         attributeList.add(new AttributeContractDetails(""));
-        attributeList.add(new AttributeContractDuration(""));
         attributeList.add(new AttributeID(""));
-
-
-        attributeList.add(new AttributePayType(""));
         attributeList.add(new AttributePublicationArchive(""));
         attributeList.add(new AttributeSourceInfo(""));
-        attributeList.add(new AttributeStatus(""));
         attributeList.add(new AttributeSubscriptionAccessType(""));
-        attributeList.add(new AttributeSubscriptionPrice(""));
         attributeList.add(new AttributeSubscriptionSource(""));
-        attributeList.add(new AttributeSubscriptionType(""));
-        attributeList.add(new AttributeTestAccess(""));
         attributeList.add(new AttributeTestAccessConclusion(""));
 */
     }

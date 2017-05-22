@@ -53,6 +53,7 @@ public class mainwindow extends JFrame{
             cardForm.setTypeDictionary(mgr.getDictionary("type"));
             cardForm.setThemeDictionary(mgr.getDictionary("theme"));
             cardForm.setLanguageDictionary(mgr.getDictionary("language"));
+            cardForm.setOperatorDictionary(mgr.getDictionary("operator"));
         } catch (Exception e1) {
             e1.printStackTrace();
         }

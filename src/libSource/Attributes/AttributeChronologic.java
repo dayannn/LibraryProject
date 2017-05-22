@@ -8,7 +8,7 @@ public class AttributeChronologic extends BaseAttribute
     public AttributeChronologic(String _value)
     {
         tableName = "web_resources";
-        name = "resourse_chronologic";
+        name = "resource_chronologic";
         value = _value;
     }
 }

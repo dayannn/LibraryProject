@@ -80,6 +80,10 @@ public class CardForm{
     private JList subjectsList;
     private JScrollPane subjectsListScrollPane;
     private JList resourceOperatorList;
+    private JScrollPane subjectsListSP;
+    private JScrollPane languageListSP;
+    private JScrollPane resourceOperatorListSP;
+    private JScrollPane resourсeOperatorTextAreaSP;
     private Archive archive;
 
     private boolean IsAdmin;
@@ -111,25 +115,26 @@ public class CardForm{
         textAreasList.add(accessTypeTextArea);
         textAreasList.add(resourсeTypeTextArea);
         textAreasList.add(infoKindTextArea);
+        textAreasList.add(resourceKindTextArea);
         textAreasList.add(subjectsTextArea);
         textAreasList.add(languageTextArea);
         textAreasList.add(resourсeOperatorTextArea);
-
-
-        textAreasList.add(resourсeVolumeTextArea);
         textAreasList.add(timeTextArea);
-        textAreasList.add(archiveInfoTextArea);
-        textAreasList.add(providerTextArea);
-        textAreasList.add(subscriptionModelTextArea);
         textAreasList.add(paymentMethodTextArea);
         textAreasList.add(contractTimeTextArea);
-        textAreasList.add(documentPropsTextArea);
-        textAreasList.add(subscriptionCostTextArea);
-        textAreasList.add(accessModeTextArea);
-        textAreasList.add(testAccessConclusionTextArea);
-        textAreasList.add(resourceKindTextArea);
         textAreasList.add(resourceStatusTextArea);
+        textAreasList.add(resourсeVolumeTextArea);
+        textAreasList.add(subscriptionCostTextArea);
         textAreasList.add(testAccessTextArea);
+        textAreasList.add(accessModeTextArea);
+        textAreasList.add(subscriptionModelTextArea);
+
+
+
+        textAreasList.add(archiveInfoTextArea);
+        textAreasList.add(providerTextArea);
+        textAreasList.add(documentPropsTextArea);
+        textAreasList.add(testAccessConclusionTextArea);
         textAreasList.add(testTimeTextArea);
     }
 
@@ -162,7 +167,11 @@ public class CardForm{
         subjectsList.setVisible(false);
         subjectsTextAreaScrollPane.setVisible(true);
         resourceOperatorList.setVisible(false);
-        resourсeOperatorTextArea.setVisible(true);
+        resourсeOperatorTextAreaSP.setVisible(true);
+
+        subjectsListSP.setVisible(false);
+        languageListSP.setVisible(false);
+        resourceOperatorListSP.setVisible(false);
     }
 
     private void setFieldsEditable(){
@@ -194,7 +203,11 @@ public class CardForm{
         subjectsList.setVisible(true);
         subjectsTextAreaScrollPane.setVisible(false);
         resourceOperatorList.setVisible(true);
-        resourсeOperatorTextArea.setVisible(false);
+        resourсeOperatorTextAreaSP.setVisible(false);
+
+        subjectsListSP.setVisible(true);
+        languageListSP.setVisible(true);
+        resourceOperatorListSP.setVisible(true);
     }
 
     private void clearFields(){
@@ -242,6 +255,7 @@ public class CardForm{
             public void actionPerformed(ActionEvent e) {
                 if (!fieldsAreCorrect())
                     return;
+
                 setFieldsUneditable();
                 editButton.setVisible(true);
                 discardButton.setVisible(false);
@@ -366,6 +380,12 @@ public class CardForm{
         for(int i = 0; i < dictionary.getSize(); i++)
             listModel.addElement(dictionary.getElementAt(i).toString());
         languageList.setModel(listModel);
+    }
+    public void setOperatorDictionary(DefaultListModel dictionary) {
+        DefaultListModel listModel = new DefaultListModel();
+        for(int i = 0; i < dictionary.getSize(); i++)
+            listModel.addElement(dictionary.getElementAt(i).toString());
+        resourceOperatorList.setModel(listModel);
     }
 
     public void setTypeDictionary(DefaultListModel dictionary) {
