@@ -144,9 +144,6 @@ public class CardForm{
         textAreasList.add(accessModeTextArea);
         textAreasList.add(subscriptionModelTextArea);
 
-
-
-        textAreasList.add(archiveInfoTextArea);
         textAreasList.add(providerTextArea);
         textAreasList.add(documentPropsTextArea);
         textAreasList.add(testAccessConclusionTextArea);
@@ -240,7 +237,7 @@ public class CardForm{
 
     public CardForm(mainwindow parent) {
         curSrcID = 0;
-        frame = new JDialog(_parent, "Card Form", true);
+        frame = new JDialog(_parent, "Паспорт ресурса", true);
         _parent = parent;
         saveButton.setVisible(false);
         discardButton.setVisible(false);
@@ -448,23 +445,23 @@ public class CardForm{
 
         // Получаем значения комбобоксов
         AttributeType attributeType = new AttributeType("");
-        attributeType.setAttributeValue(String.valueOf(resourceTypeComboBox.getSelectedIndex()+1));
+        attributeType.setAttributeValue(String.valueOf(resourceTypeComboBox.getSelectedIndex()));
         res.setAttribute(attributeType);
 
         AttributeKind attributeKind = new AttributeKind("");
-        attributeKind.setAttributeValue(String.valueOf(resourceKindComboBox.getSelectedIndex()+1));
+        attributeKind.setAttributeValue(String.valueOf(resourceKindComboBox.getSelectedIndex()));
         res.setAttribute(attributeKind);
 
         AttributeContent attributeContent = new AttributeContent("");
-        attributeContent.setAttributeValue(String.valueOf(infoKindComboBox.getSelectedIndex()+1));
+        attributeContent.setAttributeValue(String.valueOf(infoKindComboBox.getSelectedIndex()));
         res.setAttribute(attributeContent);
 
         AttributeAccessType attributeAccessType = new AttributeAccessType("");
-        attributeAccessType.setAttributeValue(String.valueOf(accessTypeComboBox.getSelectedIndex()+1));
+        attributeAccessType.setAttributeValue(String.valueOf(accessTypeComboBox.getSelectedIndex()));
         res.setAttribute(attributeAccessType);
 
         AttributeStatus attributeStatus = new AttributeStatus("");
-        attributeStatus.setAttributeValue(String.valueOf(resourceStatusComboBox.getSelectedIndex()+1));
+        attributeStatus.setAttributeValue(String.valueOf(resourceStatusComboBox.getSelectedIndex()));
         res.setAttribute(attributeStatus);
 
         // НИЖЕ +2 ПОТОМУ ЧТО НЕ ДОДЕЛАНО!!!!!!!!!!!!!!!!!
@@ -479,8 +476,6 @@ public class CardForm{
         AttributeAccessMode attributeAccessMode = new AttributeAccessMode("");
         attributeAccessMode.setAttributeValue(String.valueOf(accessModeComboBox.getSelectedIndex()+2));
         res.setAttribute(attributeAccessMode);
-
-
 
         return res;
     }

@@ -44,6 +44,7 @@ public class mainwindow extends JFrame{
         changeUserButton.setText("Сменить режим доступа (польз.)");
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tablePopupMenu = new JPopupMenu();
+
         setUpPopupMenu();
 
         try {
@@ -220,7 +221,7 @@ public class mainwindow extends JFrame{
 
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("mainwindow");
+        JFrame frame = new JFrame("Система паспортизации электронных ресурсов");
         frame.setContentPane(new mainwindow().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
