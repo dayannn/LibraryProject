@@ -228,16 +228,17 @@ public class CardForm{
         _parent = parent;
         saveButton.setVisible(false);
         discardButton.setVisible(false);
-        frame.setSize(650, 550);
+        frame.setSize(650, 650);
         // frame.setResizable(false);
         frame.setContentPane(CardPanel);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        setScrollPanes();
 
         languageList.setCellRenderer(new CheckboxListCellRenderer());
         subjectsList.setCellRenderer(new CheckboxListCellRenderer());
         resourceOperatorList.setCellRenderer(new CheckboxListCellRenderer());
 
-        DefaultListSelectionModel mdl  = new DefaultListSelectionModel() {
+        languageList.setSelectionModel(new DefaultListSelectionModel()  {
             @Override
             public void setSelectionInterval(int index0, int index1) {
                 if(super.isSelectedIndex(index0)) {
@@ -247,11 +248,29 @@ public class CardForm{
                     super.addSelectionInterval(index0, index1);
                 }
             }
-        };
-
-        languageList.setSelectionModel(mdl);
-        subjectsList.setSelectionModel(mdl);
-        resourceOperatorList.setSelectionModel(mdl);
+        });
+        subjectsList.setSelectionModel(new DefaultListSelectionModel()  {
+            @Override
+            public void setSelectionInterval(int index0, int index1) {
+                if(super.isSelectedIndex(index0)) {
+                    super.removeSelectionInterval(index0, index1);
+                }
+                else {
+                    super.addSelectionInterval(index0, index1);
+                }
+            }
+        });
+        resourceOperatorList.setSelectionModel(new DefaultListSelectionModel()  {
+            @Override
+            public void setSelectionInterval(int index0, int index1) {
+                if(super.isSelectedIndex(index0)) {
+                    super.removeSelectionInterval(index0, index1);
+                }
+                else {
+                    super.addSelectionInterval(index0, index1);
+                }
+            }
+        });
 
         fillTextAreasList();
         setFieldsUneditable();
@@ -363,6 +382,26 @@ public class CardForm{
             frame.setModal(false);
         }
     }
+
+    private void setScrollPanes()
+    {
+        JScrollPane scrollp1 = new JScrollPane();
+        JScrollPane scrollp2 = new JScrollPane();
+        JScrollPane scrollp3 = new JScrollPane();
+        JScrollPane scrollp4 = new JScrollPane();
+        JScrollPane scrollp5 = new JScrollPane();
+        tabbedPane1.add(scrollp1, "Общие сведения");
+        tabbedPane1.add(scrollp2, "Подписка");
+        tabbedPane1.add(scrollp3, "Архив подписки");
+        tabbedPane1.add(scrollp4, "Статистика использования");
+        tabbedPane1.add(scrollp5, "Дополнительные сведения");
+        scrollp1.setViewportView(generalInfoTab);
+        scrollp2.setViewportView(subscriptionInfoTab);
+        scrollp3.setViewportView(subscriptionArchiveTab);
+        scrollp4.setViewportView(statisticsTab);
+        scrollp5.setViewportView(additionalInfoTab);
+    }
+
 
     private void createUIComponents() {
         // TODO: place custom component creation code here

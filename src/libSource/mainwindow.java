@@ -128,11 +128,11 @@ public class mainwindow extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 AttributeList lst = new AttributeList();
 
-                AttributeName           atn = new AttributeName("");
-                AttributeLink           atl = new AttributeLink("");
-                AttributeTheme          ath = new AttributeTheme("");
-                AttributeDescription    atd = new AttributeDescription("");
-                AttributeAccessType     atat = new AttributeAccessType("");
+                AttributeName atn = new AttributeName("");
+                AttributeLink atl = new AttributeLink("");
+                AttributeTheme ath = new AttributeTheme("");
+                AttributeDescription atd = new AttributeDescription("");
+                AttributeAccessType atat = new AttributeAccessType("");
 
                 if (!NameEdit.getText().isEmpty()) {
                     atn.setAttributeValue(NameEdit.getText());
@@ -164,12 +164,17 @@ public class mainwindow extends JFrame{
                 lstOut.add(new AttributeTheme(""));
                 lstOut.add(new AttributeAccessType(""));
 
-                try {
-                    LALtoModel(model, mgr.extendedSearch(lstOut, lst));
-                    table1.setModel(model);
-                    hideIDColumn();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
+                if (lst.size() > 0) {
+                    try {
+                        LALtoModel(model, mgr.extendedSearch(lstOut, lst));
+                        table1.setModel(model);
+                        hideIDColumn();
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                else {
+                    //JDialog d = new JDialog()
                 }
 
             }
