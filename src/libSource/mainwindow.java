@@ -44,6 +44,7 @@ public class mainwindow extends JFrame{
         changeUserButton.setText("Сменить режим доступа (польз.)");
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tablePopupMenu = new JPopupMenu();
+
         setUpPopupMenu();
 
         try {
@@ -220,7 +221,7 @@ public class mainwindow extends JFrame{
 
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("mainwindow");
+        JFrame frame = new JFrame("Система паспортизации электронных ресурсов");
         frame.setContentPane(new mainwindow().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -326,7 +327,7 @@ public class mainwindow extends JFrame{
         if (table1.getSelectedRow() >= 0) {
             int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
             try {
-
+                cardForm.setCurSrcID(ID);
                 cardForm.setFieldsBySource(mgr.getCard(ID));
                 cardForm.setArchive(mgr.getArchive(ID));
             } catch (Exception e1) {
@@ -351,6 +352,18 @@ public class mainwindow extends JFrame{
 
         try {
             mgr.addSource(src);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        updateTable();
+    }
+
+    public void editionConfirmed(){
+        Source src = cardForm.getSource();
+
+        try {
+            mgr.updateSource(cardForm.getCurSrcID(), src);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -105,7 +105,7 @@ public class DataBaseWorker
     public BaseSource getCard(int id) throws SQLException {
         BaseSource source = new Source();
         ResultSet rs = dbFacade.getCard(id);
-        //rs.next();
+        rs.next();
         for (int i = 0; i < source.getAttributeCount(); i++) {
             String attributeName = source.getAttribute(i).getAttributeName();
             source.setAttributeValueByName(attributeName, rs.getString(attributeName));
@@ -139,5 +139,9 @@ public class DataBaseWorker
         }
 
         return lst;
+    }
+
+    public void updateSource(int id, Source source) throws SQLException {
+        dbFacade.chgSource(id, source);
     }
 }

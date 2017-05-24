@@ -178,6 +178,7 @@ public class Source extends  BaseSource
     }
 
     public void setAttribute(BaseAttribute attribute) {
-        attributeSearcher.setAttributeValue(attributeList, attribute.getAttributeName(), attribute.getAttributeValue());
+        attributeSearcher.getAttribute(attributeList, attribute.getAttributeName()).setValues(attribute.getValues());
+        attributeSearcher.getAttribute(attributeList, attribute.getAttributeName()).setAttributeValue(attribute.getAttributeValue());
     }
 }

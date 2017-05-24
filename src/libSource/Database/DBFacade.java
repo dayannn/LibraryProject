@@ -86,4 +86,16 @@ public class DBFacade {
         return dbManager.ExecQuery(queryManager.getDictionaryForTable(tableName));
     }
 
+    public void chgSource(int id, Source src) throws SQLException {
+        AttributeList list;
+        list = src.getList();
+
+        // удаляем другие таблицы
+        dbManager.ExecQueryWOResultSet(queryManager.deleteFromOtherTables(id));
+        // изменяем main
+        dbManager.ExecQueryWOResultSet(queryManager.updateMainTable(id, list));
+        // Вставка в остальные таблицы
+        dbManager.ExecQueryWOResultSet(queryManager.addSourceInOtherTable(id, list));
+    }
+
 }
