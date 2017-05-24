@@ -326,7 +326,7 @@ public class mainwindow extends JFrame{
         if (table1.getSelectedRow() >= 0) {
             int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
             try {
-
+                cardForm.setCurSrcID(ID);
                 cardForm.setFieldsBySource(mgr.getCard(ID));
                 cardForm.setArchive(mgr.getArchive(ID));
             } catch (Exception e1) {
@@ -351,6 +351,18 @@ public class mainwindow extends JFrame{
 
         try {
             mgr.addSource(src);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        updateTable();
+    }
+
+    public void editionConfirmed(){
+        Source src = cardForm.getSource();
+
+        try {
+            mgr.updateSource(cardForm.getCurSrcID(), src);
         } catch (Exception e) {
             e.printStackTrace();
         }

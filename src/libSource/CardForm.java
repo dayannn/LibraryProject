@@ -1,6 +1,7 @@
 package libSource;
 
 import javafx.scene.control.SelectionMode;
+import libSource.Attributes.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -87,6 +88,16 @@ public class CardForm{
     private JTextArea viewNumTextArea;
     private JScrollPane viewNumTextAreaScrollPane;
     private Archive archive;
+    private int curSrcID;
+
+
+    public int getCurSrcID() {
+        return curSrcID;
+    }
+
+    public void setCurSrcID(int curSrcID) {
+        this.curSrcID = curSrcID;
+    }
 
     private boolean IsAdmin;
     CardMode mode;
@@ -114,9 +125,11 @@ public class CardForm{
         textAreasList.add(resourсeNameTextArea);
         textAreasList.add(annotationTextArea);
         textAreasList.add(addressTextArea);
+
         textAreasList.add(accessTypeTextArea);
         textAreasList.add(resourсeTypeTextArea);
         textAreasList.add(infoKindTextArea);
+
         textAreasList.add(resourceKindTextArea);
         textAreasList.add(subjectsTextArea);
         textAreasList.add(languageTextArea);
@@ -226,6 +239,7 @@ public class CardForm{
     }
 
     public CardForm(mainwindow parent) {
+        curSrcID = 0;
         frame = new JDialog(_parent, "Card Form", true);
         _parent = parent;
         saveButton.setVisible(false);
@@ -297,12 +311,13 @@ public class CardForm{
                 editButton.setVisible(true);
                 discardButton.setVisible(false);
                 saveButton.setVisible(false);
-                if (mode == CardMode.ADDDITION)
-                {
+                if (mode == CardMode.ADDDITION) {
                     _parent.additionConfirmed();
-                    frame.setVisible(false);
                 }
-
+                else {
+                    _parent.editionConfirmed();
+                }
+                frame.setVisible(false);
             }
         });
 
@@ -410,13 +425,74 @@ public class CardForm{
     }
 
     public Source getSource(){
-        Source res = new Source() ;
-        res.setName(resourсeNameTextArea.getText());
-        res.setAccessType(accessTypeComboBox.getSelectedItem().toString());
-        res.setLink(addressTextArea.getText());
-        res.setDescription(annotationTextArea.getText());
-        res.setTheme(subjectsTextArea.getText());
+        Source res = new Source();
+
+        // Получаем текстовые значения
+        for(int i = 0; i < res.getList().size(); i++) {
+            String value = "1";
+            if (!textAreasList.get(i).getText().isEmpty()) {
+                res.getAttribute(i).setAttributeValue(textAreasList.get(i).getText());
+            }
+        }
+
+        // Получаем расширенные значения
+        AttributeLanguage al = new AttributeLanguage("");
+        al.setValues(parseSelectedIndexes(languageList));
+        AttributeOperator ao = new AttributeOperator("");
+        ao.setValues(parseSelectedIndexes(resourceOperatorList));
+        AttributeTheme at = new AttributeTheme("");
+        at.setValues(parseSelectedIndexes(subjectsList));
+        res.setAttribute(al);
+        res.setAttribute(ao);
+        res.setAttribute(at);
+
+        // Получаем значения комбобоксов
+        AttributeType attributeType = new AttributeType("");
+        attributeType.setAttributeValue(String.valueOf(resourceTypeComboBox.getSelectedIndex()+1));
+        res.setAttribute(attributeType);
+
+        AttributeKind attributeKind = new AttributeKind("");
+        attributeKind.setAttributeValue(String.valueOf(resourceKindComboBox.getSelectedIndex()+1));
+        res.setAttribute(attributeKind);
+
+        AttributeContent attributeContent = new AttributeContent("");
+        attributeContent.setAttributeValue(String.valueOf(infoKindComboBox.getSelectedIndex()+1));
+        res.setAttribute(attributeContent);
+
+        AttributeAccessType attributeAccessType = new AttributeAccessType("");
+        attributeAccessType.setAttributeValue(String.valueOf(accessTypeComboBox.getSelectedIndex()+1));
+        res.setAttribute(attributeAccessType);
+
+        AttributeStatus attributeStatus = new AttributeStatus("");
+        attributeStatus.setAttributeValue(String.valueOf(resourceStatusComboBox.getSelectedIndex()+1));
+        res.setAttribute(attributeStatus);
+
+        // НИЖЕ +2 ПОТОМУ ЧТО НЕ ДОДЕЛАНО!!!!!!!!!!!!!!!!!
+        AttributePayType attributePayType = new AttributePayType("");
+        attributePayType.setAttributeValue(String.valueOf(paymentMethodComboBox.getSelectedIndex()+2));
+        res.setAttribute(attributePayType);
+
+        AttributeSubscriptionType attributeSubscriptionType = new AttributeSubscriptionType("");
+        attributeSubscriptionType.setAttributeValue(String.valueOf(subscriptionModelComboBox.getSelectedIndex()+2));
+        res.setAttribute(attributeSubscriptionType);
+
+        AttributeAccessMode attributeAccessMode = new AttributeAccessMode("");
+        attributeAccessMode.setAttributeValue(String.valueOf(accessModeComboBox.getSelectedIndex()+2));
+        res.setAttribute(attributeAccessMode);
+
+
+
         return res;
+    }
+
+    public DefaultListModel<String> parseSelectedIndexes(JList list) {
+        DefaultListModel<String> result = new DefaultListModel<>();
+        result.clear();
+        int [] indexes = list.getSelectedIndices();
+        for (int i = 0; i < indexes.length; i++) {
+            result.addElement(String.valueOf(indexes[i] + 1));
+        }
+        return result;
     }
 
 

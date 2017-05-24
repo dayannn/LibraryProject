@@ -162,9 +162,11 @@ public class QueryManager {
 
     public String deleteRow(int ID) {
         String query = "";
-        query = query + " DELETE FROM " + MAINTABLE + " WHERE resource_id = " + String.valueOf(ID) + "; ";
         query = query + " DELETE FROM archive WHERE resource_id = " + String.valueOf(ID) + "; ";
         query = query + " DELETE FROM resource_theme WHERE resource_id = " + String.valueOf(ID) + "; ";
+        query = query + " DELETE FROM resource_operator WHERE resource_id = " + String.valueOf(ID) + "; ";
+        query = query + " DELETE FROM resource_language WHERE resource_id = " + String.valueOf(ID) + "; ";
+        query = query + " DELETE FROM " + MAINTABLE + " WHERE resource_id = " + String.valueOf(ID) + "; ";
         return query;
     }
 
@@ -179,16 +181,18 @@ public class QueryManager {
                 else
                     query = query + "resource_" + attributeList.get(i).getAttributeTableName();
 
-                if (i != attributeList.size() - 2) query = query + ", ";
+                if (i != attributeList.size() - 1) query = query + ", ";
             }
         }
         query = query + ") VALUES (";
         for (Integer i = 0; i < attributeList.size(); i++) {
             if (attributeList.get(i).getMidT().isEmpty()) {
-                query = query + "\"" + attributeList.get(i).getAttributeValue() + "\"";
-                if (i != attributeList.size() - 2) query = query + ", ";
+                if (attributeList.get(i).getAttributeValue().isEmpty())
+                    query = query + "\"1\"";
+                else
+                    query = query + "\"" + attributeList.get(i).getAttributeValue() + "\"";
+                if (i != attributeList.size() - 1) query = query + ", ";
             }
-
         }
         query = query + "); ";
         return query;
@@ -205,9 +209,12 @@ public class QueryManager {
                     query = query + attributeList.get(i).getAttributeName();
                 else
                     query = query + "resource_" + attributeList.get(i).getAttributeTableName();
-                query = query + " = \"";
-                query = query + attributeList.get(i).getAttributeValue() + "\"";
-                if (i != attributeList.size() - 2) query = query + " AND ";
+                query = query + " = ";
+                if (attributeList.get(i).getAttributeValue().isEmpty())
+                    query = query + "\"1\"";
+                else
+                    query = query + "\"" + attributeList.get(i).getAttributeValue() + "\"";
+                if (i != attributeList.size() - 1) query = query + " AND ";
             }
         }
         return query;
@@ -215,7 +222,7 @@ public class QueryManager {
 
 
     public String addSourceInOtherTable(Integer ID, AttributeList attributeList) {
-        String query = "";
+        String query = " ";
 
         // Вставка в таблицы "многие ко многим"
         for(Integer i = 0; i < attributeList.size(); i++) {
@@ -240,4 +247,46 @@ public class QueryManager {
     public String getDictionaryForTable(String table) {
         return "SELECT " + table + "_value FROM " + table + " ";
     }
+
+    public String updateMainTable(Integer ID, AttributeList attributeList) {
+        String query = "";
+        query = query + "UPDATE " + MAINTABLE;
+        query = query + " SET ";
+
+        for (Integer i = 0; i < attributeList.size(); i++) {
+            if (attributeList.get(i).getMidT().isEmpty()) {
+                if (attributeList.get(i).getAttributeTableName() == MAINTABLE) {
+                    query = query + attributeList.get(i).getAttributeName();
+                } else {
+                    query = query + "resource_" + attributeList.get(i).getAttributeTableName();
+                }
+                query = query + " = ";
+                if (attributeList.get(i).getAttributeValue().isEmpty())
+                    query = query + "\"1\"";
+                else
+                    query = query + "\"" + attributeList.get(i).getAttributeValue() + "\"";
+
+                if (i != attributeList.size() - 1) query = query + ", ";
+            }
+        }
+
+        query = query + " WHERE resource_id = " + String.valueOf(ID) + " ";
+        return query;
+    }
+
+    public String deleteFromOtherTables(Integer ID) {
+        String query = "";
+        query = query + " DELETE FROM resource_theme WHERE resource_id = " + String.valueOf(ID) + "; ";
+        query = query + " DELETE FROM resource_operator WHERE resource_id = " + String.valueOf(ID) + "; ";
+        query = query + " DELETE FROM resource_language WHERE resource_id = " + String.valueOf(ID) + "; ";
+        return query;
+    }
+
+    public String updateOtherTables(Integer ID, AttributeList attributeList) {
+        String query = "";
+        query = query + addSourceInOtherTable(ID, attributeList);
+
+        return query;
+    }
+
 }
