@@ -84,6 +84,8 @@ public class CardForm{
     private JScrollPane languageListSP;
     private JScrollPane resourceOperatorListSP;
     private JScrollPane resourсeOperatorTextAreaSP;
+    private JTextArea viewNumTextArea;
+    private JScrollPane viewNumTextAreaScrollPane;
     private Archive archive;
 
     private boolean IsAdmin;

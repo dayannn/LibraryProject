@@ -41,7 +41,7 @@ public class mainwindow extends JFrame{
         model = new DefaultTableModel();
         chgUser = new ChangeUser(this);
         cardForm = new CardForm(this);
-        changeUserButton.setText("Change user role (now User)");
+        changeUserButton.setText("Сменить режим доступа (польз.)");
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tablePopupMenu = new JPopupMenu();
         setUpPopupMenu();
@@ -236,9 +236,9 @@ public class mainwindow extends JFrame{
     public void setUserRole(boolean role) {
         UserRole = role;
         if (role)
-            changeUserButton.setText("Change user role (now Admin)");
+            changeUserButton.setText("Сменить режим доступа (админ.)");
         else
-            changeUserButton.setText("Change user role (now User)");
+            changeUserButton.setText("Сменить режим доступа (польз.)");
         cardForm.setAdmin(role);
     }
 
@@ -278,11 +278,11 @@ public class mainwindow extends JFrame{
         tm.setColumnCount(0);
         tm.setRowCount(0);
         tm.addColumn("ID(you can't see me)");
-        tm.addColumn("Name");
-        tm.addColumn("Description");
-        tm.addColumn("Source");
-        tm.addColumn("Theme");
-        tm.addColumn("Access Type");
+        tm.addColumn("Имя");
+        tm.addColumn("Аннотация");
+        tm.addColumn("Сетевой адрес");
+        tm.addColumn("Тематика");
+        tm.addColumn("Режим доступа");
 
 
         for(int i = 0; i < LAL.size(); i++)  {

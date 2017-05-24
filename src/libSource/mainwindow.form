@@ -23,7 +23,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Change user"/>
+              <text value="Сменить пользователя"/>
             </properties>
           </component>
           <component id="5136" class="javax.swing.JLabel">
@@ -31,7 +31,7 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Search (only Name or Descr):"/>
+              <text value="Простой поиск "/>
             </properties>
           </component>
           <component id="cf172" class="javax.swing.JTextField" binding="SearchEdit">
@@ -47,7 +47,7 @@
               <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Advanced search:"/>
+              <text value="Расширенный поиск:"/>
             </properties>
           </component>
           <component id="13942" class="javax.swing.JLabel">
@@ -55,7 +55,7 @@
               <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Name:"/>
+              <text value="Имя:"/>
             </properties>
           </component>
           <component id="bac2f" class="javax.swing.JTextField" binding="NameEdit">
@@ -71,7 +71,7 @@
               <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Description:"/>
+              <text value="Аннотация:"/>
             </properties>
           </component>
           <component id="4c5b3" class="javax.swing.JTextField" binding="DescrEdit">
@@ -87,7 +87,7 @@
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Open card"/>
+              <text value="Открыть карточку"/>
             </properties>
           </component>
           <component id="94a98" class="javax.swing.JLabel">
@@ -95,7 +95,7 @@
               <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Source:"/>
+              <text value="Сетевой адрес:"/>
             </properties>
           </component>
           <component id="70ada" class="javax.swing.JTextField" binding="LinkEdit">
@@ -111,7 +111,7 @@
               <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Theme:"/>
+              <text value="Тематика:"/>
             </properties>
           </component>
           <component id="80322" class="javax.swing.JTextField" binding="ThemeEdit">
@@ -127,7 +127,7 @@
               <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Access type:"/>
+              <text value="Тип доступа:"/>
             </properties>
           </component>
           <component id="ad65a" class="javax.swing.JTextField" binding="AccessTypeEdit">
@@ -159,7 +159,7 @@
               <grid row="19" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Get"/>
+              <text value="Загрузить таблицу"/>
             </properties>
           </component>
           <component id="324f0" class="javax.swing.JButton" binding="simpleSearchButton">
