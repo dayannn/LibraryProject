@@ -457,6 +457,14 @@ public class CardForm{
     public void setFieldsBySourceIndexes(BaseSource src) {
 
         resourceKindComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("kind_value").getAttributeValue()));
+        resourceTypeComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("type_value").getAttributeValue()));
+        infoKindComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("content_value").getAttributeValue()));
+        accessTypeComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("access_type_value").getAttributeValue()));
+        resourceStatusComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("status_value").getAttributeValue()));
+        subscriptionModelComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("subscription_model_value").getAttributeValue()));
+        paymentMethodComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("pay_type_value").getAttributeValue()));
+        accessModeComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("access_mode_value").getAttributeValue()));
+        testAccessComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("resource_test_mode").getAttributeValue()));
 
         // Получаем расширенные значения
         AttributeLanguage al = new AttributeLanguage("");
@@ -682,6 +690,11 @@ public class CardForm{
     public void setTestModeDictionary(DefaultListModel dictionary) {
         for(int i = 0; i< dictionary.getSize();i++) {
             testAccessComboBox.addItem(dictionary.elementAt(i));
+        }
+    }
+    public void setStatusDictionary(DefaultListModel dictionary){
+        for (int i = 0; i < dictionary.getSize(); i++){
+            resourceStatusComboBox.addItem(dictionary.elementAt(i));
         }
     }
 }

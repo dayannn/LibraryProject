@@ -35,7 +35,7 @@ public class mainwindow extends JFrame{
     private boolean UserRole = false;
     private JPopupMenu tablePopupMenu;
     private DefaultTableModel model;
-
+    private JMenuBar menuBar = new JMenuBar();
 
     public mainwindow() {
         model = new DefaultTableModel();
@@ -44,6 +44,7 @@ public class mainwindow extends JFrame{
         changeUserButton.setText("Сменить режим доступа (польз.)");
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tablePopupMenu = new JPopupMenu();
+
 
         setUpPopupMenu();
         try {
@@ -59,6 +60,7 @@ public class mainwindow extends JFrame{
             cardForm.setPaymentMethodDictionary(mgr.getDictionary("pay_type"));
             cardForm.setAccessModeDictionary(mgr.getDictionary("access_mode"));
             cardForm.setTestModeDictionary(mgr.getDictionary("test_mode"));
+            cardForm.setStatusDictionary(mgr.getDictionary("status"));
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -229,6 +231,21 @@ public class mainwindow extends JFrame{
         JFrame frame = new JFrame("Система паспортизации электронных ресурсов");
         frame.setContentPane(new mainwindow().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JMenuBar menuBar = new JMenuBar();
+        frame.setJMenuBar(menuBar);
+        JMenu aboutMenu = new  JMenu("О программе");
+        JMenuItem aboutMenuItem = new JMenuItem("О программе");
+        aboutMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null,"Программа");
+            }
+        });
+        aboutMenu.add(aboutMenuItem);
+        menuBar.add(aboutMenu);
+
+
         frame.pack();
         frame.setVisible(true);
     }

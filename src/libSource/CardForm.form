@@ -22,7 +22,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <grid id="efe51" binding="generalInfoTab" layout-manager="GridLayoutManager" row-count="24" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="efe51" binding="generalInfoTab" layout-manager="GridLayoutManager" row-count="25" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Общие сведения"/>
@@ -32,7 +32,7 @@
             <children>
               <component id="cda7f" class="javax.swing.JLabel" binding="annotationLabel">
                 <constraints>
-                  <grid row="21" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="22" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Аннотация"/>
@@ -40,7 +40,7 @@
               </component>
               <component id="cbbba" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="19" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="20" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Вид доступа"/>
@@ -48,7 +48,7 @@
               </component>
               <component id="695fd" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="18" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="19" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Хронологический охват"/>
@@ -56,7 +56,7 @@
               </component>
               <component id="1808e" class="javax.swing.JLabel" binding="languageLabel">
                 <constraints>
-                  <grid row="15" column="0" row-span="3" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="16" column="0" row-span="3" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Язык документов ресурса"/>
@@ -64,7 +64,7 @@
               </component>
               <component id="f5605" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="15" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Объём ресурса"/>
@@ -72,7 +72,7 @@
               </component>
               <component id="d352" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="12" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="13" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Природа информации контента"/>
@@ -80,7 +80,7 @@
               </component>
               <component id="3c5e5" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="8" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="8" column="0" row-span="3" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Тип ресурса"/>
@@ -120,7 +120,7 @@
               </component>
               <scrollpane id="1fcb0">
                 <constraints>
-                  <grid row="21" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="22" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <autoscrolls value="false"/>
@@ -136,7 +136,7 @@
                       <enabled value="true"/>
                       <lineWrap value="true"/>
                       <rows value="4"/>
-                      <text value="Пикабу - это информационно-развлекательное сообщество, весь контент которого создают пользователи. Администрация сайта лишь следит за порядком и соблюдением правил. Все добавленные новости и комментарии имеют свой рейтинг. Новости на главной странице формируются по особому алгоритму, который отображает в топе наиболее актуальные посты на данный момент. Сайт имеет 4 основных раздела: &quot;Горячее&quot;, &quot;Лучшее&quot;, &quot;Свежее&quot; и &quot;Сообщества&quot;. &quot;Горячее&quot; в свою очередь делится на 2 подраздела: &quot;по времени&quot;, где отображаются недавно добавленные и набирающие популярность новости и &quot;по актуальности&quot;, где отображаются наиболее популярные на данный момент посты. "/>
+                      <text value=""/>
                       <wrapStyleWord value="true"/>
                     </properties>
                   </component>
@@ -144,7 +144,7 @@
               </scrollpane>
               <scrollpane id="8f013">
                 <constraints>
-                  <grid row="18" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="19" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
@@ -160,7 +160,7 @@
               </scrollpane>
               <scrollpane id="c2285" binding="languageTextAreaScrollPanel">
                 <constraints>
-                  <grid row="15" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="16" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
@@ -176,7 +176,7 @@
               </scrollpane>
               <scrollpane id="9a7e6">
                 <constraints>
-                  <grid row="14" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="15" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
@@ -192,7 +192,7 @@
               </scrollpane>
               <scrollpane id="8c04f" binding="infoKindScrollPane">
                 <constraints>
-                  <grid row="12" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="13" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
@@ -250,7 +250,7 @@
                     <constraints/>
                     <properties>
                       <lineWrap value="true"/>
-                      <text value="pikabu.ru"/>
+                      <text value=""/>
                       <wrapStyleWord value="true"/>
                     </properties>
                   </component>
@@ -284,7 +284,7 @@
                     <constraints/>
                     <properties>
                       <lineWrap value="true"/>
-                      <text value="Пикабу"/>
+                      <text value=""/>
                       <wrapStyleWord value="true"/>
                     </properties>
                   </component>
@@ -292,7 +292,7 @@
               </scrollpane>
               <scrollpane id="4d4f7" binding="accessTypeScrollPane">
                 <constraints>
-                  <grid row="20" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="21" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
@@ -300,22 +300,14 @@
                   <component id="cd766" class="javax.swing.JTextArea" binding="accessTypeTextArea">
                     <constraints/>
                     <properties>
-                      <text value="Сбоводный/открытый"/>
+                      <text value=""/>
                     </properties>
                   </component>
                 </children>
               </scrollpane>
               <component id="1368f" class="javax.swing.JComboBox" binding="accessTypeComboBox">
                 <constraints>
-                  <grid row="19" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <model/>
-                </properties>
-              </component>
-              <component id="f31e7" class="javax.swing.JComboBox" binding="resourceTypeComboBox">
-                <constraints>
-                  <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="20" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <model/>
@@ -323,7 +315,7 @@
               </component>
               <component id="4b302" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="10" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="11" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Вид ресурса"/>
@@ -331,7 +323,7 @@
               </component>
               <scrollpane id="78b4e" binding="resourceKindScrollPane">
                 <constraints>
-                  <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
@@ -346,21 +338,15 @@
               </scrollpane>
               <component id="145a3" class="javax.swing.JComboBox" binding="infoKindComboBox">
                 <constraints>
-                  <grid row="13" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="14" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <model>
-                    <item value="Текстовый"/>
-                    <item value="Изобразительный"/>
-                    <item value="Аудио"/>
-                    <item value="Мультимедийный"/>
-                    <item value="Видео"/>
-                  </model>
+                  <model/>
                 </properties>
               </component>
               <scrollpane id="1de37" binding="resourceStatusScrollPane">
                 <constraints>
-                  <grid row="22" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="23" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
@@ -375,19 +361,15 @@
               </scrollpane>
               <component id="75b8f" class="javax.swing.JComboBox" binding="resourceStatusComboBox">
                 <constraints>
-                  <grid row="23" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="24" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <model>
-                    <item value="Активный"/>
-                    <item value="Архивный"/>
-                    <item value="Информационный"/>
-                  </model>
+                  <model/>
                 </properties>
               </component>
               <component id="2686c" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="22" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="23" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Статус ресурса"/>
@@ -427,7 +409,7 @@
               </scrollpane>
               <scrollpane id="1b55a" binding="languageListSP">
                 <constraints>
-                  <grid row="16" column="1" row-span="2" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="17" column="1" row-span="2" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <horizontalScrollBarPolicy value="31"/>
@@ -438,17 +420,22 @@
                   <component id="bc3f1" class="javax.swing.JList" binding="languageList">
                     <constraints/>
                     <properties>
-                      <model>
-                        <item value="russian"/>
-                        <item value="english"/>
-                      </model>
+                      <model/>
                     </properties>
                   </component>
                 </children>
               </scrollpane>
               <component id="26062" class="javax.swing.JComboBox" binding="resourceKindComboBox">
                 <constraints>
-                  <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="12" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <model/>
+                </properties>
+              </component>
+              <component id="f31e7" class="javax.swing.JComboBox" binding="resourceTypeComboBox">
+                <constraints>
+                  <grid row="9" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <model/>
