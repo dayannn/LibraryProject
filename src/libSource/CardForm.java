@@ -87,6 +87,12 @@ public class CardForm{
     private JScrollPane resourсeOperatorTextAreaSP;
     private JTextArea viewNumTextArea;
     private JScrollPane viewNumTextAreaScrollPane;
+    private JLabel resourceNameLabel;
+    private JLabel resourceOperatorLabel;
+    private JLabel addressLabel;
+    private JLabel annotationLabel;
+    private JLabel subjectsLabel;
+    private JLabel languageLabel;
     private Archive archive;
     private int curSrcID;
 
@@ -184,6 +190,13 @@ public class CardForm{
         subjectsListSP.setVisible(false);
         languageListSP.setVisible(false);
         resourceOperatorListSP.setVisible(false);
+
+        resourceNameLabel.setText("Название ресурса");
+        addressLabel.setText("Сетевой адрес");
+        annotationLabel.setText("Аннотация");
+        resourceOperatorLabel.setText("Оператор ресурса");
+        subjectsLabel.setText("Тематика");
+        languageLabel.setText("Язык документов ресурса");
     }
 
     private void setFieldsEditable(){
@@ -192,6 +205,9 @@ public class CardForm{
             area.setEditable(true);
             area.setBackground(Color.white);
         }
+        resourceOperatorList.setBackground(Color.white);
+        subjectsList.setBackground(Color.white);
+        languageList.setBackground(Color.white);
         testAccessScrollPane.setVisible(false);
         testAccessComboBox.setVisible(true);
         accessTypeScrollPane.setVisible(false);
@@ -220,6 +236,13 @@ public class CardForm{
         subjectsListSP.setVisible(true);
         languageListSP.setVisible(true);
         resourceOperatorListSP.setVisible(true);
+
+        resourceNameLabel.setText("Название ресурса *");
+        addressLabel.setText("Сетевой адрес *");
+        annotationLabel.setText("Аннотация *");
+        resourceOperatorLabel.setText("Оператор ресурса *");
+        subjectsLabel.setText("Тематика *");
+        languageLabel.setText("Язык документов ресурса *");
     }
 
     private void clearFields(){
@@ -229,11 +252,52 @@ public class CardForm{
     }
 
     private boolean fieldsAreCorrect(){
-        /*
-        HERE TO BE CHECKING
-         */
-        return true;
+        resetFieldsColor();
+        boolean res = true;
+        if (resourсeNameTextArea.getText().trim().isEmpty())
+        {
+            res = false;
+            resourсeNameTextArea.setBackground(Color.pink);
+        }
+        if (addressTextArea.getText().trim().isEmpty())
+        {
+            res = false;
+            addressTextArea.setBackground(Color.pink);
+        }
+        if (annotationTextArea.getText().trim().isEmpty())
+        {
+            res = false;
+            annotationTextArea.setBackground(Color.pink);
+        }
+        if (resourceOperatorList.isSelectionEmpty())
+        {
+            res = false;
+            resourceOperatorList.setBackground(Color.pink);
+        }
+        if (subjectsList.isSelectionEmpty())
+        {
+            res = false;
+            subjectsList.setBackground(Color.pink);
+        }
+        if (languageList.isSelectionEmpty())
+        {
+            res = false;
+            languageList.setBackground(Color.pink);
+        }
+
+        return res;
     }
+
+    private void resetFieldsColor()
+    {
+            resourсeNameTextArea.setBackground(Color.white);
+            addressTextArea.setBackground(Color.white);
+            annotationTextArea.setBackground(Color.white);
+            resourceOperatorList.setBackground(Color.white);
+            subjectsList.setBackground(Color.white);
+            languageList.setBackground(Color.white);
+    }
+
 
     public CardForm(mainwindow parent) {
         curSrcID = 0;
@@ -301,8 +365,10 @@ public class CardForm{
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!fieldsAreCorrect())
+                if (!fieldsAreCorrect()) {
+                    JOptionPane.showMessageDialog(frame, "Заполните все значимые поля, отмеченные символом (*), перед сохранением");
                     return;
+                }
 
                 setFieldsUneditable();
                 editButton.setVisible(true);

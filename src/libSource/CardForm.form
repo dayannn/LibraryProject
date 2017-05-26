@@ -30,7 +30,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="cda7f" class="javax.swing.JLabel">
+              <component id="cda7f" class="javax.swing.JLabel" binding="annotationLabel">
                 <constraints>
                   <grid row="21" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -54,7 +54,7 @@
                   <text value="Хронологический охват"/>
                 </properties>
               </component>
-              <component id="1808e" class="javax.swing.JLabel">
+              <component id="1808e" class="javax.swing.JLabel" binding="languageLabel">
                 <constraints>
                   <grid row="15" column="0" row-span="3" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -86,7 +86,7 @@
                   <text value="Тип ресурса"/>
                 </properties>
               </component>
-              <component id="1732" class="javax.swing.JLabel">
+              <component id="1732" class="javax.swing.JLabel" binding="subjectsLabel">
                 <constraints>
                   <grid row="5" column="0" row-span="3" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -94,7 +94,7 @@
                   <text value="Тематика"/>
                 </properties>
               </component>
-              <component id="d72fa" class="javax.swing.JLabel">
+              <component id="d72fa" class="javax.swing.JLabel" binding="addressLabel">
                 <constraints>
                   <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -102,7 +102,7 @@
                   <text value="Сетевой адрес"/>
                 </properties>
               </component>
-              <component id="bf08f" class="javax.swing.JLabel">
+              <component id="bf08f" class="javax.swing.JLabel" binding="resourceOperatorLabel">
                 <constraints>
                   <grid row="1" column="0" row-span="3" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -110,7 +110,7 @@
                   <text value="Оператор ресурса"/>
                 </properties>
               </component>
-              <component id="580ce" class="javax.swing.JLabel">
+              <component id="580ce" class="javax.swing.JLabel" binding="resourceNameLabel">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
