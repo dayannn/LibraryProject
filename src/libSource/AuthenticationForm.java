@@ -34,8 +34,8 @@ public class AuthenticationForm {
                 if (textField1.getText().equals("admin") && textField2.getText().equals("12345"))
                 {
                     //labelerror.setVisible(false);
-                    //textField1.setText("");
-                    //textField2.setText("");
+                    textField1.setText("");
+                    textField2.setText("");
 
                     cu.SetAdmin(true);
                     frame.setVisible(false);

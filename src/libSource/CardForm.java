@@ -1,14 +1,17 @@
 package libSource;
 
-import javafx.scene.control.SelectionMode;
 import libSource.Attributes.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -87,8 +90,12 @@ public class CardForm{
     private JScrollPane resourсeOperatorTextAreaSP;
     private JTextArea viewNumTextArea;
     private JScrollPane viewNumTextAreaScrollPane;
+    private JPanel exportTab;
+    private JButton exportbutton;
     private Archive archive;
     private int curSrcID;
+    private String path;
+    private String filename;
 
 
     public int getCurSrcID() {
@@ -340,6 +347,42 @@ public class CardForm{
                 int ID = ArchiveList.getSelectedIndex();
                 archiveNameTextArea.setText(archive.getArchiveRecords().get(ID).getAttributeList().get(0).getAttributeValue());
                 changeDescrTextArea.setText(archive.getArchiveRecords().get(ID).getChg_dscr());
+            }
+        });
+
+        exportbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+
+                int userSelection = fileChooser.showSaveDialog(null);
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = fileChooser.getSelectedFile();
+                    String content = "hello";
+
+                    for (JTextArea area : textAreasList
+                         ) {
+                        content = content + area.getText();
+                        content = content + "\n";
+                    }
+
+                    FileWriter fw = null;
+                    try {
+                        fw = new FileWriter(fileToSave);
+                        BufferedWriter bw = new BufferedWriter(fw);
+                        bw.write(content);
+                        bw.close();
+                        fw.close();
+                    } catch (IOException e1) {
+                        JOptionPane.showMessageDialog(frame,"Error while writing to file");
+                    }
+
+
+
+                    //System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+                }
+
             }
         });
     }

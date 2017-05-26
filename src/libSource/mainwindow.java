@@ -93,6 +93,7 @@ public class mainwindow extends JFrame{
                 updateTable();
             }
         });
+
         table1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -322,7 +323,6 @@ public class mainwindow extends JFrame{
         try {
             LALtoModel(model, mgr.getSomeResources(temp));
             table1.setModel(model);
-
             hideIDColumn();
         } catch (Exception e1) {
             e1.printStackTrace();
