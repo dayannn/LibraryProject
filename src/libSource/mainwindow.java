@@ -46,7 +46,6 @@ public class mainwindow extends JFrame{
         tablePopupMenu = new JPopupMenu();
 
         setUpPopupMenu();
-
         try {
             mgr = new DataBaseWorker();
             cardForm.setAccessTypeDictionary(mgr.getDictionary("access_type"));
@@ -60,7 +59,6 @@ public class mainwindow extends JFrame{
             cardForm.setPaymentMethodDictionary(mgr.getDictionary("pay_type"));
             cardForm.setAccessModeDictionary(mgr.getDictionary("access_mode"));
             cardForm.setTestModeDictionary(mgr.getDictionary("test_mode"));
-
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -73,7 +71,9 @@ public class mainwindow extends JFrame{
         openCardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cardForm.setAdmin(UserRole);
+               // cardForm.setAdmin(UserRole);
+                if (table1.getSelectedRowCount() == 0)
+                    return;
                 int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
                 getCardForTable();
                 cardForm.show(CardMode.EDITING);
@@ -158,7 +158,6 @@ public class mainwindow extends JFrame{
                     ath.setAttributeValue(ThemeEdit.getText());
                     lst.add(ath);
                 }
-
                 if (!AccessTypeEdit.getText().isEmpty()) {
                     atat.setAttributeValue(AccessTypeEdit.getText());
                     lst.add(atat);
@@ -226,7 +225,6 @@ public class mainwindow extends JFrame{
         });
     }
 
-
     public static void main(String[] args) {
         JFrame frame = new JFrame("Система паспортизации электронных ресурсов");
         frame.setContentPane(new mainwindow().panel1);
@@ -234,12 +232,6 @@ public class mainwindow extends JFrame{
         frame.pack();
         frame.setVisible(true);
     }
-
-    public  void setTableColor ()
-    {
-        table1.setBackground(Color.red);
-    }
-
 
     public void setUserRole(boolean role) {
         UserRole = role;
@@ -249,7 +241,6 @@ public class mainwindow extends JFrame{
             changeUserButton.setText("Сменить режим доступа (польз.)");
         cardForm.setAdmin(role);
     }
-
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
@@ -291,7 +282,6 @@ public class mainwindow extends JFrame{
         tm.addColumn("Сетевой адрес");
         tm.addColumn("Тематика");
         tm.addColumn("Режим доступа");
-
 
         for(int i = 0; i < LAL.size(); i++)  {
             AttributeList temp2 = LAL.get(i);
@@ -367,14 +357,22 @@ public class mainwindow extends JFrame{
 
     public void editionConfirmed(){
         Source src = cardForm.getSource();
-
         try {
             mgr.updateSource(cardForm.getCurSrcID(), src);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         updateTable();
+    }
+
+    public void editionCancelled(){
+        try {
+            int ID = cardForm.getCurSrcID();
+            cardForm.setFieldsBySource(mgr.getCard(ID));
+        }
+        catch (Exception e1) {
+            e1.printStackTrace();
+        }
     }
 
 }
