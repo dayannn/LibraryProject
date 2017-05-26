@@ -368,7 +368,7 @@ public class mainwindow extends JFrame{
     public void editionCancelled(){
         try {
             int ID = cardForm.getCurSrcID();
-            cardForm.setFieldsBySource(mgr.getCard(ID));
+            cardForm.setFieldsBySource(mgr.getCard(ID)); // загружаем неизменённую карточку
         }
         catch (Exception e1) {
             e1.printStackTrace();

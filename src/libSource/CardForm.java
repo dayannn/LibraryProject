@@ -306,7 +306,6 @@ public class CardForm{
             languageList.setBackground(Color.white);
     }
 
-
     public CardForm(mainwindow parent) {
         curSrcID = 0;
         frame = new JDialog(_parent, "Паспорт ресурса", true);
@@ -444,12 +443,8 @@ public class CardForm{
                     } catch (IOException e1) {
                         JOptionPane.showMessageDialog(frame,"Error while writing to file");
                     }
-
-
-
                     //System.out.println("Save as file: " + fileToSave.getAbsolutePath());
                 }
-
             }
         });
     }
@@ -476,12 +471,10 @@ public class CardForm{
     public void show(CardMode cardMode) {
         setMode(cardMode);
         frame.setVisible(false);  // This strange thing is necessary to change modality correctly.
-        // (it's correctly changed when you hide and show the frame again)
-        // Without it if you open a card and then click 'Добавить ресурс'
-        // the CardForm won't be modal
+                                  // (it's correctly changed when you hide and show the frame again)
+                                  // Without it if you open a card and then click 'Добавить ресурс'
+                                  // the CardForm won't be modal
 
-        // off topic: everything was working without that 'modality'
-        // but I couldn't live without it
         frame.setVisible(true);
     }
 
@@ -514,18 +507,20 @@ public class CardForm{
         JScrollPane scrollp3 = new JScrollPane();
         JScrollPane scrollp4 = new JScrollPane();
         JScrollPane scrollp5 = new JScrollPane();
+        JScrollPane scrollp6 = new JScrollPane();
         tabbedPane1.add(scrollp1, "Общие сведения");
         tabbedPane1.add(scrollp2, "Подписка");
         tabbedPane1.add(scrollp3, "Архив подписки");
         tabbedPane1.add(scrollp4, "Статистика использования");
         tabbedPane1.add(scrollp5, "Дополнительные сведения");
+        tabbedPane1.add(scrollp6, "Экспорт");
         scrollp1.setViewportView(generalInfoTab);
         scrollp2.setViewportView(subscriptionInfoTab);
         scrollp3.setViewportView(subscriptionArchiveTab);
         scrollp4.setViewportView(statisticsTab);
         scrollp5.setViewportView(additionalInfoTab);
+        scrollp6.setViewportView(exportTab);
     }
-
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
@@ -599,7 +594,7 @@ public class CardForm{
         result.clear();
         int [] indexes = list.getSelectedIndices();
         for (int i = 0; i < indexes.length; i++) {
-            result.addElement(String.valueOf(indexes[i] + 1));
+            result.addElement(String.valueOf(indexes[i]));
         }
         return result;
     }
