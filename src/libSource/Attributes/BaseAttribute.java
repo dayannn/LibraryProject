@@ -92,6 +92,8 @@ public class BaseAttribute
         name = _name;
     }
 
+
+
     public void setAttributeValue(String _value)
     {
         value = _value;

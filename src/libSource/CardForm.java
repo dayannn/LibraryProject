@@ -298,12 +298,12 @@ public class CardForm{
 
     private void resetFieldsColor()
     {
-            resourсeNameTextArea.setBackground(Color.white);
-            addressTextArea.setBackground(Color.white);
-            annotationTextArea.setBackground(Color.white);
-            resourceOperatorList.setBackground(Color.white);
-            subjectsList.setBackground(Color.white);
-            languageList.setBackground(Color.white);
+        resourсeNameTextArea.setBackground(Color.white);
+        addressTextArea.setBackground(Color.white);
+        annotationTextArea.setBackground(Color.white);
+        resourceOperatorList.setBackground(Color.white);
+        subjectsList.setBackground(Color.white);
+        languageList.setBackground(Color.white);
     }
 
     public CardForm(mainwindow parent) {
@@ -454,6 +454,19 @@ public class CardForm{
             textAreasList.get(i).setText(src.getAttribute(i).getAttributeValue());
         }
     }
+    public void setFieldsBySourceIndexes(BaseSource src) {
+
+        resourceKindComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("kind_value").getAttributeValue()));
+
+        // Получаем расширенные значения
+        AttributeLanguage al = new AttributeLanguage("");
+        al.setValues(parseSelectedIndexes(languageList));
+
+        languageList.setSelectedIndices(parseToIntSelectedIndexes(src.getAttributeByName("language_value").getValues()));
+        resourceOperatorList.setSelectedIndices(parseToIntSelectedIndexes(src.getAttributeByName("operator_value").getValues()));
+        subjectsList.setSelectedIndices(parseToIntSelectedIndexes(src.getAttributeByName("theme_value").getValues()));
+    }
+
     public void setArchive(Archive arch) {
         archive = arch;
         DefaultListModel listModel = new DefaultListModel();
@@ -597,6 +610,16 @@ public class CardForm{
             result.addElement(String.valueOf(indexes[i]));
         }
         return result;
+    }
+
+    public int [] parseToIntSelectedIndexes(DefaultListModel<String> defaultListModel) {
+
+        int [] indexes = new int [defaultListModel.size()];
+
+        for (int i = 0; i < defaultListModel.size(); i++) {
+            indexes[i] = Integer.parseInt(defaultListModel.elementAt(i).toString());
+        }
+        return indexes;
     }
 
     // Расширенные словари

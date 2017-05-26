@@ -98,4 +98,9 @@ public class DBFacade {
         dbManager.ExecQueryWOResultSet(queryManager.addSourceInOtherTable(id, list));
     }
 
+    public ResultSet getCardIndexes(int ID) throws SQLException {
+        System.out.println(queryManager.getCardIndexesByID(ID) + queryManager.groupBy());
+        return dbManager.ExecQuery(queryManager.getCardIndexesByID(ID) + queryManager.groupBy());
+    }
+
 }

@@ -289,4 +289,52 @@ public class QueryManager {
         return query;
     }
 
+    public String extendedSelectIndexesFromMainTable(AttributeList lst) {
+        String query;
+
+        query = "SELECT ";
+        for (Integer i = 0; i < lst.size(); i++) {
+            if (lst.get(i).getMidT().isEmpty()) {
+                if (lst.get(i).getAttributeTableName().equals(MAINTABLE)) {
+                    query = query + " " + lst.get(i).getAttributeTableName() + "." + lst.get(i).getAttributeName() +
+                            " AS " + lst.get(i).getAttributeName();
+                } else {
+                    query = query + " resource_" + lst.get(i).getAttributeTableName() +
+                            " AS " + lst.get(i).getAttributeName();
+                }
+            } else {
+                query = query + " group_concat(DISTINCT resource_" +
+                        lst.get(i).getAttributeTableName() + "." + lst.get(i).getAttributeTableName() + "_id) AS " +
+                        lst.get(i).getAttributeName();
+            }
+
+            if (i != lst.size() - 1) query = query + ", ";
+        }
+        query = query + " FROM " + MAINTABLE + " ";
+
+        for (Integer i = 0; i < lst.size(); i++) {
+            if (lst.get(i).getAttributeTableName().equals(MAINTABLE))
+                continue;
+
+            if (!lst.get(i).getMidT().isEmpty()) {
+                query = query + " INNER JOIN " + lst.get(i).getMidT();
+                query = query + " ON " + lst.get(i).getMidT() + ".resource_id = " + MAINTABLE +
+                        ".resource_id ";
+/*
+                query = query + " INNER JOIN " + lst.get(i).getAttributeTableName();
+                query = query + " ON " + lst.get(i).getAttributeTableName() + ".key = " +
+                        lst.get(i).getMidT() + "." + lst.get(i).getAttributeTableName() + "_id "; */
+            }
+        }
+        return query;
+    }
+
+    public String getCardIndexesByID(int ID) {
+        Source src = new Source();
+        String query = this.extendedSelectIndexesFromMainTable(src.getList());
+        query = query + " WHERE " + MAINTABLE + ".resource_id = " + String.valueOf(ID) + " ";
+
+        return query;
+    }
+
 }

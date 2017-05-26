@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class DataBaseWorker
 {
@@ -113,6 +114,33 @@ public class DataBaseWorker
         return source;
     }
 
+    public BaseSource getCardIndexes(int ID) throws SQLException {
+        BaseSource source = new Source();
+        ResultSet rs = dbFacade.getCardIndexes(ID);
+        rs.next();
+        for (int i = 0; i < source.getAttributeCount(); i++) {
+            BaseAttribute baseAttribute = source.getAttribute(i);
+            String attributeName = baseAttribute.getAttributeName();
+
+
+            baseAttribute.setAttributeValue(rs.getString(attributeName));
+            if (!baseAttribute.getMidT().isEmpty()) {
+                Scanner scanner = new Scanner(rs.getString(attributeName));
+                scanner.useDelimiter(",");
+                DefaultListModel<String> defaultListModel = new DefaultListModel<>();
+                defaultListModel.clear();
+
+                while(scanner.hasNext()) {
+                    defaultListModel.addElement(scanner.next());
+                }
+                baseAttribute.setValues(defaultListModel);
+
+            }
+            source.setAttribute(baseAttribute);
+        }
+        return source;
+    }
+
     public Archive getArchive(int id) throws SQLException {
         ResultSet rs = dbFacade.getArchiveForSourceID(id);
         Archive archive = new Archive();
@@ -144,4 +172,8 @@ public class DataBaseWorker
     public void updateSource(int id, Source source) throws SQLException {
         dbFacade.chgSource(id, source);
     }
+
+
+
+
 }

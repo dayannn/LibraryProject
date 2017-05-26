@@ -325,7 +325,10 @@ public class mainwindow extends JFrame{
             try {
                 cardForm.setCurSrcID(ID);
                 cardForm.setFieldsBySource(mgr.getCard(ID));
+                cardForm.setFieldsBySourceIndexes(mgr.getCardIndexes(ID));
                 cardForm.setArchive(mgr.getArchive(ID));
+
+
             } catch (Exception e1) {
                 e1.printStackTrace();
             }

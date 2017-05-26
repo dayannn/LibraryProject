@@ -38,4 +38,5 @@ public class DBManager {
         System.out.println(query_str);
         dbConnection.createStatement().executeUpdate(query_str);
     }
+    
 }

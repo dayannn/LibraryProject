@@ -13,6 +13,7 @@ abstract public class BaseSource
 
     abstract public String getAttributeValueByName(String attributeName);
     abstract public void setAttributeValueByName(String attributeName, String attributeValue);
+    abstract public void setAttribute(BaseAttribute baseAttribute);
     abstract public int getAttributeCount();
     abstract public BaseAttribute getAttribute (int index);
 
@@ -24,6 +25,8 @@ abstract public class BaseSource
 
     abstract public String getLink();
 
+    abstract public AttributeList getList();
+
     abstract public String getTheme();
 
     abstract public String getType();
@@ -31,6 +34,8 @@ abstract public class BaseSource
     abstract public int getLength();
 
     abstract public void setName(String name);
+
+    abstract public BaseAttribute getAttributeByName(String name);
 
     abstract public void setAccessType(String accessType);
 

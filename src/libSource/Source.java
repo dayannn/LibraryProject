@@ -34,8 +34,8 @@ public class Source extends  BaseSource
         attributeList.add(new AttributeAccessMode(""));
         attributeList.add(new AttributeSubscriptionType(""));
 
-
-/*      пока так
+/*
+        пока так
         attributeList.add(new AttributeArchivationDate(""));
         attributeList.add(new AttributeArchiveKey(""));
         attributeList.add(new AttributeContractDetails(""));
@@ -177,6 +177,12 @@ public class Source extends  BaseSource
         attributeSearcher.setAttributeValue(attributeList, "Type", type);
     }
 
+    @Override
+    public BaseAttribute getAttributeByName(String name) {
+        return attributeSearcher.getAttribute(attributeList, name);
+    }
+
+    @Override
     public void setAttribute(BaseAttribute attribute) {
         attributeSearcher.getAttribute(attributeList, attribute.getAttributeName()).setValues(attribute.getValues());
         attributeSearcher.getAttribute(attributeList, attribute.getAttributeName()).setAttributeValue(attribute.getAttributeValue());
