@@ -341,8 +341,10 @@ public class mainwindow extends JFrame{
             int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
             try {
                 cardForm.setCurSrcID(ID);
+
                 cardForm.setFieldsBySource(mgr.getCard(ID));
                 cardForm.setFieldsBySourceIndexes(mgr.getCardIndexes(ID));
+
                 cardForm.setArchive(mgr.getArchive(ID));
 
 
