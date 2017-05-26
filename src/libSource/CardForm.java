@@ -392,9 +392,9 @@ public class CardForm{
                 saveButton.setVisible(false);
                 discardButton.setVisible(false);
                 if (mode == CardMode.ADDDITION)
-                {
                     frame.setVisible(false);
-                }
+                else
+                    parent.editionCancelled();
             }
         });
 
