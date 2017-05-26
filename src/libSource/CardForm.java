@@ -449,6 +449,7 @@ public class CardForm{
         });
     }
 
+    // Заполнение всех текстовых полей и комбобококосов
     public void setFieldsBySource(BaseSource src) {
         for (int i = 0; i < src.getLength(); i++) {
             textAreasList.get(i).setText(src.getAttribute(i).getAttributeValue());
@@ -456,7 +457,14 @@ public class CardForm{
     }
     public void setFieldsBySourceIndexes(BaseSource src) {
 
+        // TODO: ВОЗМОЖНО инициализация текстовых полей
+
+
+        // TODO: Инициализация полей комбобоксов
         resourceKindComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("kind_value").getAttributeValue()));
+
+
+
 
         // Получаем расширенные значения
         AttributeLanguage al = new AttributeLanguage("");
