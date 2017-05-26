@@ -464,18 +464,22 @@ public class CardForm{
         attributeStatus.setAttributeValue(String.valueOf(resourceStatusComboBox.getSelectedIndex()));
         res.setAttribute(attributeStatus);
 
-        // НИЖЕ +2 ПОТОМУ ЧТО НЕ ДОДЕЛАНО!!!!!!!!!!!!!!!!!
+
         AttributePayType attributePayType = new AttributePayType("");
-        attributePayType.setAttributeValue(String.valueOf(paymentMethodComboBox.getSelectedIndex()+2));
+        attributePayType.setAttributeValue(String.valueOf(paymentMethodComboBox.getSelectedIndex()));
         res.setAttribute(attributePayType);
 
         AttributeSubscriptionType attributeSubscriptionType = new AttributeSubscriptionType("");
-        attributeSubscriptionType.setAttributeValue(String.valueOf(subscriptionModelComboBox.getSelectedIndex()+2));
+        attributeSubscriptionType.setAttributeValue(String.valueOf(subscriptionModelComboBox.getSelectedIndex()));
         res.setAttribute(attributeSubscriptionType);
 
         AttributeAccessMode attributeAccessMode = new AttributeAccessMode("");
-        attributeAccessMode.setAttributeValue(String.valueOf(accessModeComboBox.getSelectedIndex()+2));
+        attributeAccessMode.setAttributeValue(String.valueOf(accessModeComboBox.getSelectedIndex()));
         res.setAttribute(attributeAccessMode);
+
+        AttributeTestAccess attributeTestAccess = new AttributeTestAccess("");
+        attributeTestAccess.setAttributeValue(String.valueOf(testAccessComboBox.getSelectedIndex()));
+        res.setAttribute(attributeTestAccess);
 
         return res;
     }
@@ -490,13 +494,7 @@ public class CardForm{
         return result;
     }
 
-
-    public void setAccessTypeDictionary(DefaultListModel dictionary) {
-        for(int i = 0; i< dictionary.getSize();i++) {
-            accessTypeComboBox.addItem(dictionary.elementAt(i));
-        }
-    }
-
+    // Расширенные словари
     public void setThemeDictionary(DefaultListModel dictionary) {
         DefaultListModel listModel = new DefaultListModel();
         for(int i = 0; i < dictionary.getSize(); i++)
@@ -516,6 +514,7 @@ public class CardForm{
         resourceOperatorList.setModel(listModel);
     }
 
+    // обычные словари комбобоксов
     public void setTypeDictionary(DefaultListModel dictionary) {
         for(int i = 0; i< dictionary.getSize(); i++)
             resourceTypeComboBox.addItem(dictionary.elementAt(i));
@@ -524,5 +523,37 @@ public class CardForm{
     public void setKindDictionary(DefaultListModel dictionary) {
         for(int i = 0; i < dictionary.getSize(); i++)
             resourceKindComboBox.addItem(dictionary.elementAt(i));
+    }
+
+    public void setInfoKindDictionary(DefaultListModel dictionary) {
+        for(int i = 0; i < dictionary.getSize(); i++)
+            infoKindComboBox.addItem(dictionary.elementAt(i));
+    }
+
+    public void setAccessTypeDictionary(DefaultListModel dictionary) {
+        for(int i = 0; i< dictionary.getSize();i++) {
+            accessTypeComboBox.addItem(dictionary.elementAt(i));
+        }
+    }
+    public void setSubModelDictionary(DefaultListModel dictionary) {
+        for(int i = 0; i< dictionary.getSize();i++) {
+            subscriptionModelComboBox.addItem(dictionary.elementAt(i));
+        }
+    }
+    public void setPaymentMethodDictionary(DefaultListModel dictionary) {
+        for(int i = 0; i< dictionary.getSize();i++) {
+            paymentMethodComboBox.addItem(dictionary.elementAt(i));
+        }
+    }
+    public void setAccessModeDictionary(DefaultListModel dictionary) {
+        for(int i = 0; i< dictionary.getSize();i++) {
+            accessModeComboBox.addItem(dictionary.elementAt(i));
+        }
+    }
+
+    public void setTestModeDictionary(DefaultListModel dictionary) {
+        for(int i = 0; i< dictionary.getSize();i++) {
+            testAccessComboBox.addItem(dictionary.elementAt(i));
+        }
     }
 }
