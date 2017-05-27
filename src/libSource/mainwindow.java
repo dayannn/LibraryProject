@@ -29,6 +29,15 @@ public class mainwindow extends JFrame{
     private JButton getbutton;
     private JButton extendedSearchButton;
     private JScrollPane jp;
+
+    public DataBaseWorker getMgr() {
+        return mgr;
+    }
+
+    public void setMgr(DataBaseWorker mgr) {
+        this.mgr = mgr;
+    }
+
     private DataBaseWorker mgr;
     private ChangeUser chgUser;
     private CardForm cardForm;
@@ -59,6 +68,9 @@ public class mainwindow extends JFrame{
         setUpPopupMenu();
         try {
             mgr = new DataBaseWorker();
+
+
+            cardForm.setDictionariesInfo(mgr.getDictInfo());
 
             cardForm.setAccessTypeDictionary(mgr.getDictionary("access_type"));
             cardForm.setInfoKindDictionary(mgr.getDictionary("content"));

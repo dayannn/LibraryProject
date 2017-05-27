@@ -5,12 +5,9 @@ import libSource.Attributes.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.*;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -124,6 +121,7 @@ public class CardForm{
     private Dictionary accessModeDictionary;
     private Dictionary testModeDictionary;
     private Dictionary statusDictionary;
+    private DictionaryInfoProxy dictionaryInfoProxy;
 
 
     public int getCurSrcID() {
@@ -335,15 +333,6 @@ public class CardForm{
 
     public CardForm(mainwindow parent) {
         dictform = new ChangeDirectoryForm();
-
-        //тестовые значение для таблицы словарей
-        tm.addColumn("Id");
-        tm.addColumn("Value");
-        tm.addRow(new Object[]{"1", "value1"});
-        tm.addRow(new Object[]{"2","value2"});
-        ///////////////////////////////
-
-        DictionaryTable.setModel(tm);
         curSrcID = 0;
         frame = new JDialog(_parent, "Паспорт ресурса", true);
         _parent = parent;
@@ -500,6 +489,41 @@ public class CardForm{
                 dictform.show();
             }
         });
+
+
+        dictionaryComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dictionaryComboBox.getSelectedIndex() >= 0) {
+
+                    tm.setColumnCount(0);
+                    String table_name = dictionaryInfoProxy.getTableNameByIdx(dictionaryComboBox.getSelectedIndex());
+                    tm.addColumn("Индекс словаря");
+                    tm.addColumn("Значения словаря");
+
+                    try {
+                        tm.setRowCount(0);
+                        Dictionary curDict = _parent.getMgr().getDictionary(table_name);
+                        for (int i = 0; i < curDict.getSize(); i++) {
+                            Vector<String> data = new Vector<>();
+                            data.addElement(String.valueOf(curDict.getDBIdxByIdx(i)));
+                            data.addElement(curDict.getDictValueByIdx(i));
+                            tm.addRow(data);
+                        }
+                        DictionaryTable.setModel(tm);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
+    public void setDictionariesInfo(DictionaryInfoProxy dictionariesInfo) {
+        dictionaryInfoProxy = dictionariesInfo;
+        for (int i = 0; i < dictionariesInfo.getSize(); i++) {
+            dictionaryComboBox.addItem(dictionariesInfo.getDescriptionByIdx(i));
+        }
     }
 
     // Заполнение всех текстовых полей и комбобококосов
@@ -697,7 +721,7 @@ public class CardForm{
 
         DefaultListModel listModel = new DefaultListModel();
         for(int i = 0; i < dictionary.getSize(); i++)
-            listModel.addElement(dictionary.getValueByIdx(i));
+            listModel.addElement(dictionary.getDictValueByIdx(i));
 
         subjectsList.setModel(listModel);
     }
@@ -707,7 +731,7 @@ public class CardForm{
 
         DefaultListModel listModel = new DefaultListModel();
         for(int i = 0; i < dictionary.getSize(); i++)
-            listModel.addElement(dictionary.getValueByIdx(i));
+            listModel.addElement(dictionary.getDictValueByIdx(i));
         languageList.setModel(listModel);
     }
 
@@ -716,7 +740,7 @@ public class CardForm{
 
         DefaultListModel listModel = new DefaultListModel();
         for(int i = 0; i < dictionary.getSize(); i++)
-            listModel.addElement(dictionary.getValueByIdx(i));
+            listModel.addElement(dictionary.getDictValueByIdx(i));
         resourceOperatorList.setModel(listModel);
     }
 
@@ -725,49 +749,49 @@ public class CardForm{
         typeDictionary = dictionary;
 
         for(int i = 0; i< dictionary.getSize(); i++)
-            resourceTypeComboBox.addItem(dictionary.getValueByIdx(i));
+            resourceTypeComboBox.addItem(dictionary.getDictValueByIdx(i));
     }
 
     public void setKindDictionary(Dictionary dictionary) {
         kindDictionary = dictionary;
 
         for(int i = 0; i < dictionary.getSize(); i++)
-            resourceKindComboBox.addItem(dictionary.getValueByIdx(i));
+            resourceKindComboBox.addItem(dictionary.getDictValueByIdx(i));
     }
 
     public void setInfoKindDictionary(Dictionary dictionary) {
         contentDictionary = dictionary;
 
         for(int i = 0; i < dictionary.getSize(); i++)
-            infoKindComboBox.addItem(dictionary.getValueByIdx(i));
+            infoKindComboBox.addItem(dictionary.getDictValueByIdx(i));
     }
 
     public void setAccessTypeDictionary(Dictionary dictionary) {
         accessTypeDictionary = dictionary;
 
         for(int i = 0; i< dictionary.getSize();i++) {
-            accessTypeComboBox.addItem(dictionary.getValueByIdx(i));
+            accessTypeComboBox.addItem(dictionary.getDictValueByIdx(i));
         }
     }
     public void setSubModelDictionary(Dictionary dictionary) {
         subModelDictionary = dictionary;
 
         for(int i = 0; i< dictionary.getSize();i++) {
-            subscriptionModelComboBox.addItem(dictionary.getValueByIdx(i));
+            subscriptionModelComboBox.addItem(dictionary.getDictValueByIdx(i));
         }
     }
     public void setPaymentMethodDictionary(Dictionary dictionary) {
         paymentMethodDictionary = dictionary;
 
         for(int i = 0; i< dictionary.getSize();i++) {
-            paymentMethodComboBox.addItem(dictionary.getValueByIdx(i));
+            paymentMethodComboBox.addItem(dictionary.getDictValueByIdx(i));
         }
     }
     public void setAccessModeDictionary(Dictionary dictionary) {
         accessModeDictionary = dictionary;
 
         for(int i = 0; i< dictionary.getSize();i++) {
-            accessModeComboBox.addItem(dictionary.getValueByIdx(i));
+            accessModeComboBox.addItem(dictionary.getDictValueByIdx(i));
         }
     }
 
@@ -775,19 +799,18 @@ public class CardForm{
         testModeDictionary = dictionary;
 
         for(int i = 0; i< dictionary.getSize();i++) {
-            testAccessComboBox.addItem(dictionary.getValueByIdx(i));
+            testAccessComboBox.addItem(dictionary.getDictValueByIdx(i));
         }
     }
     public void setStatusDictionary(Dictionary dictionary){
         statusDictionary = dictionary;
 
         for (int i = 0; i < dictionary.getSize(); i++){
-            resourceStatusComboBox.addItem(dictionary.getValueByIdx(i));
+            resourceStatusComboBox.addItem(dictionary.getDictValueByIdx(i));
         }
     }
 
-    public void SetChangeDictionaryform()
-    {
+    public void SetChangeDictionaryform() {
         int ID = Integer.parseInt(DictionaryTable.getValueAt(DictionaryTable.getSelectedRow(), 0).toString());
         String nameofline  = DictionaryTable.getValueAt(DictionaryTable.getSelectedRow(), 1).toString();
         dictform.Setfield(ID, nameofline);

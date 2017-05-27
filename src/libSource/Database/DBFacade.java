@@ -1,4 +1,5 @@
 package libSource.Database;
+import com.sun.org.apache.regexp.internal.RE;
 import  libSource.Attributes.*;
 import  libSource.*;
 
@@ -99,8 +100,10 @@ public class DBFacade {
     }
 
     public ResultSet getCardIndexes(int ID) throws SQLException {
-        System.out.println(queryManager.getCardIndexesByID(ID) + queryManager.groupBy());
         return dbManager.ExecQuery(queryManager.getCardIndexesByID(ID) + queryManager.groupBy());
     }
 
+    public ResultSet getDictionariesInfo() throws SQLException {
+        return dbManager.ExecQuery(queryManager.getDictionariesInfo());
+    }
 }
