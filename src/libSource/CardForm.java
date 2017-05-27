@@ -640,9 +640,12 @@ public class CardForm{
 
     public DefaultListModel<String> parseSelectedIndexes(Dictionary dict, JList list) {
 
+        // ID | Key | Value
+        // 0  | 54  | Porn
         DefaultListModel<String> result = new DefaultListModel<>();
         result.clear();
-        int [] indexes = list.getSelectedIndices();
+
+        int [] indexes = list.getSelectedIndices();  // 0 1 2 3....
         for (int i = 0; i < indexes.length; i++) {
             result.addElement(String.valueOf(dict.getDBIdxByIdx(indexes[i])));
         }
