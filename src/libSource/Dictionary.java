@@ -9,8 +9,8 @@ import java.util.Vector;
  * Created by JacKeTUs on 27.05.2017.
  */
 public class Dictionary {
-    private String table_name;
-    private DefaultTableModel dictData;
+    protected String table_name;
+    protected DefaultTableModel dictData;
 
     public String getTable_name() {
         return table_name;
@@ -66,8 +66,12 @@ public class Dictionary {
         return -1;
     }
 
-    public String getValueByIdx(int idx) {
-        return dictData.getValueAt(idx,2).toString();
+    public String getDictValueByIdx(int idx) {
+        return getValueByIdx(idx,2);
+    }
+
+    public String getValueByIdx(int idx, int value) {
+        return dictData.getValueAt(idx, value).toString();
     }
 
     public int getSize() {

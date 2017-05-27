@@ -1,11 +1,13 @@
 package libSource;
 
 
+import com.sun.org.apache.regexp.internal.RE;
 import libSource.Attributes.AttributeName;
 import libSource.Attributes.BaseAttribute;
 import libSource.Database.DBFacade;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -162,12 +164,20 @@ public class DataBaseWorker
 
         ResultSet rs = dbFacade.getDictionary(table_name);
 
-        dict.parseDictionary(dbFacade.getDictionary(table_name));
+        dict.parseDictionary(rs);
 
         return dict;
     }
 
     public void updateSource(int id, Source source) throws SQLException {
         dbFacade.chgSource(id, source);
+    }
+
+    public DictionaryInfoProxy getDictInfo() throws SQLException {
+        DictionaryInfoProxy dictionaryInfoProxy = new DictionaryInfoProxy("dict_info");
+
+        dictionaryInfoProxy.parseDictionary(dbFacade.getDictionariesInfo());
+
+        return dictionaryInfoProxy;
     }
 }

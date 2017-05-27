@@ -320,10 +320,6 @@ public class QueryManager {
                 query = query + " INNER JOIN " + lst.get(i).getMidT();
                 query = query + " ON " + lst.get(i).getMidT() + ".resource_id = " + MAINTABLE +
                         ".resource_id ";
-/*
-                query = query + " INNER JOIN " + lst.get(i).getAttributeTableName();
-                query = query + " ON " + lst.get(i).getAttributeTableName() + ".key = " +
-                        lst.get(i).getMidT() + "." + lst.get(i).getAttributeTableName() + "_id "; */
             }
         }
         return query;
@@ -334,6 +330,11 @@ public class QueryManager {
         String query = this.extendedSelectIndexesFromMainTable(src.getList());
         query = query + " WHERE " + MAINTABLE + ".resource_id = " + String.valueOf(ID) + " ";
 
+        return query;
+    }
+
+    public String getDictionariesInfo() {
+        String query = " SELECT * FROM dictionary_info ORDER BY dict_description";
         return query;
     }
 
