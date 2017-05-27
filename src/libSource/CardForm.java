@@ -549,6 +549,7 @@ public class CardForm{
         scrollp4.setViewportView(statisticsTab);
         scrollp5.setViewportView(additionalInfoTab);
         scrollp6.setViewportView(exportTab);
+
     }
 
     private void createUIComponents() {
