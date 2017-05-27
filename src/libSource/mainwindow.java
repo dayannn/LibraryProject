@@ -71,7 +71,7 @@ public class mainwindow extends JFrame{
         openCardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               // cardForm.setAdmin(UserRole);
+                cardForm.setAdmin(UserRole);
                 if (table1.getSelectedRowCount() == 0)
                     return;
                 int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());

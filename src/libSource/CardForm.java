@@ -99,11 +99,14 @@ public class CardForm{
     private JLabel languageLabel;
     private JPanel exportTab;
     private JButton exportbutton;
+    private JPanel ModifyTab;
+    private JList list1;
+    private JComboBox comboBox1;
+    private JButton Add;
+    private JButton добавитьButton;
+    private JButton удалитьButton;
     private Archive archive;
     private int curSrcID;
-    private String path;
-    private String filename;
-
 
     public int getCurSrcID() {
         return curSrcID;
@@ -123,11 +126,16 @@ public class CardForm{
 
     public void setAdmin(boolean admin) {
         IsAdmin = admin;
+        //tabbedPane1.remove(ModifyTab);
         if (IsAdmin) {
             // admin job
-        }
+            tabbedPane1.add(ModifyTab);
+            ModifyTab.setName("Изменение");
 
+        }
         else {
+
+            tabbedPane1.remove(ModifyTab);
             // librarian job
         }
 
