@@ -1,9 +1,9 @@
 package libSource;
 
-import javafx.scene.control.SelectionMode;
 import libSource.Attributes.*;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -100,15 +100,17 @@ public class CardForm{
     private JPanel exportTab;
     private JButton exportbutton;
     private JPanel ModifyTab;
-    private JList list1;
-    private JComboBox comboBox1;
-    private JButton Add;
-    private JButton добавитьButton;
-    private JButton удалитьButton;
+    private JComboBox dictionaryComboBox;
+    private JButton ChangeButton;
+    private JButton AddButton;
+    private JButton DeleteButton;
+    private JTable DictionaryTable;
     private Archive archive;
     private int curSrcID;
-    private String path;
-    private String filename;
+    private ChangeDirectoryForm dictform;
+
+    DefaultTableModel tm = new DefaultTableModel();
+
 
     private Dictionary accessTypeDictionary;
     private Dictionary contentDictionary;
@@ -330,7 +332,18 @@ public class CardForm{
         languageList.setBackground(Color.white);
     }
 
+
     public CardForm(mainwindow parent) {
+        dictform = new ChangeDirectoryForm();
+
+        //тестовые значение для таблицы словарей
+        tm.addColumn("Id");
+        tm.addColumn("Value");
+        tm.addRow(new Object[]{"1", "value1"});
+        tm.addRow(new Object[]{"2","value2"});
+        ///////////////////////////////
+
+        DictionaryTable.setModel(tm);
         curSrcID = 0;
         frame = new JDialog(_parent, "Паспорт ресурса", true);
         _parent = parent;
@@ -471,6 +484,22 @@ public class CardForm{
                 }
             }
         });
+
+        ChangeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SetChangeDictionaryform();
+                dictform.show();
+            }
+        });
+
+        AddButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dictform = new ChangeDirectoryForm();
+                dictform.show();
+            }
+        });
     }
 
     // Заполнение всех текстовых полей и комбобококосов
@@ -483,6 +512,7 @@ public class CardForm{
         // TODO: ВОЗМОЖНО инициализация текстовых полей
 
         // TODO: Инициализация полей комбобоксов
+
         resourceKindComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("kind_value").getAttributeValue()));
         resourceTypeComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("type_value").getAttributeValue()));
         infoKindComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("content_value").getAttributeValue()));
@@ -754,5 +784,13 @@ public class CardForm{
         for (int i = 0; i < dictionary.getSize(); i++){
             resourceStatusComboBox.addItem(dictionary.getValueByIdx(i));
         }
+    }
+
+    public void SetChangeDictionaryform()
+    {
+        int ID = Integer.parseInt(DictionaryTable.getValueAt(DictionaryTable.getSelectedRow(), 0).toString());
+        String nameofline  = DictionaryTable.getValueAt(DictionaryTable.getSelectedRow(), 1).toString();
+        dictform.Setfield(ID, nameofline);
+
     }
 }
