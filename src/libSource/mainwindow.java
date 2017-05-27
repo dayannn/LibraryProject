@@ -252,7 +252,7 @@ public class mainwindow extends JFrame{
     }
 
     public static void main(String[] args) {
-        mainwindow mainWindow = new mainwindow();
+        new mainwindow();
 
     }
 
@@ -272,9 +272,17 @@ public class mainwindow extends JFrame{
         aboutMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,"Программа");
+                JOptionPane.showMessageDialog(null,"Программа создана силами студентов МГТУ им. Баумана, группа ИУ7-63 в 2к17-том году", "О программе", JOptionPane.INFORMATION_MESSAGE);
             }
         });
+        JMenuItem helpMenuItem = new JMenuItem("Справка");
+        helpMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new HelpForm();
+            }
+        });
+        aboutMenu.add(helpMenuItem);
         aboutMenu.add(aboutMenuItem);
         menuBar.add(aboutMenu);
     }
