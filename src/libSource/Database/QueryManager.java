@@ -338,4 +338,9 @@ public class QueryManager {
         return query;
     }
 
+    public String addDictValueInDictionary(String dict_name, String value) {
+        String query = " INSERT INTO " + dict_name + "(" + dict_name + "_value) VALUES (\"" + value + "\")";
+        return query;
+    }
+
 }

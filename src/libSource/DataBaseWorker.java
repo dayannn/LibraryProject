@@ -180,4 +180,8 @@ public class DataBaseWorker
 
         return dictionaryInfoProxy;
     }
+
+    public void addDictionaryValue(String table_name, String value) throws SQLException {
+        dbFacade.addDictValue(table_name, value);
+    }
 }

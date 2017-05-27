@@ -34,6 +34,7 @@ public class DictionaryInfoProxy extends Dictionary {
         }
     }
 
+
     public String getTableNameByIdx(int idx) {
         return getValueByIdx(idx, 2);
     }

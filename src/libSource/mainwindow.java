@@ -411,11 +411,17 @@ public class mainwindow extends JFrame{
         try {
             int ID = cardForm.getCurSrcID();
             cardForm.setFieldsBySource(mgr.getCard(ID)); // загружаем неизменённую карточку
-        }
-        catch (Exception e1) {
+        } catch (Exception e1) {
             e1.printStackTrace();
         }
     }
 
+    public void addValueInDictionary(String table_name, String value) {
+        try {
+            mgr.addDictionaryValue(table_name, value);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 
