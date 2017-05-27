@@ -35,9 +35,19 @@ public class mainwindow extends JFrame{
     private boolean UserRole = false;
     private JPopupMenu tablePopupMenu;
     private DefaultTableModel model;
-
+    private JMenuBar menuBar;
 
     public mainwindow() {
+        setTitle("Система паспортизации электронных ресурсов удаленного доступа");
+        menuBar = new JMenuBar();
+
+        setContentPane(panel1);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setMyMenuBar();
+        setPreferredSize(new Dimension(800, 600));
+        pack();
+        setVisible(true);
+
         model = new DefaultTableModel();
         chgUser = new ChangeUser(this);
         cardForm = new CardForm(this);
@@ -45,9 +55,11 @@ public class mainwindow extends JFrame{
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tablePopupMenu = new JPopupMenu();
 
+
         setUpPopupMenu();
         try {
             mgr = new DataBaseWorker();
+
             cardForm.setAccessTypeDictionary(mgr.getDictionary("access_type"));
             cardForm.setInfoKindDictionary(mgr.getDictionary("content"));
             cardForm.setKindDictionary(mgr.getDictionary("kind"));
@@ -59,6 +71,7 @@ public class mainwindow extends JFrame{
             cardForm.setPaymentMethodDictionary(mgr.getDictionary("pay_type"));
             cardForm.setAccessModeDictionary(mgr.getDictionary("access_mode"));
             cardForm.setTestModeDictionary(mgr.getDictionary("test_mode"));
+            cardForm.setStatusDictionary(mgr.getDictionary("status"));
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -131,6 +144,7 @@ public class mainwindow extends JFrame{
                     hidePop();
             }
         });
+
         extendedSearchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -226,11 +240,8 @@ public class mainwindow extends JFrame{
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Система паспортизации электронных ресурсов");
-        frame.setContentPane(new mainwindow().panel1);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+        mainwindow mainWindow = new mainwindow();
+
     }
 
     public void setUserRole(boolean role) {
@@ -240,6 +251,20 @@ public class mainwindow extends JFrame{
         else
             changeUserButton.setText("Сменить режим доступа (польз.)");
         cardForm.setAdmin(role);
+    }
+
+    private void setMyMenuBar(){
+        setJMenuBar(menuBar);
+        JMenu aboutMenu = new  JMenu("О программе");
+        JMenuItem aboutMenuItem = new JMenuItem("О программе");
+        aboutMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null,"Программа");
+            }
+        });
+        aboutMenu.add(aboutMenuItem);
+        menuBar.add(aboutMenu);
     }
 
     private void createUIComponents() {

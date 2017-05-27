@@ -121,8 +121,7 @@ public class DataBaseWorker
         for (int i = 0; i < source.getAttributeCount(); i++) {
             BaseAttribute baseAttribute = source.getAttribute(i);
             String attributeName = baseAttribute.getAttributeName();
-
-
+            
             baseAttribute.setAttributeValue(rs.getString(attributeName));
             if (!baseAttribute.getMidT().isEmpty()) {
                 Scanner scanner = new Scanner(rs.getString(attributeName));
@@ -158,22 +157,17 @@ public class DataBaseWorker
         dbFacade.addSource(source);
     }
 
-    public DefaultListModel getDictionary(String table_name) throws SQLException {
-        DefaultListModel lst = new DefaultListModel();
+    public Dictionary getDictionary(String table_name) throws SQLException {
+        Dictionary dict = new Dictionary(table_name);
 
         ResultSet rs = dbFacade.getDictionary(table_name);
-        while (rs.next()){
-            lst.addElement(rs.getString(1));
-        }
 
-        return lst;
+        dict.parseDictionary(dbFacade.getDictionary(table_name));
+
+        return dict;
     }
 
     public void updateSource(int id, Source source) throws SQLException {
         dbFacade.chgSource(id, source);
     }
-
-
-
-
 }

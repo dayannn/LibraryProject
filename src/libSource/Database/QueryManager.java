@@ -245,7 +245,7 @@ public class QueryManager {
     }
 
     public String getDictionaryForTable(String table) {
-        return "SELECT " + table + "_value FROM " + table + " ";
+        return "SELECT key, " + table + "_value FROM " + table + " ORDER BY " + table + "_value ";
     }
 
     public String updateMainTable(Integer ID, AttributeList attributeList) {
