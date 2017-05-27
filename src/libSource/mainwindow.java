@@ -49,6 +49,7 @@ public class mainwindow extends JFrame{
         setUpPopupMenu();
         try {
             mgr = new DataBaseWorker();
+
             cardForm.setAccessTypeDictionary(mgr.getDictionary("access_type"));
             cardForm.setInfoKindDictionary(mgr.getDictionary("content"));
             cardForm.setKindDictionary(mgr.getDictionary("kind"));

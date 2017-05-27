@@ -104,6 +104,19 @@ public class CardForm{
     private String path;
     private String filename;
 
+    private Dictionary accessTypeDictionary;
+    private Dictionary contentDictionary;
+    private Dictionary kindDictionary;
+    private Dictionary typeDictionary;
+    private Dictionary themeDictionary;
+    private Dictionary languageDictionary;
+    private Dictionary operatorDictionary;
+    private Dictionary subModelDictionary;
+    private Dictionary paymentMethodDictionary;
+    private Dictionary accessModeDictionary;
+    private Dictionary testModeDictionary;
+    private Dictionary statusDictionary;
+
 
     public int getCurSrcID() {
         return curSrcID;
@@ -459,7 +472,6 @@ public class CardForm{
 
         // TODO: ВОЗМОЖНО инициализация текстовых полей
 
-
         // TODO: Инициализация полей комбобоксов
         resourceKindComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("kind_value").getAttributeValue()));
         resourceTypeComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("type_value").getAttributeValue()));
@@ -472,15 +484,11 @@ public class CardForm{
         testAccessComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("resource_test_mode").getAttributeValue()));
 
 
-
-
         // Получаем расширенные значения
-        AttributeLanguage al = new AttributeLanguage("");
-        al.setValues(parseSelectedIndexes(languageList));
 
-        languageList.setSelectedIndices(parseToIntSelectedIndexes(src.getAttributeByName("language_value").getValues()));
-        resourceOperatorList.setSelectedIndices(parseToIntSelectedIndexes(src.getAttributeByName("operator_value").getValues()));
-        subjectsList.setSelectedIndices(parseToIntSelectedIndexes(src.getAttributeByName("theme_value").getValues()));
+        languageList.setSelectedIndices(parseToIntSelectedIndexes(languageDictionary, src.getAttributeByName("language_value").getValues()));
+        resourceOperatorList.setSelectedIndices(parseToIntSelectedIndexes(operatorDictionary, src.getAttributeByName("operator_value").getValues()));
+        subjectsList.setSelectedIndices(parseToIntSelectedIndexes(themeDictionary, src.getAttributeByName("theme_value").getValues()));
     }
 
     public void setArchive(Archive arch) {
@@ -568,141 +576,170 @@ public class CardForm{
 
         // Получаем расширенные значения
         AttributeLanguage al = new AttributeLanguage("");
-        al.setValues(parseSelectedIndexes(languageList));
+        al.setValues(parseSelectedIndexes(languageDictionary, languageList));
+
         AttributeOperator ao = new AttributeOperator("");
-        ao.setValues(parseSelectedIndexes(resourceOperatorList));
+        ao.setValues(parseSelectedIndexes(operatorDictionary, resourceOperatorList));
+
         AttributeTheme at = new AttributeTheme("");
-        at.setValues(parseSelectedIndexes(subjectsList));
+        at.setValues(parseSelectedIndexes(themeDictionary, subjectsList));
+
         res.setAttribute(al);
         res.setAttribute(ao);
         res.setAttribute(at);
 
         // Получаем значения комбобоксов
         AttributeType attributeType = new AttributeType("");
-        attributeType.setAttributeValue(String.valueOf(resourceTypeComboBox.getSelectedIndex()));
+        attributeType.setAttributeValue(String.valueOf(typeDictionary.getDBIdxByIdx(resourceTypeComboBox.getSelectedIndex())));
         res.setAttribute(attributeType);
 
         AttributeKind attributeKind = new AttributeKind("");
-        attributeKind.setAttributeValue(String.valueOf(resourceKindComboBox.getSelectedIndex()));
+        attributeKind.setAttributeValue(String.valueOf(kindDictionary.getDBIdxByIdx(resourceKindComboBox.getSelectedIndex())));
         res.setAttribute(attributeKind);
 
         AttributeContent attributeContent = new AttributeContent("");
-        attributeContent.setAttributeValue(String.valueOf(infoKindComboBox.getSelectedIndex()));
+        attributeContent.setAttributeValue(String.valueOf(contentDictionary.getDBIdxByIdx(infoKindComboBox.getSelectedIndex())));
         res.setAttribute(attributeContent);
 
         AttributeAccessType attributeAccessType = new AttributeAccessType("");
-        attributeAccessType.setAttributeValue(String.valueOf(accessTypeComboBox.getSelectedIndex()));
+        attributeAccessType.setAttributeValue(String.valueOf(accessTypeDictionary.getDBIdxByIdx(accessTypeComboBox.getSelectedIndex())));
         res.setAttribute(attributeAccessType);
 
         AttributeStatus attributeStatus = new AttributeStatus("");
-        attributeStatus.setAttributeValue(String.valueOf(resourceStatusComboBox.getSelectedIndex()));
+        attributeStatus.setAttributeValue(String.valueOf(statusDictionary.getDBIdxByIdx(resourceStatusComboBox.getSelectedIndex())));
         res.setAttribute(attributeStatus);
 
-
         AttributePayType attributePayType = new AttributePayType("");
-        attributePayType.setAttributeValue(String.valueOf(paymentMethodComboBox.getSelectedIndex()));
+        attributePayType.setAttributeValue(String.valueOf(paymentMethodDictionary.getDBIdxByIdx(paymentMethodComboBox.getSelectedIndex())));
         res.setAttribute(attributePayType);
 
         AttributeSubscriptionType attributeSubscriptionType = new AttributeSubscriptionType("");
-        attributeSubscriptionType.setAttributeValue(String.valueOf(subscriptionModelComboBox.getSelectedIndex()));
+        attributeSubscriptionType.setAttributeValue(String.valueOf(subModelDictionary.getDBIdxByIdx(subscriptionModelComboBox.getSelectedIndex())));
         res.setAttribute(attributeSubscriptionType);
 
         AttributeAccessMode attributeAccessMode = new AttributeAccessMode("");
-        attributeAccessMode.setAttributeValue(String.valueOf(accessModeComboBox.getSelectedIndex()));
+        attributeAccessMode.setAttributeValue(String.valueOf(accessModeDictionary.getDBIdxByIdx(accessModeComboBox.getSelectedIndex())));
         res.setAttribute(attributeAccessMode);
 
         AttributeTestAccess attributeTestAccess = new AttributeTestAccess("");
-        attributeTestAccess.setAttributeValue(String.valueOf(testAccessComboBox.getSelectedIndex()));
+        attributeTestAccess.setAttributeValue(String.valueOf(testModeDictionary.getDBIdxByIdx(testAccessComboBox.getSelectedIndex())));
         res.setAttribute(attributeTestAccess);
 
         return res;
     }
 
-    public DefaultListModel<String> parseSelectedIndexes(JList list) {
+    public DefaultListModel<String> parseSelectedIndexes(Dictionary dict, JList list) {
+
         DefaultListModel<String> result = new DefaultListModel<>();
         result.clear();
         int [] indexes = list.getSelectedIndices();
         for (int i = 0; i < indexes.length; i++) {
-            result.addElement(String.valueOf(indexes[i]));
+            result.addElement(String.valueOf(dict.getDBIdxByIdx(indexes[i])));
         }
         return result;
     }
 
-    public int [] parseToIntSelectedIndexes(DefaultListModel<String> defaultListModel) {
+    public int [] parseToIntSelectedIndexes(Dictionary dict, DefaultListModel<String> defaultListModel) {
 
         int [] indexes = new int [defaultListModel.size()];
-
         for (int i = 0; i < defaultListModel.size(); i++) {
-            indexes[i] = Integer.parseInt(defaultListModel.elementAt(i).toString());
+            indexes[i] = dict.getIdxByDBIdx(Integer.parseInt(defaultListModel.elementAt(i)));
         }
         return indexes;
     }
 
     // Расширенные словари
-    public void setThemeDictionary(DefaultListModel dictionary) {
+    public void setThemeDictionary(Dictionary dictionary) {
+        themeDictionary = dictionary;
+
         DefaultListModel listModel = new DefaultListModel();
         for(int i = 0; i < dictionary.getSize(); i++)
-            listModel.addElement(dictionary.getElementAt(i).toString());
+            listModel.addElement(dictionary.getValueByIdx(i));
+
         subjectsList.setModel(listModel);
     }
-    public void setLanguageDictionary(DefaultListModel dictionary) {
+
+    public void setLanguageDictionary(Dictionary dictionary) {
+        languageDictionary = dictionary;
+
         DefaultListModel listModel = new DefaultListModel();
         for(int i = 0; i < dictionary.getSize(); i++)
-            listModel.addElement(dictionary.getElementAt(i).toString());
+            listModel.addElement(dictionary.getValueByIdx(i));
         languageList.setModel(listModel);
     }
-    public void setOperatorDictionary(DefaultListModel dictionary) {
+
+    public void setOperatorDictionary(Dictionary dictionary) {
+        operatorDictionary = dictionary;
+
         DefaultListModel listModel = new DefaultListModel();
         for(int i = 0; i < dictionary.getSize(); i++)
-            listModel.addElement(dictionary.getElementAt(i).toString());
+            listModel.addElement(dictionary.getValueByIdx(i));
         resourceOperatorList.setModel(listModel);
     }
 
     // обычные словари комбобоксов
-    public void setTypeDictionary(DefaultListModel dictionary) {
+    public void setTypeDictionary(Dictionary dictionary) {
+        typeDictionary = dictionary;
+
         for(int i = 0; i< dictionary.getSize(); i++)
-            resourceTypeComboBox.addItem(dictionary.elementAt(i));
+            resourceTypeComboBox.addItem(dictionary.getValueByIdx(i));
     }
 
-    public void setKindDictionary(DefaultListModel dictionary) {
+    public void setKindDictionary(Dictionary dictionary) {
+        kindDictionary = dictionary;
+
         for(int i = 0; i < dictionary.getSize(); i++)
-            resourceKindComboBox.addItem(dictionary.elementAt(i));
+            resourceKindComboBox.addItem(dictionary.getValueByIdx(i));
     }
 
-    public void setInfoKindDictionary(DefaultListModel dictionary) {
+    public void setInfoKindDictionary(Dictionary dictionary) {
+        contentDictionary = dictionary;
+
         for(int i = 0; i < dictionary.getSize(); i++)
-            infoKindComboBox.addItem(dictionary.elementAt(i));
+            infoKindComboBox.addItem(dictionary.getValueByIdx(i));
     }
 
-    public void setAccessTypeDictionary(DefaultListModel dictionary) {
+    public void setAccessTypeDictionary(Dictionary dictionary) {
+        accessTypeDictionary = dictionary;
+
         for(int i = 0; i< dictionary.getSize();i++) {
-            accessTypeComboBox.addItem(dictionary.elementAt(i));
+            accessTypeComboBox.addItem(dictionary.getValueByIdx(i));
         }
     }
-    public void setSubModelDictionary(DefaultListModel dictionary) {
+    public void setSubModelDictionary(Dictionary dictionary) {
+        subModelDictionary = dictionary;
+
         for(int i = 0; i< dictionary.getSize();i++) {
-            subscriptionModelComboBox.addItem(dictionary.elementAt(i));
+            subscriptionModelComboBox.addItem(dictionary.getValueByIdx(i));
         }
     }
-    public void setPaymentMethodDictionary(DefaultListModel dictionary) {
+    public void setPaymentMethodDictionary(Dictionary dictionary) {
+        paymentMethodDictionary = dictionary;
+
         for(int i = 0; i< dictionary.getSize();i++) {
-            paymentMethodComboBox.addItem(dictionary.elementAt(i));
+            paymentMethodComboBox.addItem(dictionary.getValueByIdx(i));
         }
     }
-    public void setAccessModeDictionary(DefaultListModel dictionary) {
+    public void setAccessModeDictionary(Dictionary dictionary) {
+        accessModeDictionary = dictionary;
+
         for(int i = 0; i< dictionary.getSize();i++) {
-            accessModeComboBox.addItem(dictionary.elementAt(i));
+            accessModeComboBox.addItem(dictionary.getValueByIdx(i));
         }
     }
 
-    public void setTestModeDictionary(DefaultListModel dictionary) {
+    public void setTestModeDictionary(Dictionary dictionary) {
+        testModeDictionary = dictionary;
+
         for(int i = 0; i< dictionary.getSize();i++) {
-            testAccessComboBox.addItem(dictionary.elementAt(i));
+            testAccessComboBox.addItem(dictionary.getValueByIdx(i));
         }
     }
-    public void setStatusDictionary(DefaultListModel dictionary){
+    public void setStatusDictionary(Dictionary dictionary){
+        statusDictionary = dictionary;
+
         for (int i = 0; i < dictionary.getSize(); i++){
-            resourceStatusComboBox.addItem(dictionary.elementAt(i));
+            resourceStatusComboBox.addItem(dictionary.getValueByIdx(i));
         }
     }
 }
