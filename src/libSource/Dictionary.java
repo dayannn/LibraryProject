@@ -54,7 +54,7 @@ public class Dictionary {
     }
 
     public int getDBIdxByIdx(int idx) {
-        return Integer.parseInt(dictData.getValueAt(idx,0).toString());
+        return Integer.parseInt(dictData.getValueAt(idx,1).toString());
     }
 
     public int getIdxByDBIdx(int idx) {

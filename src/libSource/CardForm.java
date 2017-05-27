@@ -480,23 +480,24 @@ public class CardForm{
         }
     }
     public void setFieldsBySourceIndexes(BaseSource src) {
-
         // TODO: ВОЗМОЖНО инициализация текстовых полей
-
 
         // TODO: Инициализация полей комбобоксов
         resourceKindComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("kind_value").getAttributeValue()));
-
-
+        resourceTypeComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("type_value").getAttributeValue()));
+        infoKindComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("content_value").getAttributeValue()));
+        accessTypeComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("access_type_value").getAttributeValue()));
+        resourceStatusComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("status_value").getAttributeValue()));
+        subscriptionModelComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("subscription_model_value").getAttributeValue()));
+        paymentMethodComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("pay_type_value").getAttributeValue()));
+        accessModeComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("access_mode_value").getAttributeValue()));
+        testAccessComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("resource_test_mode").getAttributeValue()));
 
 
         // Получаем расширенные значения
-        AttributeLanguage al = new AttributeLanguage("");
-        al.setValues(parseSelectedIndexes(languageList));
-
-        languageList.setSelectedIndices(parseToIntSelectedIndexes(src.getAttributeByName("language_value").getValues()));
-        resourceOperatorList.setSelectedIndices(parseToIntSelectedIndexes(src.getAttributeByName("operator_value").getValues()));
-        subjectsList.setSelectedIndices(parseToIntSelectedIndexes(src.getAttributeByName("theme_value").getValues()));
+        languageList.setSelectedIndices(parseToIntSelectedIndexes(languageDictionary, src.getAttributeByName("language_value").getValues()));
+        resourceOperatorList.setSelectedIndices(parseToIntSelectedIndexes(operatorDictionary, src.getAttributeByName("operator_value").getValues()));
+        subjectsList.setSelectedIndices(parseToIntSelectedIndexes(themeDictionary, src.getAttributeByName("theme_value").getValues()));
     }
 
     public void setArchive(Archive arch) {
