@@ -89,6 +89,18 @@ public class DBFacade {
         return dbManager.ExecQuery(queryManager.getDictionaryForTable(tableName));
     }
 
+    public void delDictValue(String dict_name, int id) throws SQLException {
+
+        if (!dbManager.ExecQuery(queryManager.findDictValueUsages(dict_name, id)).next()) {
+            dbManager.ExecQueryWOResultSet(queryManager.delDictValueFromDictionary(dict_name, id));
+        }
+
+    }
+
+    public void editDictValue(String dict_name, String value, int id) throws SQLException {
+        dbManager.ExecQueryWOResultSet(queryManager.editValueInDictionary(dict_name, value, id));
+    }
+
     public void chgSource(int id, Source src) throws SQLException {
         AttributeList list;
         list = src.getList();

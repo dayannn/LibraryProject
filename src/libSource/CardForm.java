@@ -524,7 +524,14 @@ public class CardForm{
         DeleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                _parent.deleteValueFromDictionary(currentDictionaryToEdit.getTable_name(), Integer.parseInt(DictionaryTable.getValueAt(DictionaryTable.getSelectedRow(), 0).toString()));
 
+                try {
+                    updateTable(currentDictionaryToEdit.getTable_name());
+                    DictionaryTable.setModel(tm);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
             }
         });
     }
@@ -970,6 +977,16 @@ public class CardForm{
 
         if (id >= 0) {
             // Изменение
+
+
+            _parent.editValueInDictionary(currentDictionaryToEdit.getTable_name(), dict_value,
+                    Integer.parseInt(DictionaryTable.getValueAt(DictionaryTable.getSelectedRow(), 0).toString()));
+
+            try {
+                updateTable(currentDictionaryToEdit.getTable_name());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             // Добавление
             _parent.addValueInDictionary(currentDictionaryToEdit.getTable_name(), dict_value);

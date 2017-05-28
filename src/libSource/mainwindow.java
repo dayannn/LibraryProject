@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.Vector;
 import java.util.List;
 
@@ -72,18 +73,7 @@ public class mainwindow extends JFrame{
 
             cardForm.setDictionariesInfo(mgr.getDictInfo());
 
-            cardForm.setAccessTypeDictionary(mgr.getDictionary("access_type"));
-            cardForm.setInfoKindDictionary(mgr.getDictionary("content"));
-            cardForm.setKindDictionary(mgr.getDictionary("kind"));
-            cardForm.setTypeDictionary(mgr.getDictionary("type"));
-            cardForm.setThemeDictionary(mgr.getDictionary("theme"));
-            cardForm.setLanguageDictionary(mgr.getDictionary("language"));
-            cardForm.setOperatorDictionary(mgr.getDictionary("operator"));
-            cardForm.setSubModelDictionary(mgr.getDictionary("subscription_model"));
-            cardForm.setPaymentMethodDictionary(mgr.getDictionary("pay_type"));
-            cardForm.setAccessModeDictionary(mgr.getDictionary("access_mode"));
-            cardForm.setTestModeDictionary(mgr.getDictionary("test_mode"));
-            cardForm.setStatusDictionary(mgr.getDictionary("status"));
+            this.updateDictionaries();
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -249,6 +239,22 @@ public class mainwindow extends JFrame{
                 cardForm.show(CardMode.ADDDITION);
             }
         });
+    }
+
+
+    public void updateDictionaries() throws SQLException {
+        cardForm.setAccessTypeDictionary(mgr.getDictionary("access_type"));
+        cardForm.setInfoKindDictionary(mgr.getDictionary("content"));
+        cardForm.setKindDictionary(mgr.getDictionary("kind"));
+        cardForm.setTypeDictionary(mgr.getDictionary("type"));
+        cardForm.setThemeDictionary(mgr.getDictionary("theme"));
+        cardForm.setLanguageDictionary(mgr.getDictionary("language"));
+        cardForm.setOperatorDictionary(mgr.getDictionary("operator"));
+        cardForm.setSubModelDictionary(mgr.getDictionary("subscription_model"));
+        cardForm.setPaymentMethodDictionary(mgr.getDictionary("pay_type"));
+        cardForm.setAccessModeDictionary(mgr.getDictionary("access_mode"));
+        cardForm.setTestModeDictionary(mgr.getDictionary("test_mode"));
+        cardForm.setStatusDictionary(mgr.getDictionary("status"));
     }
 
     public static void main(String[] args) {
@@ -441,6 +447,23 @@ public class mainwindow extends JFrame{
     public void addValueInDictionary(String table_name, String value) {
         try {
             mgr.addDictionaryValue(table_name, value);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void editValueInDictionary(String table_name, String value, int id) {
+        try {
+            mgr.editDictionaryValue(table_name, value, id);
+            updateDictionaries();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteValueFromDictionary(String table_name, int id) {
+        try {
+            mgr.delDictValue(table_name, id);
+            updateDictionaries();
         } catch (Exception e) {
             e.printStackTrace();
         }

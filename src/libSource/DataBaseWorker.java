@@ -172,7 +172,7 @@ public class DataBaseWorker
     public void updateSource(int id, Source source) throws SQLException {
         BaseSource srctemp = this.getCardIndexes(id);
         if (!(source.getAttributeValueByName("resource_name").equals(srctemp.getAttributeValueByName("resource_name"))))
-             addToArchiveSourceByID("Изменилось имя c ( " + source.getAttributeValueByName("resource_name") + ") на ( " + srctemp.getAttributeValueByName("resource_name") + " ) ", id);
+            addToArchiveSourceByID("Изменилось имя c ( " + source.getAttributeValueByName("resource_name") + ") на ( " + srctemp.getAttributeValueByName("resource_name") + " ) ", id);
         if (!(source.getAttributeValueByName("resource_provider").equals(srctemp.getAttributeValueByName("resource_provider"))))
             addToArchiveSourceByID("Изменился поставщик", id);
         if (!(source.getAttributeValueByName("subscription_model_value").equals(srctemp.getAttributeValueByName("subscription_model_value"))))
@@ -212,5 +212,14 @@ public class DataBaseWorker
         lst.add(attributeContract);
 
         dbFacade.addToArchiveSourceByID(description, id, lst);
+    }
+
+
+    public void delDictValue(String dict_name, int id) throws SQLException {
+        dbFacade.delDictValue(dict_name, id);
+    }
+
+    public void editDictionaryValue(String dict_name, String value, int id) throws SQLException {
+        dbFacade.editDictValue(dict_name, value, id);
     }
 }

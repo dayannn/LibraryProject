@@ -345,6 +345,22 @@ public class QueryManager {
         return " INSERT INTO " + dict_name + "(" + dict_name + "_value) VALUES (\"" + value + "\")";
     }
 
+    public String findDictValueUsages(String dict_name, int id) {
+        String query = "";
+        if (! (dict_name.equals("language")) || (dict_name.equals("theme")) || (dict_name.equals("operator")))
+            query = " SELECT resource_" + dict_name + " FROM " + MAINTABLE + " WHERE resource_" + dict_name + " = " + String.valueOf(id);
+        else
+            query =  " SELECT * FROM resource_" + dict_name + " WHERE " + dict_name + "_id = " + String.valueOf(id);
+
+        return query;
+    }
+
+
+    public String delDictValueFromDictionary(String dict_name, int id) {
+        return " DELETE FROM " + dict_name + " WHERE key = " + String.valueOf(id);// " INSERT INTO " + dict_name + "(" + dict_name + "_value) VALUES (\"" + value + "\")";
+    }
+
+
     public String addArchiveValue(String description, int id, AttributeList lst) {
         String query = " INSERT INTO archive(resource_id, resource_chg_description, archive_date, ";
 
@@ -362,5 +378,7 @@ public class QueryManager {
         return query;
     }
 
-
+    public String editValueInDictionary(String dict_name, String value, int id) {
+        return " UPDATE " + dict_name + " SET " +dict_name + "_value = \"" + value + "\" WHERE key = " + String.valueOf(id);
+    }
 }
