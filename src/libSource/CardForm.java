@@ -1,17 +1,30 @@
 package libSource;
 
 import libSource.Attributes.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.*;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by dayan on 07.04.2017.
@@ -107,6 +120,8 @@ public class CardForm{
     private JTextArea archiveSubscriptionModelTextArea;
     private JTextArea archiveSubscriptionDurationTextArea;
     private JTextArea archiveSubscriptionPriceTextArea;
+    private JRadioButton txtRadioButton;
+    private JRadioButton xmlRadioButton;
     private Archive archive;
     private int curSrcID;
     private ChangeDirectoryForm dictForm;
@@ -345,6 +360,9 @@ public class CardForm{
         // frame.setResizable(false);
         frame.setContentPane(CardPanel);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        ButtonGroup exportGroup = new ButtonGroup();
+        exportGroup.add(txtRadioButton);
+        exportGroup.add(xmlRadioButton);
         setScrollPanes();
 
         languageList.setCellRenderer(new CheckboxListCellRenderer());
@@ -448,51 +466,11 @@ public class CardForm{
         exportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-
-                int userSelection = fileChooser.showSaveDialog(null);
-
-                if (userSelection == JFileChooser.APPROVE_OPTION) {
-                    File fileToSave = fileChooser.getSelectedFile();
-                    String content = "";
-
-                    content += "Имя ресурса : " + resourсeNameTextArea.getText();
-                    content += "\nОператор ресурса : " + resourсeOperatorTextArea.getText();
-                    content += "\nСетевой адрес : " + addressTextArea.getText();
-                    content += "\nТематика : " + subjectsTextArea.getText();
-                    content += "\nТип ресурса : " + resourсeTypeTextArea.getText();
-                    content += "\nВид ресурса : " + resourceKindTextArea.getText();
-                    content += "\nПрирода информации контента : " + infoKindTextArea.getText();
-                    content += "\nОбъем ресурса : " + resourсeVolumeTextArea.getText();
-                    content += "\nЯзык документов ресурса : " + languageTextArea.getText();
-                    content += "\nХронологический охват : " + timeTextArea.getText();
-                    content += "\nВид доступа : " + accessTypeTextArea.getText();
-                    content += "\nАннотация : " + annotationTextArea.getText();
-                    content += "\nСтатус ресурса : " + resourceStatusTextArea.getText();
-                    content += "\nМодель подписки : " + subscriptionModelTextArea.getText();
-                    content += "\nПоставщик : " + providerTextArea.getText();
-                    content += "\nСпособ оплаты : " + paymentMethodTextArea.getText();
-                    content += "\nСрок действия договора : " + contractTimeTextArea.getText();
-                    content += "\nРеквизиты договора : " + documentPropsTextArea.getText();
-                    content += "\nстоимость подписки : " + subscriptionCostTextArea.getText();
-                    content += "\nРежим доступа : " + accessModeTextArea.getText();
-                    content += "\nКоличество просмотров в день : " + viewNumTextArea.getText();
-                    content += "\nТестовый доступ : " + testAccessTextArea.getText();
-                    content += "\nСроки проведения : " + testTimeTextArea.getText();
-                    content += "\nЗаключение по тестовому доступу : " + testAccessConclusionTextArea.getText();
-
-                    FileWriter fw = null;
-                    try {
-                        fw = new FileWriter(fileToSave);
-                        BufferedWriter bw = new BufferedWriter(fw);
-                        bw.write(content);
-                        bw.close();
-                        fw.close();
-                    } catch (IOException e1) {
-                        JOptionPane.showMessageDialog(frame,"Error while writing to file");
-                    }
-                    //System.out.println("Save as file: " + fileToSave.getAbsolutePath());
-                }
+                if (txtRadioButton.isSelected())
+                    exportToTextFile();
+                else
+                    exportToXmlFile();
+                //exportToTextFile();
             }
         });
 
@@ -540,6 +518,129 @@ public class CardForm{
             }
         });
     }
+
+    private void exportToTextFile() {
+        JFileChooser fileChooser = new JFileChooser();
+
+        int userSelection = fileChooser.showSaveDialog(null);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            String content = "";
+
+            content += "Имя ресурса : " + resourсeNameTextArea.getText();
+            content += "\nОператор ресурса : " + resourсeOperatorTextArea.getText();
+            content += "\nСетевой адрес : " + addressTextArea.getText();
+            content += "\nТематика : " + subjectsTextArea.getText();
+            content += "\nТип ресурса : " + resourсeTypeTextArea.getText();
+            content += "\nВид ресурса : " + resourceKindTextArea.getText();
+            content += "\nПрирода информации контента : " + infoKindTextArea.getText();
+            content += "\nОбъем ресурса : " + resourсeVolumeTextArea.getText();
+            content += "\nЯзык документов ресурса : " + languageTextArea.getText();
+            content += "\nХронологический охват : " + timeTextArea.getText();
+            content += "\nВид доступа : " + accessTypeTextArea.getText();
+            content += "\nАннотация : " + annotationTextArea.getText();
+            content += "\nСтатус ресурса : " + resourceStatusTextArea.getText();
+            content += "\nМодель подписки : " + subscriptionModelTextArea.getText();
+            content += "\nПоставщик : " + providerTextArea.getText();
+            content += "\nСпособ оплаты : " + paymentMethodTextArea.getText();
+            content += "\nСрок действия договора : " + contractTimeTextArea.getText();
+            content += "\nРеквизиты договора : " + documentPropsTextArea.getText();
+            content += "\nСтоимость подписки : " + subscriptionCostTextArea.getText();
+            content += "\nРежим доступа : " + accessModeTextArea.getText();
+            content += "\nКоличество просмотров в день : " + viewNumTextArea.getText();
+            content += "\nТестовый доступ : " + testAccessTextArea.getText();
+            content += "\nСроки проведения : " + testTimeTextArea.getText();
+            content += "\nЗаключение по тестовому доступу : " + testAccessConclusionTextArea.getText();
+
+            FileWriter fw = null;
+            try {
+                String name = fileToSave.getAbsolutePath();
+                if (!name.endsWith(".txt"))
+                    name += ".txt";
+                fw = new FileWriter(name);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(content);
+                bw.close();
+                fw.close();
+            } catch (IOException e1) {
+                JOptionPane.showMessageDialog(frame,"Error while writing to file");
+            }
+            //System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+        }
+    }
+
+    private void exportToXmlFile() {
+        JFileChooser fileChooser = new JFileChooser();
+
+        int userSelection = fileChooser.showSaveDialog(null);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            XMLStreamWriter xsw = null;
+
+            try {
+                String name = fileToSave.getAbsolutePath();
+                if (!name.endsWith(".xml"))
+                    name += ".xml";
+                FileOutputStream fop = new FileOutputStream(name);
+
+                xsw = XMLOutputFactory.newInstance()
+                        .createXMLStreamWriter(fop);
+                xsw.writeStartDocument();
+                xsw.writeCharacters("\n");
+                xsw.writeStartElement("Карточка");
+                xsw.writeCharacters("\n");
+                writeSingleXmlNode(xsw, "Имя_ресурса", resourсeNameTextArea.getText());
+                writeSingleXmlNode(xsw, "Сетевой_адрес", addressTextArea.getText());
+                writeSingleXmlNode(xsw, "Тематика", subjectsTextArea.getText());
+                writeSingleXmlNode(xsw, "Тип_ресурса", resourсeTypeTextArea.getText());
+                writeSingleXmlNode(xsw, "Вид_ресурса", resourceKindTextArea.getText());
+                writeSingleXmlNode(xsw, "Природа_информации_ресурса", infoKindTextArea.getText());
+                writeSingleXmlNode(xsw, "Объем_ресурса", resourсeVolumeTextArea.getText());
+                writeSingleXmlNode(xsw, "Язык_документов_ресурса", languageTextArea.getText());
+                writeSingleXmlNode(xsw, "Хронологический_охват", timeTextArea.getText());
+                writeSingleXmlNode(xsw, "Вид_доступа", accessTypeTextArea.getText());
+                writeSingleXmlNode(xsw, "Аннотация", annotationTextArea.getText());
+                writeSingleXmlNode(xsw, "Статус_ресурса", resourceStatusTextArea.getText());
+                writeSingleXmlNode(xsw, "Модель_подписки", subscriptionModelTextArea.getText());
+                writeSingleXmlNode(xsw, "Поставщик", providerTextArea.getText());
+                writeSingleXmlNode(xsw, "Способ_оплаты", paymentMethodTextArea.getText());
+                writeSingleXmlNode(xsw, "Срок_действия_договора", contractTimeTextArea.getText());
+                writeSingleXmlNode(xsw, "Реквизиты_договора", documentPropsTextArea.getText());
+                writeSingleXmlNode(xsw, "Стоимость_подписки", subscriptionCostTextArea.getText());
+                writeSingleXmlNode(xsw, "Режим_доступа", accessModeTextArea.getText());
+                writeSingleXmlNode(xsw, "Количество_просмотров_в_день", viewNumTextArea.getText());
+                writeSingleXmlNode(xsw, "Тестовый_доступ", testAccessTextArea.getText());
+                writeSingleXmlNode(xsw, "Сроки_проведения", testTimeTextArea.getText());
+                writeSingleXmlNode(xsw, "Заключение_по_тестовому_доступу", testAccessConclusionTextArea.getText());
+                xsw.writeEndElement();
+                xsw.writeEndDocument();
+                fop.close();
+                xsw.close();
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (XMLStreamException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void writeSingleXmlNode(XMLStreamWriter xsw, String tag, String text){
+        try {
+            xsw.writeCharacters("\t");
+            xsw.writeStartElement(tag);
+            xsw.writeCharacters(text);
+            xsw.writeEndElement();
+            xsw.writeCharacters("\n");
+        } catch (XMLStreamException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void updateTable(String table_name) throws SQLException {
         currentDictionaryToEdit = _parent.getMgr().getDictionary(table_name);
