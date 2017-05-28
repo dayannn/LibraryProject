@@ -170,7 +170,17 @@ public class DataBaseWorker
     }
 
     public void updateSource(int id, Source source) throws SQLException {
-        addToArchiveSourceByID("ИЗМЕНЕНИЕ ХУЙ ЗНАЕТ КАКОЕ", id);
+        BaseSource srctemp = this.getCard(id);
+        if (!(source.getAttributeValueByName("resource_name").equals(srctemp.getAttributeValueByName("resource_name"))))
+             addToArchiveSourceByID("Изменилось имя c ( " + source.getAttributeValueByName("resource_name") + ") на ( " + srctemp.getAttributeValueByName("resource_name") + " ) ", id);
+        if (!(source.getAttributeValueByName("operator_value").equals(srctemp.getAttributeValueByName("operator_value"))))
+            addToArchiveSourceByID("Изменился оператор", id);
+        if (!(source.getAttributeValueByName("subscription_model_value").equals(srctemp.getAttributeValueByName("subscription_model_value"))))
+            addToArchiveSourceByID("Изменился тип подписки", id);
+        if (!(source.getAttributeValueByName("subscription_price").equals(srctemp.getAttributeValueByName("subscription_price"))))
+            addToArchiveSourceByID("Изменилась цена", id);
+        if (!(source.getAttributeValueByName("contract_duration").equals(srctemp.getAttributeValueByName("contract_duration"))))
+            addToArchiveSourceByID("Изменилось имя", id);
         dbFacade.chgSource(id, source);
     }
 
