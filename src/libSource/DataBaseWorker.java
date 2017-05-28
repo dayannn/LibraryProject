@@ -196,7 +196,7 @@ public class DataBaseWorker
                 else tempstring = tempstring + " cрок контракта";
 
         tempstring = tempstring + ".";
-        
+
            addToArchiveSourceByID(tempstring, id);
         dbFacade.chgSource(id, source);
     }
