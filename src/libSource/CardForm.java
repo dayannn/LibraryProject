@@ -412,6 +412,8 @@ public class CardForm{
                 } else {
                     _parent.editionConfirmed();
                 }
+
+
                 frame.setVisible(false);
             }
         });
@@ -441,7 +443,7 @@ public class CardForm{
                 archiveSubscriptionModelTextArea.setText(archive.getArchiveRecords().get(ID).getAttributeList().get(2).getAttributeValue());
                 archiveSubscriptionPriceTextArea.setText(archive.getArchiveRecords().get(ID).getAttributeList().get(3).getAttributeValue());
                 archiveSubscriptionDurationTextArea.setText(archive.getArchiveRecords().get(ID).getAttributeList().get(4).getAttributeValue());
-                //archiveInfoTextArea.setText(archive.getArchiveRecords().get(ID).getChg_dscr());
+                archiveInfoTextArea.setText(archive.getArchiveRecords().get(ID).getChg_dscr());
             }
         });
 
@@ -594,7 +596,7 @@ public class CardForm{
         DefaultListModel<String> listModel = new DefaultListModel<String>();
         archiveNameTextArea.setText("");
         archiveOperatorTextArea.setText("");
-//        archiveInfoTextArea.setText("");
+        archiveInfoTextArea.setText("");
         archiveSubscriptionDurationTextArea.setText("");
         archiveSubscriptionModelTextArea.setText("");
         archiveSubscriptionPriceTextArea.setText("");

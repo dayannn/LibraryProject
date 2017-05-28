@@ -407,11 +407,13 @@ public class mainwindow extends JFrame{
 
     public void editionConfirmed(){
         Source src = cardForm.getSource();
+
         try {
             mgr.updateSource(cardForm.getCurSrcID(), src);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         updateTable();
     }
 
