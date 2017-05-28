@@ -363,6 +363,7 @@ public class CardForm{
         ButtonGroup exportGroup = new ButtonGroup();
         exportGroup.add(txtRadioButton);
         exportGroup.add(xmlRadioButton);
+        txtRadioButton.setSelected(true);
         setScrollPanes();
 
         languageList.setCellRenderer(new CheckboxListCellRenderer());
@@ -468,6 +469,11 @@ public class CardForm{
         exportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (saveButton.isVisible())
+                {
+                    JOptionPane.showMessageDialog(frame, "Пожалуйста, сохраните изменения перед экспортом");
+                    return;
+                }
                 if (txtRadioButton.isSelected())
                     exportToTextFile();
                 else
