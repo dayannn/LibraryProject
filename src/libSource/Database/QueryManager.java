@@ -155,7 +155,7 @@ public class QueryManager {
         String query =  "SELECT key, " +
                         "archive_date, " +
                         "resource_name, " +
-                        "operator_value, subscription_model_value, subscription_price, contract_duration, " +
+                        "resource_provider, subscription_model_value, subscription_price, resource_contract_duration, " +
                         "resource_chg_description FROM archive WHERE resource_id = " + String.valueOf(ID) + "; ";
         return query;
     }
@@ -361,5 +361,6 @@ public class QueryManager {
 
         return query;
     }
+
 
 }

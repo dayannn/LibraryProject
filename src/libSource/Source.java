@@ -34,11 +34,14 @@ public class Source extends  BaseSource
         attributeList.add(new AttributeAccessMode(""));
         attributeList.add(new AttributeSubscriptionType(""));
 
+        attributeList.add(new AttributeProvider(""));
+        attributeList.add(new AttributeContractDetails(""));
+
 /*
         пока так
         attributeList.add(new AttributeArchivationDate(""));
         attributeList.add(new AttributeArchiveKey(""));
-        attributeList.add(new AttributeContractDetails(""));
+
         attributeList.add(new AttributeID(""));
         attributeList.add(new AttributePublicationArchive(""));
         attributeList.add(new AttributeSourceInfo(""));

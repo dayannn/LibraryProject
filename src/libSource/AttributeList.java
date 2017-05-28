@@ -34,8 +34,7 @@ public class AttributeList
         return list.size();
     }
 
-    public  BaseAttribute get(int index)
-    {
+    public  BaseAttribute get(int index) {
         return list.get(index);
     }
 

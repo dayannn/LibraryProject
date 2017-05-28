@@ -8,7 +8,7 @@ public class AttributeContractDuration extends BaseAttribute
     public AttributeContractDuration(String _value)
     {
         tableName = "web_resources";
-        name = "contract_duration";
+        name = "resource_contract_duration";
         value = _value;
     }
 }

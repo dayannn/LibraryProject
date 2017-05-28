@@ -8,7 +8,7 @@ public class AttributeContractDetails extends BaseAttribute
     public AttributeContractDetails(String _value)
     {
         tableName = "web_resources";
-        name = "contract_details";
+        name = "resource_contract_details";
         value = _value;
     }
 }

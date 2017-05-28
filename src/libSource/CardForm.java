@@ -203,6 +203,8 @@ public class CardForm{
 
         textAreasList.add(providerTextArea);
         textAreasList.add(documentPropsTextArea);
+
+
         textAreasList.add(testAccessConclusionTextArea);
         textAreasList.add(testTimeTextArea);
     }

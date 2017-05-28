@@ -145,10 +145,10 @@ public class DataBaseWorker
             ArchiveRecord archiveR = new ArchiveRecord();
             archiveR.setChg_dscr(rs.getString("resource_chg_description"));
             archiveR.addAttribute(new AttributeName(rs.getString("resource_name")));
-            archiveR.addAttribute(new AttributeName(rs.getString("operator_value")));
+            archiveR.addAttribute(new AttributeName(rs.getString("resource_provider")));
             archiveR.addAttribute(new AttributeName(rs.getString("subscription_model_value")));
             archiveR.addAttribute(new AttributeName(rs.getString("subscription_price")));
-            archiveR.addAttribute(new AttributeName(rs.getString("contract_duration")));
+            archiveR.addAttribute(new AttributeName(rs.getString("resource_contract_duration")));
             archiveR.setDate(rs.getString("archive_date"));
             archive.addArchiveRecord(archiveR);
         }
@@ -170,11 +170,11 @@ public class DataBaseWorker
     }
 
     public void updateSource(int id, Source source) throws SQLException {
-        BaseSource srctemp = this.getCard(id);
+        BaseSource srctemp = this.getCardIndexes(id);
         if (!(source.getAttributeValueByName("resource_name").equals(srctemp.getAttributeValueByName("resource_name"))))
              addToArchiveSourceByID("Изменилось имя c ( " + source.getAttributeValueByName("resource_name") + ") на ( " + srctemp.getAttributeValueByName("resource_name") + " ) ", id);
-        if (!(source.getAttributeValueByName("operator_value").equals(srctemp.getAttributeValueByName("operator_value"))))
-            addToArchiveSourceByID("Изменился оператор", id);
+        if (!(source.getAttributeValueByName("resource_provider").equals(srctemp.getAttributeValueByName("resource_provider"))))
+            addToArchiveSourceByID("Изменился поставщик", id);
         if (!(source.getAttributeValueByName("subscription_model_value").equals(srctemp.getAttributeValueByName("subscription_model_value"))))
             addToArchiveSourceByID("Изменился тип подписки", id);
         if (!(source.getAttributeValueByName("subscription_price").equals(srctemp.getAttributeValueByName("subscription_price"))))
@@ -199,14 +199,14 @@ public class DataBaseWorker
     public void addToArchiveSourceByID(String description, int id) throws SQLException {
         BaseSource src = this.getCard(id);
         BaseAttribute attributeName = src.getAttributeByName("resource_name");
-        BaseAttribute attributeOperator = src.getAttributeByName("operator_value");
+        BaseAttribute attributeProvider = src.getAttributeByName("resource_provider");
         BaseAttribute attributeSubType = src.getAttributeByName("subscription_model_value");
         BaseAttribute attributePrice = src.getAttributeByName("subscription_price");
-        BaseAttribute attributeContract = src.getAttributeByName("contract_duration");
+        BaseAttribute attributeContract = src.getAttributeByName("resource_contract_duration");
 
         AttributeList lst = new AttributeList();
         lst.add(attributeName);
-        lst.add(attributeOperator);
+        lst.add(attributeProvider);
         lst.add(attributeSubType);
         lst.add(attributePrice);
         lst.add(attributeContract);
