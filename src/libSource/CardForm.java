@@ -17,6 +17,7 @@ import java.util.*;
  * Created by dayan on 07.04.2017.
  */
 
+// SOME CHANGES
 
 public class CardForm{
     private JDialog frame;
