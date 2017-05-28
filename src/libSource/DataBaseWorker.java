@@ -171,16 +171,33 @@ public class DataBaseWorker
 
     public void updateSource(int id, Source source) throws SQLException {
         BaseSource srctemp = this.getCardIndexes(id);
+        String tempstring = "Изменилось:" ;
         if (!(source.getAttributeValueByName("resource_name").equals(srctemp.getAttributeValueByName("resource_name"))))
-            addToArchiveSourceByID("Изменилось имя c ( " + source.getAttributeValueByName("resource_name") + ") на ( " + srctemp.getAttributeValueByName("resource_name") + " ) ", id);
+            //addToArchiveSourceByID("Изменилось имя c ( " + source.getAttributeValueByName("resource_name") + ") на ( " + srctemp.getAttributeValueByName("resource_name") + " ) ", id);
+            tempstring = tempstring + " имя";
+
         if (!(source.getAttributeValueByName("resource_provider").equals(srctemp.getAttributeValueByName("resource_provider"))))
-            addToArchiveSourceByID("Изменился поставщик", id);
+            if (tempstring != "Изменилось: ") tempstring = tempstring + ", поставщик";
+                else tempstring = tempstring + " поставщик";
+            //addToArchiveSourceByID("Изменился поставщик", id);
+
         if (!(source.getAttributeValueByName("subscription_model_value").equals(srctemp.getAttributeValueByName("subscription_model_value"))))
-            addToArchiveSourceByID("Изменился тип подписки", id);
+            if (tempstring != "Изменилось: ") tempstring = tempstring + ", модель подписки";
+                else tempstring = tempstring + " модель подписки ";
+            //addToArchiveSourceByID("Изменился тип подписки", id);
+
         if (!(source.getAttributeValueByName("subscription_price").equals(srctemp.getAttributeValueByName("subscription_price"))))
-            addToArchiveSourceByID("Изменилась цена", id);
+            if (tempstring != "Изменилось: ") tempstring = tempstring + ", цена подписки";
+                else tempstring = tempstring + " цена подписки";
+                //addToArchiveSourceByID("Изменилась цена", id);
+
         if (!(source.getAttributeValueByName("contract_duration").equals(srctemp.getAttributeValueByName("contract_duration"))))
-            addToArchiveSourceByID("Изменилось имя", id);
+            if (tempstring != "Изменилось: ") tempstring = tempstring + ", срок контракта";
+                else tempstring = tempstring + " cрок контракта";
+
+        tempstring = tempstring + ".";
+
+           addToArchiveSourceByID(tempstring, id);
         dbFacade.chgSource(id, source);
     }
 

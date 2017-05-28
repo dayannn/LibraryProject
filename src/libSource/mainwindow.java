@@ -43,6 +43,7 @@ public class mainwindow extends JFrame{
     private ChangeUser chgUser;
     private CardForm cardForm;
     private boolean UserRole = false;
+    private boolean wasloaded = false;
     private JPopupMenu tablePopupMenu;
     private DefaultTableModel model;
     private JMenuBar menuBar;
@@ -69,7 +70,6 @@ public class mainwindow extends JFrame{
         setUpPopupMenu();
         try {
             mgr = new DataBaseWorker();
-
 
             cardForm.setDictionariesInfo(mgr.getDictInfo());
 
@@ -105,6 +105,7 @@ public class mainwindow extends JFrame{
         getbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                wasloaded = true;
                 updateTable();
             }
         });
@@ -150,76 +151,78 @@ public class mainwindow extends JFrame{
         extendedSearchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AttributeList lst = new AttributeList();
+                if (wasloaded != false) {
+                    AttributeList lst = new AttributeList();
 
-                AttributeName atn = new AttributeName("");
-                AttributeLink atl = new AttributeLink("");
-                AttributeTheme ath = new AttributeTheme("");
-                AttributeDescription atd = new AttributeDescription("");
-                AttributeAccessType atat = new AttributeAccessType("");
+                    AttributeName atn = new AttributeName("");
+                    AttributeLink atl = new AttributeLink("");
+                    AttributeTheme ath = new AttributeTheme("");
+                    AttributeDescription atd = new AttributeDescription("");
+                    AttributeAccessType atat = new AttributeAccessType("");
 
-                if (!NameEdit.getText().isEmpty()) {
-                    atn.setAttributeValue(NameEdit.getText());
-                    lst.add(atn);
-                }
-                if (!DescrEdit.getText().isEmpty()) {
-                    atd.setAttributeValue(DescrEdit.getText());
-                    lst.add(atd);
-                }
-                if (!LinkEdit.getText().isEmpty()) {
-                    atl.setAttributeValue(LinkEdit.getText());
-                    lst.add(atl);
-                }
-                if (!ThemeEdit.getText().isEmpty()) {
-                    ath.setAttributeValue(ThemeEdit.getText());
-                    lst.add(ath);
-                }
-                if (!AccessTypeEdit.getText().isEmpty()) {
-                    atat.setAttributeValue(AccessTypeEdit.getText());
-                    lst.add(atat);
-                }
+                    if (!NameEdit.getText().isEmpty()) {
+                        atn.setAttributeValue(NameEdit.getText());
+                        lst.add(atn);
+                    }
+                    if (!DescrEdit.getText().isEmpty()) {
+                        atd.setAttributeValue(DescrEdit.getText());
+                        lst.add(atd);
+                    }
+                    if (!LinkEdit.getText().isEmpty()) {
+                        atl.setAttributeValue(LinkEdit.getText());
+                        lst.add(atl);
+                    }
+                    if (!ThemeEdit.getText().isEmpty()) {
+                        ath.setAttributeValue(ThemeEdit.getText());
+                        lst.add(ath);
+                    }
+                    if (!AccessTypeEdit.getText().isEmpty()) {
+                        atat.setAttributeValue(AccessTypeEdit.getText());
+                        lst.add(atat);
+                    }
 
-                AttributeList lstOut = new AttributeList();
-                lstOut.add(new AttributeID(""));
-                lstOut.add(new AttributeName(""));
-                lstOut.add(new AttributeDescription(""));
-                lstOut.add(new AttributeLink(""));
-                lstOut.add(new AttributeTheme(""));
-                lstOut.add(new AttributeAccessType(""));
+                    AttributeList lstOut = new AttributeList();
+                    lstOut.add(new AttributeID(""));
+                    lstOut.add(new AttributeName(""));
+                    lstOut.add(new AttributeDescription(""));
+                    lstOut.add(new AttributeLink(""));
+                    lstOut.add(new AttributeTheme(""));
+                    lstOut.add(new AttributeAccessType(""));
 
-                if (lst.size() > 0) {
-                    try {
-                        LALtoModel(model, mgr.extendedSearch(lstOut, lst));
-                        table1.setModel(model);
-                        hideIDColumn();
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
+                    if (lst.size() > 0) {
+                        try {
+                            LALtoModel(model, mgr.extendedSearch(lstOut, lst));
+                            table1.setModel(model);
+                            hideIDColumn();
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        }
+                    } else {
+                        //JDialog d = new JDialog()
                     }
                 }
-                else {
-                    //JDialog d = new JDialog()
-                }
-
             }
         });
         simpleSearchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AttributeList lstOut = new AttributeList();
-                lstOut.add(new AttributeID(""));
-                lstOut.add(new AttributeName(""));
-                lstOut.add(new AttributeDescription(""));
-                lstOut.add(new AttributeLink(""));
-                lstOut.add(new AttributeTheme(""));
-                lstOut.add(new AttributeAccessType(""));
+                if (wasloaded != false) {
+                    AttributeList lstOut = new AttributeList();
+                    lstOut.add(new AttributeID(""));
+                    lstOut.add(new AttributeName(""));
+                    lstOut.add(new AttributeDescription(""));
+                    lstOut.add(new AttributeLink(""));
+                    lstOut.add(new AttributeTheme(""));
+                    lstOut.add(new AttributeAccessType(""));
 
-                try {
-                    LALtoModel(model, mgr.simpleSearch(lstOut, SearchEdit.getText()));
-                    table1.setModel(model);
+                    try {
+                        LALtoModel(model, mgr.simpleSearch(lstOut, SearchEdit.getText()));
+                        table1.setModel(model);
 
-                    hideIDColumn();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
+                        hideIDColumn();
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
                 }
             }
         });
@@ -236,6 +239,7 @@ public class mainwindow extends JFrame{
         addResourceButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                cardForm.setAdmin(UserRole);
                 cardForm.show(CardMode.ADDDITION);
             }
         });
@@ -447,6 +451,18 @@ public class mainwindow extends JFrame{
     public void addValueInDictionary(String table_name, String value) {
         try {
             mgr.addDictionaryValue(table_name, value);
+            cardForm.setAccessTypeDictionary(mgr.getDictionary("access_type"));
+            cardForm.setInfoKindDictionary(mgr.getDictionary("content"));
+            cardForm.setKindDictionary(mgr.getDictionary("kind"));
+            cardForm.setTypeDictionary(mgr.getDictionary("type"));
+            cardForm.setThemeDictionary(mgr.getDictionary("theme"));
+            cardForm.setLanguageDictionary(mgr.getDictionary("language"));
+            cardForm.setOperatorDictionary(mgr.getDictionary("operator"));
+            cardForm.setSubModelDictionary(mgr.getDictionary("subscription_model"));
+            cardForm.setPaymentMethodDictionary(mgr.getDictionary("pay_type"));
+            cardForm.setAccessModeDictionary(mgr.getDictionary("access_mode"));
+            cardForm.setTestModeDictionary(mgr.getDictionary("test_mode"));
+            cardForm.setStatusDictionary(mgr.getDictionary("status"));
         } catch (Exception e) {
             e.printStackTrace();
         }
