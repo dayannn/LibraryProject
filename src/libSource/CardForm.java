@@ -436,7 +436,11 @@ public class CardForm{
                 // отобразить i-тый архив
                 int ID = ArchiveList.getSelectedIndex();
                 archiveNameTextArea.setText(archive.getArchiveRecords().get(ID).getAttributeList().get(0).getAttributeValue());
-                archiveOperatorTextArea.setText(archive.getArchiveRecords().get(ID).getChg_dscr());
+                archiveOperatorTextArea.setText(archive.getArchiveRecords().get(ID).getAttributeList().get(1).getAttributeValue());
+                archiveSubscriptionModelTextArea.setText(archive.getArchiveRecords().get(ID).getAttributeList().get(2).getAttributeValue());
+                archiveSubscriptionPriceTextArea.setText(archive.getArchiveRecords().get(ID).getAttributeList().get(3).getAttributeValue());
+                archiveSubscriptionDurationTextArea.setText(archive.getArchiveRecords().get(ID).getAttributeList().get(4).getAttributeValue());
+                //archiveInfoTextArea.setText(archive.getArchiveRecords().get(ID).getChg_dscr());
             }
         });
 
@@ -449,7 +453,7 @@ public class CardForm{
 
                 if (userSelection == JFileChooser.APPROVE_OPTION) {
                     File fileToSave = fileChooser.getSelectedFile();
-                    String content = "hello";
+                    String content = "";
 
                     for (JTextArea area : textAreasList
                          ) {
@@ -570,6 +574,10 @@ public class CardForm{
         DefaultListModel<String> listModel = new DefaultListModel<String>();
         archiveNameTextArea.setText("");
         archiveOperatorTextArea.setText("");
+//        archiveInfoTextArea.setText("");
+        archiveSubscriptionDurationTextArea.setText("");
+        archiveSubscriptionModelTextArea.setText("");
+        archiveSubscriptionPriceTextArea.setText("");
 
         //TODO: Возможно, переделать список дат под табличку
         for (int i = 0; i < arch.getArchiveRecords().size(); i++) {

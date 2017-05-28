@@ -152,7 +152,11 @@ public class QueryManager {
     }
 
     public String getArchiveBySourceID(int ID) {
-        String query =  "SELECT key, archive_date, resource_name, resource_chg_description FROM archive WHERE resource_id = " + String.valueOf(ID) + "; ";
+        String query =  "SELECT key, " +
+                        "archive_date, " +
+                        "resource_name, " +
+                        "operator_value, subscription_model_value, subscription_price, contract_duration, " +
+                        "resource_chg_description FROM archive WHERE resource_id = " + String.valueOf(ID) + "; ";
         return query;
     }
 
@@ -334,12 +338,27 @@ public class QueryManager {
     }
 
     public String getDictionariesInfo() {
-        String query = " SELECT * FROM dictionary_info ORDER BY dict_description";
-        return query;
+        return " SELECT * FROM dictionary_info ORDER BY dict_description";
     }
 
     public String addDictValueInDictionary(String dict_name, String value) {
-        String query = " INSERT INTO " + dict_name + "(" + dict_name + "_value) VALUES (\"" + value + "\")";
+        return " INSERT INTO " + dict_name + "(" + dict_name + "_value) VALUES (\"" + value + "\")";
+    }
+
+    public String addArchiveValue(String description, int id, AttributeList lst) {
+        String query = " INSERT INTO archive(resource_id, resource_chg_description, archive_date, ";
+
+        for (int i = 0; i < lst.size(); i++) {
+            query = query + lst.get(i).getAttributeName();
+            if (i != lst.size() - 1) query = query + ", ";
+        }
+        query = query + ") VALUES (" + id + ", \"" + description + "\", (SELECT date('now')), ";
+        for (int i = 0; i < lst.size(); i++) {
+            query = query + "\"" + lst.get(i).getAttributeValue() + "\"";
+            if (i != lst.size() - 1) query = query + ", ";
+        }
+        query = query + ") ";
+
         return query;
     }
 

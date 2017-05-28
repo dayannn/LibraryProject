@@ -58,9 +58,6 @@ public class DBFacade {
         return dbManager.ExecQuery(queryManager.getCardByID(id) + queryManager.groupBy());
     }
 
-    public void editSource(int id, BaseSource src) throws  SQLException {
-
-    }
 
     public void addSource(Source src) throws  SQLException {
         AttributeList list;
@@ -75,9 +72,14 @@ public class DBFacade {
         dbManager.ExecQueryWOResultSet(queryManager.addSourceInOtherTable(id, list));
     }
 
-    public ResultSet getArchiveForSourceID(int id) throws  SQLException {
+    public ResultSet getArchiveForSourceID(int id) throws SQLException {
         return dbManager.ExecQuery(queryManager.getArchiveBySourceID(id));
     }
+
+    public void addToArchiveSourceByID(String description, int id, AttributeList values) throws SQLException {
+        dbManager.ExecQueryWOResultSet(queryManager.addArchiveValue(description, id, values));
+    }
+
 
     public void deleteSource(int id) throws SQLException {
         dbManager.ExecQueryWOResultSet(queryManager.deleteRow(id));

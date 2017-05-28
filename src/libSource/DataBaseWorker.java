@@ -101,10 +101,6 @@ public class DataBaseWorker
         dbFacade.deleteSource(id);
     }
 
-    public void editSource(int id, BaseSource src) throws  SQLException     {
-        dbFacade.editSource(id, src);
-    }
-
     public BaseSource getCard(int id) throws SQLException {
         BaseSource source = new Source();
         ResultSet rs = dbFacade.getCard(id);
@@ -123,7 +119,7 @@ public class DataBaseWorker
         for (int i = 0; i < source.getAttributeCount(); i++) {
             BaseAttribute baseAttribute = source.getAttribute(i);
             String attributeName = baseAttribute.getAttributeName();
-            
+
             baseAttribute.setAttributeValue(rs.getString(attributeName));
             if (!baseAttribute.getMidT().isEmpty()) {
                 Scanner scanner = new Scanner(rs.getString(attributeName));
@@ -149,6 +145,10 @@ public class DataBaseWorker
             ArchiveRecord archiveR = new ArchiveRecord();
             archiveR.setChg_dscr(rs.getString("resource_chg_description"));
             archiveR.addAttribute(new AttributeName(rs.getString("resource_name")));
+            archiveR.addAttribute(new AttributeName(rs.getString("operator_value")));
+            archiveR.addAttribute(new AttributeName(rs.getString("subscription_model_value")));
+            archiveR.addAttribute(new AttributeName(rs.getString("subscription_price")));
+            archiveR.addAttribute(new AttributeName(rs.getString("contract_duration")));
             archiveR.setDate(rs.getString("archive_date"));
             archive.addArchiveRecord(archiveR);
         }
@@ -170,6 +170,7 @@ public class DataBaseWorker
     }
 
     public void updateSource(int id, Source source) throws SQLException {
+        addToArchiveSourceByID("ИЗМЕНЕНИЕ ХУЙ ЗНАЕТ КАКОЕ", id);
         dbFacade.chgSource(id, source);
     }
 
@@ -183,5 +184,23 @@ public class DataBaseWorker
 
     public void addDictionaryValue(String table_name, String value) throws SQLException {
         dbFacade.addDictValue(table_name, value);
+    }
+
+    public void addToArchiveSourceByID(String description, int id) throws SQLException {
+        BaseSource src = this.getCard(id);
+        BaseAttribute attributeName = src.getAttributeByName("resource_name");
+        BaseAttribute attributeOperator = src.getAttributeByName("operator_value");
+        BaseAttribute attributeSubType = src.getAttributeByName("subscription_model_value");
+        BaseAttribute attributePrice = src.getAttributeByName("subscription_price");
+        BaseAttribute attributeContract = src.getAttributeByName("contract_duration");
+
+        AttributeList lst = new AttributeList();
+        lst.add(attributeName);
+        lst.add(attributeOperator);
+        lst.add(attributeSubType);
+        lst.add(attributePrice);
+        lst.add(attributeContract);
+
+        dbFacade.addToArchiveSourceByID(description, id, lst);
     }
 }
