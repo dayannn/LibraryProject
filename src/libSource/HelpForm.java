@@ -38,7 +38,7 @@ public class HelpForm extends JFrame{
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
-                fxPanel.setScene ( new Scene ( wv, 600, 600 ) );
+                fxPanel.setScene ( new Scene ( wv, 700, 600 ) );
                 frame = new JFrame ( "Справка" );
                 frame.add (new JScrollPane (fxPanel));
                 frame.setDefaultCloseOperation ( JFrame.HIDE_ON_CLOSE );

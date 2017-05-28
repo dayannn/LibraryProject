@@ -14,7 +14,7 @@ public class ChangeUser {
     private JFrame frame = new JFrame("ChangeUser");
     private JButton войтиButton;
     private JRadioButton администраторRadioButton;
-    private JRadioButton читательRadioButton;
+    private JRadioButton операторRadioButton;
     private JPanel Userpanel;
     private boolean IsAdmin = false;
     private AuthenticationForm auth;

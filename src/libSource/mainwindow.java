@@ -60,7 +60,7 @@ public class mainwindow extends JFrame{
         model = new DefaultTableModel();
         chgUser = new ChangeUser(this);
         cardForm = new CardForm(this);
-        changeUserButton.setText("Сменить режим доступа (польз.)");
+        changeUserButton.setText("Сменить режим доступа (опер.)");
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tablePopupMenu = new JPopupMenu();
 
@@ -261,7 +261,7 @@ public class mainwindow extends JFrame{
         if (role)
             changeUserButton.setText("Сменить режим доступа (админ.)");
         else
-            changeUserButton.setText("Сменить режим доступа (польз.)");
+            changeUserButton.setText("Сменить режим доступа (опер.)");
         cardForm.setAdmin(role);
     }
 
