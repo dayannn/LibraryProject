@@ -203,6 +203,7 @@ public class CardForm{
 
         textAreasList.add(providerTextArea);
         textAreasList.add(documentPropsTextArea);
+        textAreasList.add(viewNumTextArea);
 
 
         textAreasList.add(testAccessConclusionTextArea);
@@ -689,8 +690,6 @@ public class CardForm{
         // TODO: ВОЗМОЖНО инициализация текстовых полей
 
         // TODO: Инициализация полей комбобоксов
-
-
         resourceKindComboBox.setSelectedIndex(kindDictionary.getIdxByDBIdx(Integer.parseInt(src.getAttributeByName("kind_value").getAttributeValue())));
         resourceTypeComboBox.setSelectedIndex(typeDictionary.getIdxByDBIdx(Integer.parseInt(src.getAttributeByName("type_value").getAttributeValue())));
         infoKindComboBox.setSelectedIndex(contentDictionary.getIdxByDBIdx(Integer.parseInt(src.getAttributeByName("content_value").getAttributeValue())));
@@ -699,7 +698,7 @@ public class CardForm{
         subscriptionModelComboBox.setSelectedIndex(subModelDictionary.getIdxByDBIdx(Integer.parseInt(src.getAttributeByName("subscription_model_value").getAttributeValue())));
         paymentMethodComboBox.setSelectedIndex(paymentMethodDictionary.getIdxByDBIdx(Integer.parseInt(src.getAttributeByName("pay_type_value").getAttributeValue())));
         accessModeComboBox.setSelectedIndex(accessModeDictionary.getIdxByDBIdx(Integer.parseInt(src.getAttributeByName("access_mode_value").getAttributeValue())));
-        testAccessComboBox.setSelectedIndex(testModeDictionary.getIdxByDBIdx(Integer.parseInt(src.getAttributeByName("resource_test_mode").getAttributeValue())));
+        testAccessComboBox.setSelectedIndex(testModeDictionary.getIdxByDBIdx(Integer.parseInt(src.getAttributeByName("test_mode_value").getAttributeValue())));
 
         // Получаем расширенные значения
         languageList.setSelectedIndices(parseToIntSelectedIndexes(languageDictionary, src.getAttributeByName("language_value").getValues()));
@@ -955,7 +954,7 @@ public class CardForm{
     public void setTestModeDictionary(Dictionary dictionary) {
         testModeDictionary = dictionary;
 
-        for(int i = 0; i< dictionary.getSize();i++) {
+        for(int i = 0; i < dictionary.getSize();i++) {
             testAccessComboBox.addItem(dictionary.getDictValueByIdx(i));
         }
     }
@@ -977,8 +976,6 @@ public class CardForm{
 
         if (id >= 0) {
             // Изменение
-
-
             _parent.editValueInDictionary(currentDictionaryToEdit.getTable_name(), dict_value,
                     Integer.parseInt(DictionaryTable.getValueAt(DictionaryTable.getSelectedRow(), 0).toString()));
 

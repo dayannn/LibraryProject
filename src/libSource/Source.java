@@ -36,6 +36,7 @@ public class Source extends  BaseSource
 
         attributeList.add(new AttributeProvider(""));
         attributeList.add(new AttributeContractDetails(""));
+        attributeList.add(new AttributeStatistics(""));
 
 /*
         пока так
