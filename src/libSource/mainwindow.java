@@ -252,8 +252,20 @@ public class mainwindow extends JFrame{
     }
 
     public static void main(String[] args) {
-        new mainwindow();
 
+       /* try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }*/
+
+        new mainwindow();
     }
 
     public void setUserRole(boolean role) {
@@ -272,7 +284,7 @@ public class mainwindow extends JFrame{
         aboutMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,"Программа создана силами студентов МГТУ им. Баумана, группа ИУ7-63 в 2к17-том году", "О программе", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Программа создана силами студентов МГТУ им. Баумана, группа ИУ7-63 в 2017 году", "О программе", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         JMenuItem helpMenuItem = new JMenuItem("Справка");
