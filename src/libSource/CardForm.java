@@ -55,7 +55,7 @@ public class CardForm{
     private JScrollPane accessTypeScrollPane;
     private JList<String> ArchiveList;
     private JTextArea archiveNameTextArea;
-    private JTextArea changeDescrTextArea;
+    private JTextArea archiveOperatorTextArea;
     private JComboBox<String> resourceTypeComboBox;
     private JTextArea resourceKindTextArea;
     private JComboBox<String> resourceKindComboBox;
@@ -103,6 +103,9 @@ public class CardForm{
     private JButton AddButton;
     private JButton DeleteButton;
     private JTable DictionaryTable;
+    private JTextArea archiveSubscriptionModelTextArea;
+    private JTextArea archiveSubscriptionDurationTextArea;
+    private JTextArea archiveSubscriptionPriceTextArea;
     private Archive archive;
     private int curSrcID;
     private ChangeDirectoryForm dictForm;
@@ -433,7 +436,7 @@ public class CardForm{
                 // отобразить i-тый архив
                 int ID = ArchiveList.getSelectedIndex();
                 archiveNameTextArea.setText(archive.getArchiveRecords().get(ID).getAttributeList().get(0).getAttributeValue());
-                changeDescrTextArea.setText(archive.getArchiveRecords().get(ID).getChg_dscr());
+                archiveOperatorTextArea.setText(archive.getArchiveRecords().get(ID).getChg_dscr());
             }
         });
 
@@ -566,7 +569,7 @@ public class CardForm{
         archive = arch;
         DefaultListModel<String> listModel = new DefaultListModel<String>();
         archiveNameTextArea.setText("");
-        changeDescrTextArea.setText("");
+        archiveOperatorTextArea.setText("");
 
         //TODO: Возможно, переделать список дат под табличку
         for (int i = 0; i < arch.getArchiveRecords().size(); i++) {
