@@ -455,11 +455,30 @@ public class CardForm{
                     File fileToSave = fileChooser.getSelectedFile();
                     String content = "";
 
-                    for (JTextArea area : textAreasList
-                         ) {
-                        content = content + area.getText();
-                        content = content + "\n";
-                    }
+                    content += "Имя ресурса : " + resourсeNameTextArea.getText();
+                    content += "\nОператор ресурса : " + resourсeOperatorTextArea.getText();
+                    content += "\nСетевой адрес : " + addressTextArea.getText();
+                    content += "\nТематика : " + subjectsTextArea.getText();
+                    content += "\nТип ресурса : " + resourсeTypeTextArea.getText();
+                    content += "\nВид ресурса : " + resourceKindTextArea.getText();
+                    content += "\nПрирода информации контента : " + infoKindTextArea.getText();
+                    content += "\nОбъем ресурса : " + resourсeVolumeTextArea.getText();
+                    content += "\nЯзык документов ресурса : " + languageTextArea.getText();
+                    content += "\nХронологический охват : " + timeTextArea.getText();
+                    content += "\nВид доступа : " + accessTypeTextArea.getText();
+                    content += "\nАннотация : " + annotationTextArea.getText();
+                    content += "\nСтатус ресурса : " + resourceStatusTextArea.getText();
+                    content += "\nМодель подписки : " + subscriptionModelTextArea.getText();
+                    content += "\nПоставщик : " + providerTextArea.getText();
+                    content += "\nСпособ оплаты : " + paymentMethodTextArea.getText();
+                    content += "\nСрок действия договора : " + contractTimeTextArea.getText();
+                    content += "\nРеквизиты договора : " + documentPropsTextArea.getText();
+                    content += "\nстоимость подписки : " + subscriptionCostTextArea.getText();
+                    content += "\nРежим доступа : " + accessModeTextArea.getText();
+                    content += "\nКоличество просмотров в день : " + viewNumTextArea.getText();
+                    content += "\nТестовый доступ : " + testAccessTextArea.getText();
+                    content += "\nСроки проведения : " + testTimeTextArea.getText();
+                    content += "\nЗаключение по тестовому доступу : " + testAccessConclusionTextArea.getText();
 
                     FileWriter fw = null;
                     try {
