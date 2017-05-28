@@ -69,7 +69,6 @@ public class mainwindow extends JFrame{
         try {
             mgr = new DataBaseWorker();
 
-
             cardForm.setDictionariesInfo(mgr.getDictInfo());
 
             cardForm.setAccessTypeDictionary(mgr.getDictionary("access_type"));
@@ -441,6 +440,18 @@ public class mainwindow extends JFrame{
     public void addValueInDictionary(String table_name, String value) {
         try {
             mgr.addDictionaryValue(table_name, value);
+            cardForm.setAccessTypeDictionary(mgr.getDictionary("access_type"));
+            cardForm.setInfoKindDictionary(mgr.getDictionary("content"));
+            cardForm.setKindDictionary(mgr.getDictionary("kind"));
+            cardForm.setTypeDictionary(mgr.getDictionary("type"));
+            cardForm.setThemeDictionary(mgr.getDictionary("theme"));
+            cardForm.setLanguageDictionary(mgr.getDictionary("language"));
+            cardForm.setOperatorDictionary(mgr.getDictionary("operator"));
+            cardForm.setSubModelDictionary(mgr.getDictionary("subscription_model"));
+            cardForm.setPaymentMethodDictionary(mgr.getDictionary("pay_type"));
+            cardForm.setAccessModeDictionary(mgr.getDictionary("access_mode"));
+            cardForm.setTestModeDictionary(mgr.getDictionary("test_mode"));
+            cardForm.setStatusDictionary(mgr.getDictionary("status"));
         } catch (Exception e) {
             e.printStackTrace();
         }
