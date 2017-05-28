@@ -10,6 +10,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -47,23 +48,23 @@ public class CardForm{
     private JTextArea documentPropsTextArea;
     private JTextArea subscriptionCostTextArea;
     private JTextArea accessModeTextArea;
-    private JComboBox testAccessComboBox;
+    private JComboBox<String> testAccessComboBox;
     private JTextArea testAccessConclusionTextArea;
     private JTextArea accessTypeTextArea;
-    private JComboBox accessTypeComboBox;
+    private JComboBox<String> accessTypeComboBox;
     private JScrollPane accessTypeScrollPane;
-    private JList ArchiveList;
+    private JList<String> ArchiveList;
     private JTextArea archiveNameTextArea;
     private JTextArea changeDescrTextArea;
-    private JComboBox resourceTypeComboBox;
+    private JComboBox<String> resourceTypeComboBox;
     private JTextArea resourceKindTextArea;
-    private JComboBox resourceKindComboBox;
-    private JComboBox infoKindComboBox;
+    private JComboBox<String> resourceKindComboBox;
+    private JComboBox<String> infoKindComboBox;
     private JTextArea resourceStatusTextArea;
-    private JComboBox resourceStatusComboBox;
-    private JComboBox subscriptionModelComboBox;
-    private JComboBox paymentMethodComboBox;
-    private JComboBox accessModeComboBox;
+    private JComboBox<String> resourceStatusComboBox;
+    private JComboBox<String> subscriptionModelComboBox;
+    private JComboBox<String> paymentMethodComboBox;
+    private JComboBox<String> accessModeComboBox;
     private JScrollPane resourсeTypeScrollPane;
     private JScrollPane resourceKindScrollPane;
     private JScrollPane infoKindScrollPane;
@@ -75,13 +76,13 @@ public class CardForm{
     private JScrollPane testAccessScrollPane;
     private JTextArea testTimeTextArea;
     private JScrollPane testTimeScrollPane;
-    private JList languageList;
+    private JList<String> languageList;
     private JScrollPane languageListScrollPanel;
     private JScrollPane languageTextAreaScrollPanel;
     private JScrollPane subjectsTextAreaScrollPane;
-    private JList subjectsList;
+    private JList<String> subjectsList;
     private JScrollPane subjectsListScrollPane;
-    private JList resourceOperatorList;
+    private JList<String> resourceOperatorList;
     private JScrollPane subjectsListSP;
     private JScrollPane languageListSP;
     private JScrollPane resourceOperatorListSP;
@@ -95,20 +96,20 @@ public class CardForm{
     private JLabel subjectsLabel;
     private JLabel languageLabel;
     private JPanel exportTab;
-    private JButton exportbutton;
+    private JButton exportButton;
     private JPanel ModifyTab;
-    private JComboBox dictionaryComboBox;
+    private JComboBox<String> dictionaryComboBox;
     private JButton ChangeButton;
     private JButton AddButton;
     private JButton DeleteButton;
     private JTable DictionaryTable;
     private Archive archive;
     private int curSrcID;
-    private ChangeDirectoryForm dictform;
+    private ChangeDirectoryForm dictForm;
 
-    DefaultTableModel tm = new DefaultTableModel();
+    private DefaultTableModel tm = new DefaultTableModel();
 
-
+    private Dictionary currentDictionaryToEdit;
     private Dictionary accessTypeDictionary;
     private Dictionary contentDictionary;
     private Dictionary kindDictionary;
@@ -133,12 +134,13 @@ public class CardForm{
     }
 
     private boolean IsAdmin;
-    CardMode mode;
-    mainwindow _parent; // that's not very good, I suppose?
+    private CardMode mode;
+    private mainwindow _parent; // that's not very good, I suppose?
 
     public boolean isAdmin() {
         return IsAdmin;
     }
+
 
     public void setAdmin(boolean admin) {
         IsAdmin = admin;
@@ -147,10 +149,8 @@ public class CardForm{
             // admin job
             tabbedPane1.add(ModifyTab);
             ModifyTab.setName("Изменение");
-
         }
         else {
-
             tabbedPane1.remove(ModifyTab);
             // librarian job
         }
@@ -320,8 +320,7 @@ public class CardForm{
         return res;
     }
 
-    private void resetFieldsColor()
-    {
+    private void resetFieldsColor() {
         resourсeNameTextArea.setBackground(Color.white);
         addressTextArea.setBackground(Color.white);
         annotationTextArea.setBackground(Color.white);
@@ -332,7 +331,7 @@ public class CardForm{
 
 
     public CardForm(mainwindow parent) {
-        dictform = new ChangeDirectoryForm();
+        dictForm = new ChangeDirectoryForm(this);
         curSrcID = 0;
         frame = new JDialog(_parent, "Паспорт ресурса", true);
         _parent = parent;
@@ -353,8 +352,7 @@ public class CardForm{
             public void setSelectionInterval(int index0, int index1) {
                 if(super.isSelectedIndex(index0)) {
                     super.removeSelectionInterval(index0, index1);
-                }
-                else {
+                } else {
                     super.addSelectionInterval(index0, index1);
                 }
             }
@@ -364,8 +362,7 @@ public class CardForm{
             public void setSelectionInterval(int index0, int index1) {
                 if(super.isSelectedIndex(index0)) {
                     super.removeSelectionInterval(index0, index1);
-                }
-                else {
+                } else {
                     super.addSelectionInterval(index0, index1);
                 }
             }
@@ -375,8 +372,7 @@ public class CardForm{
             public void setSelectionInterval(int index0, int index1) {
                 if(super.isSelectedIndex(index0)) {
                     super.removeSelectionInterval(index0, index1);
-                }
-                else {
+                } else {
                     super.addSelectionInterval(index0, index1);
                 }
             }
@@ -409,8 +405,7 @@ public class CardForm{
                 saveButton.setVisible(false);
                 if (mode == CardMode.ADDDITION) {
                     _parent.additionConfirmed();
-                }
-                else {
+                } else {
                     _parent.editionConfirmed();
                 }
                 frame.setVisible(false);
@@ -435,14 +430,14 @@ public class CardForm{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                // отобразить iтый архив
+                // отобразить i-тый архив
                 int ID = ArchiveList.getSelectedIndex();
                 archiveNameTextArea.setText(archive.getArchiveRecords().get(ID).getAttributeList().get(0).getAttributeValue());
                 changeDescrTextArea.setText(archive.getArchiveRecords().get(ID).getChg_dscr());
             }
         });
 
-        exportbutton.addActionListener(new ActionListener() {
+        exportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
@@ -477,16 +472,16 @@ public class CardForm{
         ChangeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SetChangeDictionaryform();
-                dictform.show();
+                SetChangeDictionaryForm();
+                dictForm.show();
             }
         });
 
         AddButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dictform = new ChangeDirectoryForm();
-                dictform.show();
+                dictForm.clearFields();
+                dictForm.show();
             }
         });
 
@@ -502,14 +497,8 @@ public class CardForm{
                     tm.addColumn("Значения словаря");
 
                     try {
-                        tm.setRowCount(0);
-                        Dictionary curDict = _parent.getMgr().getDictionary(table_name);
-                        for (int i = 0; i < curDict.getSize(); i++) {
-                            Vector<String> data = new Vector<>();
-                            data.addElement(String.valueOf(curDict.getDBIdxByIdx(i)));
-                            data.addElement(curDict.getDictValueByIdx(i));
-                            tm.addRow(data);
-                        }
+                        updateTable(table_name);
+
                         DictionaryTable.setModel(tm);
                     } catch (Exception e1) {
                         e1.printStackTrace();
@@ -517,6 +506,24 @@ public class CardForm{
                 }
             }
         });
+        DeleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+
+    private void updateTable(String table_name) throws SQLException {
+        currentDictionaryToEdit = _parent.getMgr().getDictionary(table_name);
+        tm.setRowCount(0);
+        for (int i = 0; i < currentDictionaryToEdit.getSize(); i++) {
+
+            Vector<String> data = new Vector<>();
+            data.addElement(String.valueOf(currentDictionaryToEdit.getDBIdxByIdx(i)));
+            data.addElement(currentDictionaryToEdit.getDictValueByIdx(i));
+            tm.addRow(data);
+        }
     }
 
     public void setDictionariesInfo(DictionaryInfoProxy dictionariesInfo) {
@@ -532,21 +539,22 @@ public class CardForm{
             textAreasList.get(i).setText(src.getAttribute(i).getAttributeValue());
         }
     }
+
     public void setFieldsBySourceIndexes(BaseSource src) {
         // TODO: ВОЗМОЖНО инициализация текстовых полей
 
         // TODO: Инициализация полей комбобоксов
 
-        resourceKindComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("kind_value").getAttributeValue()));
-        resourceTypeComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("type_value").getAttributeValue()));
-        infoKindComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("content_value").getAttributeValue()));
-        accessTypeComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("access_type_value").getAttributeValue()));
-        resourceStatusComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("status_value").getAttributeValue()));
-        subscriptionModelComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("subscription_model_value").getAttributeValue()));
-        paymentMethodComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("pay_type_value").getAttributeValue()));
-        accessModeComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("access_mode_value").getAttributeValue()));
-        testAccessComboBox.setSelectedIndex(Integer.parseInt(src.getAttributeByName("resource_test_mode").getAttributeValue()));
 
+        resourceKindComboBox.setSelectedIndex(kindDictionary.getIdxByDBIdx(Integer.parseInt(src.getAttributeByName("kind_value").getAttributeValue())));
+        resourceTypeComboBox.setSelectedIndex(typeDictionary.getIdxByDBIdx(Integer.parseInt(src.getAttributeByName("type_value").getAttributeValue())));
+        infoKindComboBox.setSelectedIndex(contentDictionary.getIdxByDBIdx(Integer.parseInt(src.getAttributeByName("content_value").getAttributeValue())));
+        accessTypeComboBox.setSelectedIndex(accessTypeDictionary.getIdxByDBIdx(Integer.parseInt(src.getAttributeByName("access_type_value").getAttributeValue())));
+        resourceStatusComboBox.setSelectedIndex(statusDictionary.getIdxByDBIdx(Integer.parseInt(src.getAttributeByName("status_value").getAttributeValue())));
+        subscriptionModelComboBox.setSelectedIndex(subModelDictionary.getIdxByDBIdx(Integer.parseInt(src.getAttributeByName("subscription_model_value").getAttributeValue())));
+        paymentMethodComboBox.setSelectedIndex(paymentMethodDictionary.getIdxByDBIdx(Integer.parseInt(src.getAttributeByName("pay_type_value").getAttributeValue())));
+        accessModeComboBox.setSelectedIndex(accessModeDictionary.getIdxByDBIdx(Integer.parseInt(src.getAttributeByName("access_mode_value").getAttributeValue())));
+        testAccessComboBox.setSelectedIndex(testModeDictionary.getIdxByDBIdx(Integer.parseInt(src.getAttributeByName("resource_test_mode").getAttributeValue())));
 
         // Получаем расширенные значения
         languageList.setSelectedIndices(parseToIntSelectedIndexes(languageDictionary, src.getAttributeByName("language_value").getValues()));
@@ -556,7 +564,7 @@ public class CardForm{
 
     public void setArchive(Archive arch) {
         archive = arch;
-        DefaultListModel listModel = new DefaultListModel();
+        DefaultListModel<String> listModel = new DefaultListModel<String>();
         archiveNameTextArea.setText("");
         changeDescrTextArea.setText("");
 
@@ -719,7 +727,7 @@ public class CardForm{
     public void setThemeDictionary(Dictionary dictionary) {
         themeDictionary = dictionary;
 
-        DefaultListModel listModel = new DefaultListModel();
+        DefaultListModel<String> listModel = new DefaultListModel<>();
         for(int i = 0; i < dictionary.getSize(); i++)
             listModel.addElement(dictionary.getDictValueByIdx(i));
 
@@ -729,7 +737,7 @@ public class CardForm{
     public void setLanguageDictionary(Dictionary dictionary) {
         languageDictionary = dictionary;
 
-        DefaultListModel listModel = new DefaultListModel();
+        DefaultListModel<String> listModel = new DefaultListModel<>();
         for(int i = 0; i < dictionary.getSize(); i++)
             listModel.addElement(dictionary.getDictValueByIdx(i));
         languageList.setModel(listModel);
@@ -738,7 +746,7 @@ public class CardForm{
     public void setOperatorDictionary(Dictionary dictionary) {
         operatorDictionary = dictionary;
 
-        DefaultListModel listModel = new DefaultListModel();
+        DefaultListModel<String> listModel = new DefaultListModel<>();
         for(int i = 0; i < dictionary.getSize(); i++)
             listModel.addElement(dictionary.getDictValueByIdx(i));
         resourceOperatorList.setModel(listModel);
@@ -810,10 +818,24 @@ public class CardForm{
         }
     }
 
-    public void SetChangeDictionaryform() {
+    public void SetChangeDictionaryForm() {
         int ID = Integer.parseInt(DictionaryTable.getValueAt(DictionaryTable.getSelectedRow(), 0).toString());
-        String nameofline  = DictionaryTable.getValueAt(DictionaryTable.getSelectedRow(), 1).toString();
-        dictform.Setfield(ID, nameofline);
+        String dict_value  = DictionaryTable.getValueAt(DictionaryTable.getSelectedRow(), 1).toString();
+        dictForm.SetField(ID, dict_value);
+    }
 
+    public void editDictionary(int id, String dict_value) {
+
+        if (id >= 0) {
+            // Изменение
+        } else {
+            // Добавление
+            _parent.addValueInDictionary(currentDictionaryToEdit.getTable_name(), dict_value);
+            try {
+                updateTable(currentDictionaryToEdit.getTable_name());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

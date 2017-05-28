@@ -106,4 +106,8 @@ public class DBFacade {
     public ResultSet getDictionariesInfo() throws SQLException {
         return dbManager.ExecQuery(queryManager.getDictionariesInfo());
     }
+
+    public void addDictValue(String table_name, String value) throws SQLException {
+        dbManager.ExecQueryWOResultSet(queryManager.addDictValueInDictionary(table_name, value));
+    }
 }

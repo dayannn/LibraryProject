@@ -71,7 +71,7 @@ public class Dictionary {
     }
 
     public String getValueByIdx(int idx, int value) {
-        return dictData.getValueAt(idx, value).toString();
+        return dictData.getValueAt(idx,value).toString();
     }
 
     public int getSize() {
