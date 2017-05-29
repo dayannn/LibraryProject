@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 /**
  * Created by admin on 24/05/17.
@@ -24,30 +25,32 @@ public class AuthenticationForm {
         frame.setContentPane(panelmain);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-
         //frame.setMinimumSize();
         frame.pack();
         //this.frame = frame;
         enterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (textField1.getText().equals("admin") && textField2.getText().equals("12345"))
-                {
-                    //labelerror.setVisible(false);
-                    textField1.setText("");
-                    textField2.setText("");
+                String login = textField1.getText();
+                String pass = textField2.getText();
+                try {
+                    int role = cu.getMw1().getMgr().getRoleForPair(login, pass);
+                    if (role == 1) {
+                        //labelerror.setVisible(false);
+                        textField1.setText("");
+                        textField2.setText("");
 
-                    cu.SetAdmin(true);
-                    frame.setVisible(false);
+                        cu.SetAdmin(true);
+                        frame.setVisible(false);
 
+                    } else {
+                            labelerror.setText("Неправильный пароль!");
+                            textField1.setText("");
+                            textField2.setText("");
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
                 }
-                else
-                {
-                    labelerror.setText("Неправильный пароль!");
-                    textField1.setText("");
-                    textField2.setText("");
-                }
-
             }
         });
     }

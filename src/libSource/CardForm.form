@@ -1044,7 +1044,10 @@
                     <preferred-size width="150" height="50"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <enabled value="true"/>
+                  <focusable value="true"/>
+                </properties>
               </component>
             </children>
           </grid>

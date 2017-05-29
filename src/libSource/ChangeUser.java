@@ -19,6 +19,10 @@ public class ChangeUser {
     private boolean IsAdmin = false;
     private AuthenticationForm auth;
 
+    public mainwindow getMw1() {
+        return mw1;
+    }
+
     private mainwindow mw1;
 
     public ChangeUser(mainwindow mw) {
@@ -44,7 +48,6 @@ public class ChangeUser {
     }
 
     public void SetAdmin(boolean temp) {
-        System.out.println("LOL");
         IsAdmin = temp;
         mw1.setUserRole(IsAdmin);
         frame.setVisible(false);

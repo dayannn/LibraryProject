@@ -72,7 +72,6 @@ public class mainwindow extends JFrame{
             mgr = new DataBaseWorker();
 
             cardForm.setDictionariesInfo(mgr.getDictInfo());
-
             this.updateDictionaries();
         } catch (Exception e1) {
             e1.printStackTrace();

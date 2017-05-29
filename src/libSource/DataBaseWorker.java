@@ -240,4 +240,19 @@ public class DataBaseWorker
         dbFacade.editDictValue(dict_name, value, id);
     }
 
+    //  1 - admin
+    //  0 - user
+    // -1 - неверный пароль
+    public int getRoleForPair(String login, String pass) throws SQLException {
+        int role = -1;
+        ResultSet rs = dbFacade.getRoleByLogin(login, pass);
+        if (rs.next())  {
+            if (rs.getString("role").equals("admin")) {
+                role = 1;
+            } else {
+                role = 0;
+            }
+        }
+        return role;
+    }
 }

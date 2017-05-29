@@ -381,4 +381,8 @@ public class QueryManager {
     public String editValueInDictionary(String dict_name, String value, int id) {
         return " UPDATE " + dict_name + " SET " +dict_name + "_value = \"" + value + "\" WHERE key = " + String.valueOf(id);
     }
+
+    public String getRoleForPair(String login, String pass) {
+        return " SELECT role FROM authentication WHERE login = \"" + login + "\" AND password = \"" + pass + "\" ";
+    }
 }

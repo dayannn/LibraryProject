@@ -124,4 +124,8 @@ public class DBFacade {
     public void addDictValue(String table_name, String value) throws SQLException {
         dbManager.ExecQueryWOResultSet(queryManager.addDictValueInDictionary(table_name, value));
     }
+
+    public ResultSet getRoleByLogin(String login, String pass) throws SQLException {
+        return dbManager.ExecQuery(queryManager.getRoleForPair(login, pass));
+    }
 }
