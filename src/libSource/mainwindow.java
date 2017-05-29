@@ -5,9 +5,13 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.sql.SQLException;
 import java.util.Vector;
 import java.util.List;
+import java.util.Timer;
 
 /**
  * Created by admin on 07/04/17.
@@ -19,6 +23,9 @@ public class mainwindow extends JFrame{
     private JTextField NameEdit;
     private JTextField DescrEdit;
     private JScrollPane sp;
+
+
+
     private JTable table1;
     private JButton openCardButton;
     private JTextField LinkEdit;
@@ -51,7 +58,6 @@ public class mainwindow extends JFrame{
     public mainwindow() {
         setTitle("Система паспортизации электронных ресурсов удаленного доступа");
         menuBar = new JMenuBar();
-
         setContentPane(panel1);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMyMenuBar();
@@ -104,8 +110,10 @@ public class mainwindow extends JFrame{
         getbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                wasloaded = true;
                 updateTable();
+                if (!wasloaded)
+                    setArchivationTimer();
+                wasloaded = true;
             }
         });
 
@@ -244,6 +252,9 @@ public class mainwindow extends JFrame{
         });
     }
 
+    public JTable getTable1() {
+        return table1;
+    }
 
     public void updateDictionaries() throws SQLException {
         cardForm.setAccessTypeDictionary(mgr.getDictionary("access_type"));
@@ -326,6 +337,89 @@ public class mainwindow extends JFrame{
         });
         tablePopupMenu.add(deleteItem);
     }
+
+    private void setArchivationTimer(){
+        String filename = "./Docs/lastArch.txt";
+        final File file = new File(filename);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                FileWriter writer = new FileWriter(file);
+                String s = Objects.toString(System.currentTimeMillis());
+                writer.write(s);
+                writer.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        String content = "";
+        try {
+            content = new Scanner(file).useDelimiter("\\Z").next(); // read String from file
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Long lastArchTime = Long.parseLong(content);
+        if (lastArchTime <= 0)
+        {
+            try {
+                FileWriter writer = new FileWriter(file);
+                String s = Objects.toString(System.currentTimeMillis());
+                writer.write(s);
+                writer.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        long interval = 15811200000L; // half a year
+        //long interval = 15811L; // 15s
+        Date timeToRun = new Date(System.currentTimeMillis() + interval);
+        if (System.currentTimeMillis() > lastArchTime  + interval) {
+            archivateAllPlanned();
+            return;
+        }
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                archivateAllPlanned();
+            }
+        }, timeToRun);
+    }
+
+    private void archivateAllPlanned(){
+        try {
+            //System.out.println("Planned archivation");
+            //table1.setBackground(Color.red);
+            for (int i = 0; i < table1.getRowCount(); i++) {
+                int ID = Integer.parseInt(table1.getValueAt(i, 0).toString());
+                mgr.addToArchiveSourceByID("Planned every-half year addition", ID);
+            }
+            String filename = "./Docs/lastArch.txt";
+            final File file = new File(filename);
+            if (!file.exists()) {
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                FileWriter writer = new FileWriter(file);
+                String s = Objects.toString(System.currentTimeMillis());
+                writer.write(s);
+                writer.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void doPop(MouseEvent e) {
         if (table1.getSelectedRowCount() == 0) {
@@ -484,4 +578,3 @@ public class mainwindow extends JFrame{
         }
     }
 }
-
