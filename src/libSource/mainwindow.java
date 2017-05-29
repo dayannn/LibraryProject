@@ -135,8 +135,8 @@ public class mainwindow extends JFrame{
                     else
                         table1.clearSelection();
 
-                    int rowindex = table1.getSelectedRow();
-                    if (rowindex < 0)
+                    int rowIndex = table1.getSelectedRow();
+                    if (rowIndex < 0)
                         return;
                 }
                 if (e.isPopupTrigger() && e.getComponent() instanceof JTable )
