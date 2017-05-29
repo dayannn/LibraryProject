@@ -197,7 +197,7 @@ public class DataBaseWorker
 
         tempstring = tempstring + ".";
 
-           addToArchiveSourceByID(tempstring, id);
+        addToArchiveSourceByID(tempstring, id);
         dbFacade.chgSource(id, source);
     }
 
@@ -239,4 +239,5 @@ public class DataBaseWorker
     public void editDictionaryValue(String dict_name, String value, int id) throws SQLException {
         dbFacade.editDictValue(dict_name, value, id);
     }
+
 }
