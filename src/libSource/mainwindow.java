@@ -375,7 +375,7 @@ public class mainwindow extends JFrame{
 
         long interval = 15811200000L; // half a year
         //long interval = 15811L; // 15s
-        Date timeToRun = new Date(System.currentTimeMillis() + interval);
+        Date timeToRun = new Date(lastArchTime + interval);
         if (System.currentTimeMillis() > lastArchTime  + interval) {
             archivateAllPlanned();
             return;
