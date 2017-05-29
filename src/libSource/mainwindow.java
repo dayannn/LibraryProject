@@ -392,8 +392,8 @@ public class mainwindow extends JFrame{
 
     private void archivateAllPlanned(){
         try {
-            System.out.println("Planned archivation");
-            table1.setBackground(Color.red);
+            //System.out.println("Planned archivation");
+            //table1.setBackground(Color.red);
             for (int i = 0; i < table1.getRowCount(); i++) {
                 int ID = Integer.parseInt(table1.getValueAt(i, 0).toString());
                 mgr.addToArchiveSourceByID("Planned every-half year addition", ID);
