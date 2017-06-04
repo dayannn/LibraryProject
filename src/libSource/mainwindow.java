@@ -56,6 +56,7 @@ public class mainwindow extends JFrame{
     private JMenuBar menuBar;
 
     public mainwindow() {
+        table1.setDefaultEditor(Object.class, null);
         setTitle("Система паспортизации электронных ресурсов удаленного доступа");
         menuBar = new JMenuBar();
         setContentPane(panel1);
@@ -71,6 +72,7 @@ public class mainwindow extends JFrame{
         cardForm = new CardForm(this);
         changeUserButton.setText("Сменить режим доступа (опер.)");
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         tablePopupMenu = new JPopupMenu();
 
 
