@@ -67,7 +67,7 @@ public class QueryManager {
         String query;
 
         query = "SELECT ";
-        for (Integer i = 0; i < lst.size(); i++) {
+        for (int i = 0; i < lst.size(); i++) {
             if (lst.get(i).getMidT().isEmpty()) {
                 query = query + " " + lst.get(i).getAttributeTableName() + "." + lst.get(i).getAttributeName();
             } else {
@@ -80,7 +80,7 @@ public class QueryManager {
         }
         query = query + " FROM " + MAINTABLE + " ";
 
-        for (Integer i = 0; i < lst.size(); i++) {
+        for (int i = 0; i < lst.size(); i++) {
             if (lst.get(i).getAttributeTableName() == MAINTABLE)
                 continue;
 
@@ -104,7 +104,7 @@ public class QueryManager {
     public String extendedSelect(AttributeList lst) {
         String query;
         query = "SELECT ";
-        for (Integer i = 0; i < lst.size(); i++) {
+        for (int i = 0; i < lst.size(); i++) {
             query = query + " " + lst.get(i).getAttributeTableName() + "." + lst.get(i).getAttributeName();
             if (i != lst.size()-1) query = query + ", ";
         }
@@ -135,7 +135,7 @@ public class QueryManager {
     public String extendedSearch(AttributeList lst) {
         String query;
         query = " WHERE " + " ( ";
-        for (Integer i = 0; i < lst.size(); i++) {
+        for (int i = 0; i < lst.size(); i++) {
             query = query + " "+lst.get(i).getAttributeTableName()+"."+lst.get(i).getAttributeName()+" LIKE '%"+lst.get(i).getAttributeValue()+"%' ";
             if (i != lst.size()-1) query = query + "AND ";
         }
@@ -177,7 +177,8 @@ public class QueryManager {
     public String addSourceInMainTable(AttributeList attributeList) {
         String query;
         query = " INSERT INTO " + MAINTABLE + " (";
-        for (Integer i = 0; i < attributeList.size(); i++) {
+        for (int i = 0; i < attributeList.size(); i++) {
+
             if (attributeList.get(i).getMidT().isEmpty()) {
 
                 if (attributeList.get(i).getAttributeTableName() == MAINTABLE)
