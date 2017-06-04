@@ -305,6 +305,8 @@ public class CardForm{
             resourceOperatorList.clearSelection();
             languageList.clearSelection();
             subjectsList.clearSelection();
+            DefaultListModel model = (DefaultListModel) ArchiveList.getModel();
+            model.removeAllElements();
         }
     }
 
