@@ -302,6 +302,9 @@ public class CardForm{
     private void clearFields(){
         for (JTextArea area : textAreasList){
             area.setText("");
+            resourceOperatorList.clearSelection();
+            languageList.clearSelection();
+            subjectsList.clearSelection();
         }
     }
 
@@ -658,7 +661,6 @@ public class CardForm{
             e.printStackTrace();
         }
     }
-
 
     private void updateTable(String table_name) throws SQLException {
         currentDictionaryToEdit = _parent.getMgr().getDictionary(table_name);
