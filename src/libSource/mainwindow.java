@@ -65,6 +65,7 @@ public class mainwindow extends JFrame{
         pack();
         setVisible(true);
 
+
         model = new DefaultTableModel();
         chgUser = new ChangeUser(this);
         cardForm = new CardForm(this);
@@ -86,6 +87,7 @@ public class mainwindow extends JFrame{
         table1.setAutoCreateRowSorter(true);
         table1.setFillsViewportHeight(true);
         table1.setPreferredScrollableViewportSize(new Dimension(550, 200));
+
 
         //table1.setModel(model);
         openCardButton.addActionListener(new ActionListener() {

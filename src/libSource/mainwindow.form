@@ -127,7 +127,7 @@
               <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Тип доступа:"/>
+              <text value="Режим доступа:"/>
             </properties>
           </component>
           <component id="ad65a" class="javax.swing.JTextField" binding="AccessTypeEdit">
