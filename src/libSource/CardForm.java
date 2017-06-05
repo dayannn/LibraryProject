@@ -125,6 +125,7 @@ public class CardForm{
     private Archive archive;
     private int curSrcID;
     private ChangeDirectoryForm dictForm;
+    private JScrollPane scrollp7 = new JScrollPane();;
 
     private DefaultTableModel tm = new DefaultTableModel();
 
@@ -166,11 +167,13 @@ public class CardForm{
         //tabbedPane1.remove(ModifyTab);
         if (IsAdmin) {
             // admin job
-            tabbedPane1.add(ModifyTab);
+           // tabbedPane1.add(ModifyTab);
+            tabbedPane1.add(scrollp7, "Изменение");
             ModifyTab.setName("Изменение");
         }
         else {
-            tabbedPane1.remove(ModifyTab);
+            //tabbedPane1.remove(ModifyTab);
+            tabbedPane1.remove(scrollp7);
             // librarian job
         }
 
@@ -305,8 +308,16 @@ public class CardForm{
             resourceOperatorList.clearSelection();
             languageList.clearSelection();
             subjectsList.clearSelection();
-            DefaultListModel model = (DefaultListModel) ArchiveList.getModel();
-            model.removeAllElements();
+            archiveNameTextArea.setText("");
+            archiveOperatorTextArea.setText("");
+            archiveSubscriptionModelTextArea.setText("");
+            archiveSubscriptionPriceTextArea.setText("");
+            archiveSubscriptionDurationTextArea.setText("");
+            archiveInfoTextArea.setText("");
+
+//            DefaultListModel model = (DefaultListModel) ArchiveList.getModel();
+          /*  if (!model.isEmpty())
+                model.removeAllElements();*/
         }
     }
 
@@ -774,12 +785,14 @@ public class CardForm{
         tabbedPane1.add(scrollp4, "Статистика использования");
         tabbedPane1.add(scrollp5, "Дополнительные сведения");
         tabbedPane1.add(scrollp6, "Экспорт");
+        tabbedPane1.add(scrollp7, "Изменение");
         scrollp1.setViewportView(generalInfoTab);
         scrollp2.setViewportView(subscriptionInfoTab);
         scrollp3.setViewportView(subscriptionArchiveTab);
         scrollp4.setViewportView(statisticsTab);
         scrollp5.setViewportView(additionalInfoTab);
         scrollp6.setViewportView(exportTab);
+        scrollp7.setViewportView(ModifyTab);
 
     }
 
@@ -998,4 +1011,6 @@ public class CardForm{
             }
         }
     }
+
+
 }
