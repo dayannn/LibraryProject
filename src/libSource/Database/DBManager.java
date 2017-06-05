@@ -30,12 +30,12 @@ public class DBManager {
     }
 
     public ResultSet ExecQuery(String query_str) throws SQLException {
-        System.out.println(query_str);
+        //System.out.println(query_str);
         return dbConnection.createStatement().executeQuery(query_str);
     }
 
     public void ExecQueryWOResultSet(String query_str) throws SQLException {
-        System.out.println(query_str);
+        //System.out.println(query_str);
         dbConnection.createStatement().executeUpdate(query_str);
     }
     

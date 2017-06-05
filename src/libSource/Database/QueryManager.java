@@ -348,10 +348,10 @@ public class QueryManager {
 
     public String findDictValueUsages(String dict_name, int id) {
         String query = "";
-        if (! (dict_name.equals("language")) || (dict_name.equals("theme")) || (dict_name.equals("operator")))
-            query = " SELECT resource_" + dict_name + " FROM " + MAINTABLE + " WHERE resource_" + dict_name + " = " + String.valueOf(id);
-        else
+        if ((dict_name.equals("language")) || (dict_name.equals("theme")) || (dict_name.equals("operator")))
             query =  " SELECT * FROM resource_" + dict_name + " WHERE " + dict_name + "_id = " + String.valueOf(id);
+        else
+            query = " SELECT resource_" + dict_name + " FROM " + MAINTABLE + " WHERE resource_" + dict_name + " = " + String.valueOf(id);
 
         return query;
     }
