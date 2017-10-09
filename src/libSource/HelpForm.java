@@ -5,10 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.web.WebView;
 
 import javax.swing.*;
-import javax.swing.text.html.HTMLDocument;
-import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 
 /**

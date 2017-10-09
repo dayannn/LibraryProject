@@ -2,7 +2,6 @@ package libSource.Attributes;
 
 
 import javax.swing.*;
-import java.util.List;
 
 public class BaseAttribute
 {

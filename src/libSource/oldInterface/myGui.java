@@ -12,7 +12,6 @@ import java.sql.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
 
 import java.util.Vector;
 import javax.swing.table.*;
@@ -196,6 +195,7 @@ public class myGui {
         frame.setVisible(true);
     }
 
+    // WTF is this? why always null?
      public static TableModel buildTableModel(final ResultSet resultSet) throws SQLException {
        /* int columnCount = resultSet.getMetaData().getColumnCount();
 

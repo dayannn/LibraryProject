@@ -9,7 +9,6 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.sql.SQLException;
-import java.util.Vector;
 import java.util.List;
 import java.util.Timer;
 
@@ -162,7 +161,7 @@ public class mainwindow extends JFrame{
         extendedSearchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (wasloaded != false) {
+                if (wasloaded) {
                     AttributeList lst = new AttributeList();
 
                     AttributeName atn = new AttributeName("");
@@ -217,7 +216,7 @@ public class mainwindow extends JFrame{
         simpleSearchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (wasloaded != false) {
+                if (wasloaded) {
                     AttributeList lstOut = new AttributeList();
                     lstOut.add(new AttributeID(""));
                     lstOut.add(new AttributeName(""));

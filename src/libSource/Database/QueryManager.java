@@ -1,12 +1,9 @@
 package libSource.Database;
 import  libSource.Attributes.*;
 import  libSource.*;
-import java.util.List;
-import javax.swing.*;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import javax.swing.*;
+import java.util.Objects;
 
 /**
  * Created by JacKeTUs on 07.04.2017.
@@ -66,49 +63,45 @@ public class QueryManager {
     public String extendedSelectFromMainTable(AttributeList lst) {
         String query;
 
-        query = "SELECT ";
+        StringBuilder queryBuilder = new StringBuilder("SELECT ");
         for (int i = 0; i < lst.size(); i++) {
             if (lst.get(i).getMidT().isEmpty()) {
-                query = query + " " + lst.get(i).getAttributeTableName() + "." + lst.get(i).getAttributeName();
+                queryBuilder.append(" ").append(lst.get(i).getAttributeTableName()).append(".").append(lst.get(i).getAttributeName());
             } else {
-                query = query + " group_concat(DISTINCT " +
-                        lst.get(i).getAttributeTableName() + "." + lst.get(i).getAttributeName() + ") AS " +
-                        lst.get(i).getAttributeName();
+                queryBuilder.append(" group_concat(DISTINCT ").append(lst.get(i).getAttributeTableName()).append(".").append(lst.get(i).getAttributeName()).append(") AS ").append(lst.get(i).getAttributeName());
             }
 
-            if (i != lst.size() - 1) query = query + ", ";
+            if (i != lst.size() - 1) queryBuilder.append(", ");
         }
-        query = query + " FROM " + MAINTABLE + " ";
-
+        queryBuilder.append(" FROM " + MAINTABLE + " ");
         for (int i = 0; i < lst.size(); i++) {
-            if (lst.get(i).getAttributeTableName() == MAINTABLE)
+            if (Objects.equals(lst.get(i).getAttributeTableName(), MAINTABLE))
                 continue;
 
             if (lst.get(i).getMidT().isEmpty()) {
-                query = query + " INNER JOIN " + lst.get(i).getAttributeTableName();
-                query = query + " ON " + MAINTABLE + ".resource_" + lst.get(i).getAttributeTableName() + " = " +
-                        lst.get(i).getAttributeTableName() + ".key ";
+                queryBuilder.append(" INNER JOIN ").append(lst.get(i).getAttributeTableName());
+                queryBuilder.append(" ON " + MAINTABLE + ".resource_").append(lst.get(i).getAttributeTableName()).append(" = ").append(lst.get(i).getAttributeTableName()).append(".key ");
             } else {
-                query = query + " INNER JOIN " + lst.get(i).getMidT();
-                query = query + " ON " + lst.get(i).getMidT() + ".resource_id = " + MAINTABLE +
-                        ".resource_id ";
+                queryBuilder.append(" INNER JOIN ").append(lst.get(i).getMidT());
+                queryBuilder.append(" ON ").append(lst.get(i).getMidT()).append(".resource_id = ").append(MAINTABLE).append(".resource_id ");
 
-                query = query + " INNER JOIN " + lst.get(i).getAttributeTableName();
-                query = query + " ON " + lst.get(i).getAttributeTableName() + ".key = " +
-                        lst.get(i).getMidT() + "." + lst.get(i).getAttributeTableName() + "_id ";
+                queryBuilder.append(" INNER JOIN ").append(lst.get(i).getAttributeTableName());
+                queryBuilder.append(" ON ").append(lst.get(i).getAttributeTableName()).append(".key = ").append(lst.get(i).getMidT()).append(".").append(lst.get(i).getAttributeTableName()).append("_id ");
             }
         }
+        query = queryBuilder.toString();
         return query;
     }
 
     public String extendedSelect(AttributeList lst) {
         String query;
-        query = "SELECT ";
+        StringBuilder queryBuilder = new StringBuilder("SELECT ");
         for (int i = 0; i < lst.size(); i++) {
-            query = query + " " + lst.get(i).getAttributeTableName() + "." + lst.get(i).getAttributeName();
-            if (i != lst.size()-1) query = query + ", ";
+            queryBuilder.append(" ").append(lst.get(i).getAttributeTableName()).append(".").append(lst.get(i).getAttributeName());
+            if (i != lst.size()-1) queryBuilder.append(", ");
         }
-        query = query + " FROM " + MAINTABLE + " ";
+        queryBuilder.append(" FROM " + MAINTABLE + " ");
+        query = queryBuilder.toString();
         return query;
     }
 
@@ -134,12 +127,13 @@ public class QueryManager {
     // Расширенный поиск - по кастомным атрибутам
     public String extendedSearch(AttributeList lst) {
         String query;
-        query = " WHERE " + " ( ";
+        StringBuilder queryBuilder = new StringBuilder(" WHERE " + " ( ");
         for (int i = 0; i < lst.size(); i++) {
-            query = query + " "+lst.get(i).getAttributeTableName()+"."+lst.get(i).getAttributeName()+" LIKE '%"+lst.get(i).getAttributeValue()+"%' ";
-            if (i != lst.size()-1) query = query + "AND ";
+            queryBuilder.append(" ").append(lst.get(i).getAttributeTableName()).append(".").append(lst.get(i).getAttributeName()).append(" LIKE '%").append(lst.get(i).getAttributeValue()).append("%' ");
+            if (i != lst.size()-1) queryBuilder.append("AND ");
         }
-        query = query + ")";
+        queryBuilder.append(")");
+        query = queryBuilder.toString();
         return query;
     }
 
@@ -176,58 +170,60 @@ public class QueryManager {
 
     public String addSourceInMainTable(AttributeList attributeList) {
         String query;
-        query = " INSERT INTO " + MAINTABLE + " (";
+        StringBuilder queryBuilder = new StringBuilder(" INSERT INTO " + MAINTABLE + " (");
         for (int i = 0; i < attributeList.size(); i++) {
 
             if (attributeList.get(i).getMidT().isEmpty()) {
 
-                if (attributeList.get(i).getAttributeTableName() == MAINTABLE)
-                    query = query + attributeList.get(i).getAttributeName();
+                if (Objects.equals(attributeList.get(i).getAttributeTableName(), MAINTABLE))
+                    queryBuilder.append(attributeList.get(i).getAttributeName());
                 else
-                    query = query + "resource_" + attributeList.get(i).getAttributeTableName();
+                    queryBuilder.append("resource_").append(attributeList.get(i).getAttributeTableName());
 
-                if (i != attributeList.size() - 1) query = query + ", ";
+                if (i != attributeList.size() - 1) queryBuilder.append(", ");
             }
         }
-        query = query + ") VALUES (";
+        queryBuilder.append(") VALUES (");
         for (Integer i = 0; i < attributeList.size(); i++) {
             if (attributeList.get(i).getMidT().isEmpty()) {
                 if (attributeList.get(i).getAttributeValue().isEmpty())
-                    query = query + "\"1\"";
+                    queryBuilder.append("\"1\"");
                 else
-                    query = query + "\"" + attributeList.get(i).getAttributeValue() + "\"";
-                if (i != attributeList.size() - 1) query = query + ", ";
+                    queryBuilder.append("\"").append(attributeList.get(i).getAttributeValue()).append("\"");
+                if (i != attributeList.size() - 1) queryBuilder.append(", ");
             }
         }
-        query = query + "); ";
+        queryBuilder.append("); ");
+        query = queryBuilder.toString();
         return query;
     }
 
 
     public String getIDForSource(AttributeList attributeList) {
         String query;
-        query = "SELECT resource_id FROM " + MAINTABLE + " ";
-        query = query + "WHERE ";
+        query = "SELECT resource_id FROM " + MAINTABLE + " " + "WHERE ";
+        StringBuilder queryBuilder = new StringBuilder(query);
         for (Integer i = 0; i < attributeList.size(); i++) {
             if (attributeList.get(i).getMidT().isEmpty()) {
-                if (attributeList.get(i).getAttributeTableName() == MAINTABLE)
-                    query = query + attributeList.get(i).getAttributeName();
+                if (Objects.equals(attributeList.get(i).getAttributeTableName(), MAINTABLE))
+                    queryBuilder.append(attributeList.get(i).getAttributeName());
                 else
-                    query = query + "resource_" + attributeList.get(i).getAttributeTableName();
-                query = query + " = ";
+                    queryBuilder.append("resource_").append(attributeList.get(i).getAttributeTableName());
+                queryBuilder.append(" = ");
                 if (attributeList.get(i).getAttributeValue().isEmpty())
-                    query = query + "\"1\"";
+                    queryBuilder.append("\"1\"");
                 else
-                    query = query + "\"" + attributeList.get(i).getAttributeValue() + "\"";
-                if (i != attributeList.size() - 1) query = query + " AND ";
+                    queryBuilder.append("\"").append(attributeList.get(i).getAttributeValue()).append("\"");
+                if (i != attributeList.size() - 1) queryBuilder.append(" AND ");
             }
         }
+        query = queryBuilder.toString();
         return query;
     }
 
 
     public String addSourceInOtherTable(Integer ID, AttributeList attributeList) {
-        String query = " ";
+        StringBuilder query = new StringBuilder(" ");
 
         // Вставка в таблицы "многие ко многим"
         for(Integer i = 0; i < attributeList.size(); i++) {
@@ -238,15 +234,14 @@ public class QueryManager {
                 for (Integer j = 0; j < values.size(); j++) {
                     String value = values.get(j);
 
-                    query = query + " INSERT INTO " + attributeList.get(i).getMidT() +
-                            " (resource_id, " + attributeList.get(i).getAttributeTableName() + "_id) VALUES (";
-                    query = query + String.valueOf(ID) + ", " + value + "); ";
+                    query.append(" INSERT INTO ").append(attributeList.get(i).getMidT()).append(" (resource_id, ").append(attributeList.get(i).getAttributeTableName()).append("_id) VALUES (");
+                    query.append(String.valueOf(ID)).append(", ").append(value).append("); ");
                 }
 
             }
         }
 
-        return query;
+        return query.toString();
     }
 
     public String getDictionaryForTable(String table) {
@@ -254,29 +249,29 @@ public class QueryManager {
     }
 
     public String updateMainTable(Integer ID, AttributeList attributeList) {
-        String query = "";
-        query = query + "UPDATE " + MAINTABLE;
-        query = query + " SET ";
+        StringBuilder query = new StringBuilder();
+        query.append("UPDATE " + MAINTABLE);
+        query.append(" SET ");
 
         for (Integer i = 0; i < attributeList.size(); i++) {
             if (attributeList.get(i).getMidT().isEmpty()) {
-                if (attributeList.get(i).getAttributeTableName() == MAINTABLE) {
-                    query = query + attributeList.get(i).getAttributeName();
+                if (Objects.equals(attributeList.get(i).getAttributeTableName(), MAINTABLE)) {
+                    query.append(attributeList.get(i).getAttributeName());
                 } else {
-                    query = query + "resource_" + attributeList.get(i).getAttributeTableName();
+                    query.append("resource_").append(attributeList.get(i).getAttributeTableName());
                 }
-                query = query + " = ";
+                query.append(" = ");
                 if (attributeList.get(i).getAttributeValue().isEmpty())
-                    query = query + "\"1\"";
+                    query.append("\"1\"");
                 else
-                    query = query + "\"" + attributeList.get(i).getAttributeValue() + "\"";
+                    query.append("\"").append(attributeList.get(i).getAttributeValue()).append("\"");
 
-                if (i != attributeList.size() - 1) query = query + ", ";
+                if (i != attributeList.size() - 1) query.append(", ");
             }
         }
 
-        query = query + " WHERE resource_id = " + String.valueOf(ID) + " ";
-        return query;
+        query.append(" WHERE resource_id = ").append(String.valueOf(ID)).append(" ");
+        return query.toString();
     }
 
     public String deleteFromOtherTables(Integer ID) {
@@ -295,39 +290,34 @@ public class QueryManager {
     }
 
     public String extendedSelectIndexesFromMainTable(AttributeList lst) {
-        String query;
+        StringBuilder query;
 
-        query = "SELECT ";
+        query = new StringBuilder("SELECT ");
         for (Integer i = 0; i < lst.size(); i++) {
             if (lst.get(i).getMidT().isEmpty()) {
                 if (lst.get(i).getAttributeTableName().equals(MAINTABLE)) {
-                    query = query + " " + lst.get(i).getAttributeTableName() + "." + lst.get(i).getAttributeName() +
-                            " AS " + lst.get(i).getAttributeName();
+                    query.append(" ").append(lst.get(i).getAttributeTableName()).append(".").append(lst.get(i).getAttributeName()).append(" AS ").append(lst.get(i).getAttributeName());
                 } else {
-                    query = query + " resource_" + lst.get(i).getAttributeTableName() +
-                            " AS " + lst.get(i).getAttributeName();
+                    query.append(" resource_").append(lst.get(i).getAttributeTableName()).append(" AS ").append(lst.get(i).getAttributeName());
                 }
             } else {
-                query = query + " group_concat(DISTINCT resource_" +
-                        lst.get(i).getAttributeTableName() + "." + lst.get(i).getAttributeTableName() + "_id) AS " +
-                        lst.get(i).getAttributeName();
+                query.append(" group_concat(DISTINCT resource_").append(lst.get(i).getAttributeTableName()).append(".").append(lst.get(i).getAttributeTableName()).append("_id) AS ").append(lst.get(i).getAttributeName());
             }
 
-            if (i != lst.size() - 1) query = query + ", ";
+            if (i != lst.size() - 1) query.append(", ");
         }
-        query = query + " FROM " + MAINTABLE + " ";
+        query.append(" FROM " + MAINTABLE + " ");
 
         for (Integer i = 0; i < lst.size(); i++) {
             if (lst.get(i).getAttributeTableName().equals(MAINTABLE))
                 continue;
 
             if (!lst.get(i).getMidT().isEmpty()) {
-                query = query + " INNER JOIN " + lst.get(i).getMidT();
-                query = query + " ON " + lst.get(i).getMidT() + ".resource_id = " + MAINTABLE +
-                        ".resource_id ";
+                query.append(" INNER JOIN ").append(lst.get(i).getMidT());
+                query.append(" ON ").append(lst.get(i).getMidT()).append(".resource_id = ").append(MAINTABLE).append(".resource_id ");
             }
         }
-        return query;
+        return query.toString();
     }
 
     public String getCardIndexesByID(int ID) {
@@ -363,20 +353,20 @@ public class QueryManager {
 
 
     public String addArchiveValue(String description, int id, AttributeList lst) {
-        String query = " INSERT INTO archive(resource_id, resource_chg_description, archive_date, ";
+        StringBuilder query = new StringBuilder(" INSERT INTO archive(resource_id, resource_chg_description, archive_date, ");
 
         for (int i = 0; i < lst.size(); i++) {
-            query = query + lst.get(i).getAttributeName();
-            if (i != lst.size() - 1) query = query + ", ";
+            query.append(lst.get(i).getAttributeName());
+            if (i != lst.size() - 1) query.append(", ");
         }
-        query = query + ") VALUES (" + id + ", \"" + description + "\", (SELECT date('now')), ";
+        query.append(") VALUES (").append(id).append(", \"").append(description).append("\", (SELECT date('now')), ");
         for (int i = 0; i < lst.size(); i++) {
-            query = query + "\"" + lst.get(i).getAttributeValue() + "\"";
-            if (i != lst.size() - 1) query = query + ", ";
+            query.append("\"").append(lst.get(i).getAttributeValue()).append("\"");
+            if (i != lst.size() - 1) query.append(", ");
         }
-        query = query + ") ";
+        query.append(") ");
 
-        return query;
+        return query.toString();
     }
 
     public String editValueInDictionary(String dict_name, String value, int id) {

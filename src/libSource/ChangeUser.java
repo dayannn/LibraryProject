@@ -1,6 +1,5 @@
 package libSource;
 
-import javax.naming.AuthenticationNotSupportedException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,11 +34,11 @@ public class ChangeUser {
         войтиButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(администраторRadioButton.isSelected() != true) {
+                if(!администраторRadioButton.isSelected()) {
                     mw.setUserRole(false);
                     frame.setVisible(false);
                 }
-                if(администраторRadioButton.isSelected() == true)
+                if(администраторRadioButton.isSelected())
                 {
                     auth.show();
                 }

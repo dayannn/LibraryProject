@@ -1,9 +1,7 @@
 package libSource.Database;
-import com.sun.org.apache.regexp.internal.RE;
 import  libSource.Attributes.*;
 import  libSource.*;
 
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

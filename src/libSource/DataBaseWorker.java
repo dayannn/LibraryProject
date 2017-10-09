@@ -1,17 +1,16 @@
 package libSource;
 
 
-import com.sun.org.apache.regexp.internal.RE;
 import libSource.Attributes.AttributeName;
 import libSource.Attributes.BaseAttribute;
 import libSource.Database.DBFacade;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class DataBaseWorker
@@ -177,22 +176,22 @@ public class DataBaseWorker
             tempstring = tempstring + " имя";
 
         if (!(source.getAttributeValueByName("resource_provider").equals(srctemp.getAttributeValueByName("resource_provider"))))
-            if (tempstring != "Изменилось: ") tempstring = tempstring + ", поставщик";
+            if (!Objects.equals(tempstring, "Изменилось: ")) tempstring = tempstring + ", поставщик";
                 else tempstring = tempstring + " поставщик";
             //addToArchiveSourceByID("Изменился поставщик", id);
 
         if (!(source.getAttributeValueByName("subscription_model_value").equals(srctemp.getAttributeValueByName("subscription_model_value"))))
-            if (tempstring != "Изменилось: ") tempstring = tempstring + ", модель подписки";
+            if (!Objects.equals(tempstring, "Изменилось: ")) tempstring = tempstring + ", модель подписки";
                 else tempstring = tempstring + " модель подписки ";
             //addToArchiveSourceByID("Изменился тип подписки", id);
 
         if (!(source.getAttributeValueByName("subscription_price").equals(srctemp.getAttributeValueByName("subscription_price"))))
-            if (tempstring != "Изменилось: ") tempstring = tempstring + ", цена подписки";
+            if (!Objects.equals(tempstring, "Изменилось: ")) tempstring = tempstring + ", цена подписки";
                 else tempstring = tempstring + " цена подписки";
                 //addToArchiveSourceByID("Изменилась цена", id);
 
         if (!(source.getAttributeValueByName("contract_duration").equals(srctemp.getAttributeValueByName("contract_duration"))))
-            if (tempstring != "Изменилось: ") tempstring = tempstring + ", срок контракта";
+            if (!Objects.equals(tempstring, "Изменилось: ")) tempstring = tempstring + ", срок контракта";
                 else tempstring = tempstring + " cрок контракта";
 
         tempstring = tempstring + ".";

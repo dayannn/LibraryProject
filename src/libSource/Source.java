@@ -3,6 +3,7 @@ import  libSource.Attributes.*;
 
 import javax.swing.*;
 import java.util.Iterator;
+import java.util.Objects;
 
 public class Source extends  BaseSource
 {
@@ -69,7 +70,7 @@ public class Source extends  BaseSource
     public String getAttributeValueByName(String attributeName)
     {
         for (int i = 0; i < attributeList.size(); i++) {
-            if (attributeList.get(i).getAttributeName() == attributeName)
+            if (Objects.equals(attributeList.get(i).getAttributeName(), attributeName))
                 return attributeList.get(i).getAttributeValue();
         }
         return "";
@@ -79,7 +80,7 @@ public class Source extends  BaseSource
     public void setAttributeValueByName(String attributeName, String attributeValue)
     {
         for (int i = 0; i < attributeList.size(); i++) {
-            if (attributeList.get(i).getAttributeName() == attributeName)
+            if (Objects.equals(attributeList.get(i).getAttributeName(), attributeName))
                 attributeList.get(i).setAttributeValue(attributeValue);
         }
     }

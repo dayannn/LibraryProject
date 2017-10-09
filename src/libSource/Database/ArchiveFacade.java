@@ -22,7 +22,6 @@ public class ArchiveFacade {
     }
 
     public void addToArchive(BaseSource src, String Description) {
-        return;
     }
 
     public ResultSet getArchiveFromSource(BaseSource src) {

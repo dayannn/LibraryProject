@@ -12,7 +12,7 @@ public class AttributeListWorker extends BaseAttributeListWorker
     public BaseAttribute getAttribute(AttributeList attributeList, String attributeName)
     {
         Iterator<BaseAttribute> itr = attributeList.getIterator();
-        BaseAttribute attr = null;
+        BaseAttribute attr;
         while(itr.hasNext())
         {
             attr = itr.next();
@@ -35,6 +35,5 @@ public class AttributeListWorker extends BaseAttributeListWorker
             return;
         }
     }
-        return;
-}
+    }
 }

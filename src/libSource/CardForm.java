@@ -1,21 +1,12 @@
 package libSource;
 
 import libSource.Attributes.*;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -101,8 +93,8 @@ public class CardForm{
     private JScrollPane languageListSP;
     private JScrollPane resourceOperatorListSP;
     private JScrollPane resourсeOperatorTextAreaSP;
-    private JTextArea viewNumTextArea;
-    private JScrollPane viewNumTextAreaScrollPane;
+    private JTextArea viewNumStatTextArea;
+    private JScrollPane viewNumStatScrollPane;
     private JLabel resourceNameLabel;
     private JLabel resourceOperatorLabel;
     private JLabel addressLabel;
@@ -122,10 +114,15 @@ public class CardForm{
     private JTextArea archiveSubscriptionPriceTextArea;
     private JRadioButton txtRadioButton;
     private JRadioButton xmlRadioButton;
+    private JTextArea statMonthTextArea;
+    private JScrollPane statMonthScrollPane;
+    private JTextArea statYearTextArea;
+    private JScrollPane statYearScrollPane;
+    private JButton addStatsButton;
     private Archive archive;
     private int curSrcID;
     private ChangeDirectoryForm dictForm;
-    private JScrollPane scrollp7 = new JScrollPane();;
+    private JScrollPane scrollp7 = new JScrollPane();
 
     private DefaultTableModel tm = new DefaultTableModel();
 
@@ -206,11 +203,14 @@ public class CardForm{
 
         textAreasList.add(providerTextArea);
         textAreasList.add(documentPropsTextArea);
-        textAreasList.add(viewNumTextArea);
+        textAreasList.add(viewNumStatTextArea);
 
 
         textAreasList.add(testAccessConclusionTextArea);
         textAreasList.add(testTimeTextArea);
+
+        textAreasList.add(statMonthTextArea);
+        textAreasList.add(statYearTextArea);
     }
 
     private void setFieldsUneditable(){
@@ -305,20 +305,21 @@ public class CardForm{
     private void clearFields(){
         for (JTextArea area : textAreasList){
             area.setText("");
-            resourceOperatorList.clearSelection();
-            languageList.clearSelection();
-            subjectsList.clearSelection();
-            archiveNameTextArea.setText("");
-            archiveOperatorTextArea.setText("");
-            archiveSubscriptionModelTextArea.setText("");
-            archiveSubscriptionPriceTextArea.setText("");
-            archiveSubscriptionDurationTextArea.setText("");
-            archiveInfoTextArea.setText("");
+
 
 //            DefaultListModel model = (DefaultListModel) ArchiveList.getModel();
           /*  if (!model.isEmpty())
                 model.removeAllElements();*/
         }
+        resourceOperatorList.clearSelection();
+        languageList.clearSelection();
+        subjectsList.clearSelection();
+        archiveNameTextArea.setText("");
+        archiveOperatorTextArea.setText("");
+        archiveSubscriptionModelTextArea.setText("");
+        archiveSubscriptionPriceTextArea.setText("");
+        archiveSubscriptionDurationTextArea.setText("");
+        archiveInfoTextArea.setText("");
     }
 
     private boolean fieldsAreCorrect(){
@@ -379,49 +380,16 @@ public class CardForm{
         // frame.setResizable(false);
         frame.setContentPane(CardPanel);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        ButtonGroup exportGroup = new ButtonGroup();
+
+        ButtonGroup exportGroup = new ButtonGroup();  // настройка кнопок для экспорта
         exportGroup.add(txtRadioButton);
         exportGroup.add(xmlRadioButton);
         txtRadioButton.setSelected(true);
         setScrollPanes();
-
-        languageList.setCellRenderer(new CheckboxListCellRenderer());
-        subjectsList.setCellRenderer(new CheckboxListCellRenderer());
-        resourceOperatorList.setCellRenderer(new CheckboxListCellRenderer());
-
-        languageList.setSelectionModel(new DefaultListSelectionModel()  {
-            @Override
-            public void setSelectionInterval(int index0, int index1) {
-                if(super.isSelectedIndex(index0)) {
-                    super.removeSelectionInterval(index0, index1);
-                } else {
-                    super.addSelectionInterval(index0, index1);
-                }
-            }
-        });
-        subjectsList.setSelectionModel(new DefaultListSelectionModel()  {
-            @Override
-            public void setSelectionInterval(int index0, int index1) {
-                if(super.isSelectedIndex(index0)) {
-                    super.removeSelectionInterval(index0, index1);
-                } else {
-                    super.addSelectionInterval(index0, index1);
-                }
-            }
-        });
-        resourceOperatorList.setSelectionModel(new DefaultListSelectionModel()  {
-            @Override
-            public void setSelectionInterval(int index0, int index1) {
-                if(super.isSelectedIndex(index0)) {
-                    super.removeSelectionInterval(index0, index1);
-                } else {
-                    super.addSelectionInterval(index0, index1);
-                }
-            }
-        });
-
+        setCellListRenderers();
         fillTextAreasList();
         setFieldsUneditable();
+        setStatisticsDate();
 
         editButton.addActionListener(new ActionListener() {
             @Override
@@ -553,6 +521,49 @@ public class CardForm{
         });
     }
 
+    private void setStatisticsDate(){
+        LocalDateTime today = LocalDateTime.now();
+        statMonthTextArea.setText(Integer.toString(today.getMonth().getValue()));
+        statYearTextArea.setText(Integer.toString(today.getYear()));
+    }
+
+    private void setCellListRenderers(){
+        languageList.setCellRenderer(new CheckboxListCellRenderer());   // отображение списка с галочками
+        subjectsList.setCellRenderer(new CheckboxListCellRenderer());   // для списков со множественным выбором
+        resourceOperatorList.setCellRenderer(new CheckboxListCellRenderer());
+
+        languageList.setSelectionModel(new DefaultListSelectionModel()  {
+            @Override
+            public void setSelectionInterval(int index0, int index1) {
+                if(super.isSelectedIndex(index0)) {
+                    super.removeSelectionInterval(index0, index1);
+                } else {
+                    super.addSelectionInterval(index0, index1);
+                }
+            }
+        });
+        subjectsList.setSelectionModel(new DefaultListSelectionModel()  {
+            @Override
+            public void setSelectionInterval(int index0, int index1) {
+                if(super.isSelectedIndex(index0)) {
+                    super.removeSelectionInterval(index0, index1);
+                } else {
+                    super.addSelectionInterval(index0, index1);
+                }
+            }
+        });
+        resourceOperatorList.setSelectionModel(new DefaultListSelectionModel()  {
+            @Override
+            public void setSelectionInterval(int index0, int index1) {
+                if(super.isSelectedIndex(index0)) {
+                    super.removeSelectionInterval(index0, index1);
+                } else {
+                    super.addSelectionInterval(index0, index1);
+                }
+            }
+        });
+    }
+
     private void exportToTextFile() {
         JFileChooser fileChooser = new JFileChooser();
 
@@ -582,7 +593,7 @@ public class CardForm{
             content += "\nРеквизиты договора : " + documentPropsTextArea.getText();
             content += "\nСтоимость подписки : " + subscriptionCostTextArea.getText();
             content += "\nРежим доступа : " + accessModeTextArea.getText();
-            content += "\nКоличество просмотров в день : " + viewNumTextArea.getText();
+            content += "\nКоличество просмотров в день : " + viewNumStatTextArea.getText();
             content += "\nТестовый доступ : " + testAccessTextArea.getText();
             content += "\nСроки проведения : " + testTimeTextArea.getText();
             content += "\nЗаключение по тестовому доступу : " + testAccessConclusionTextArea.getText();
@@ -644,7 +655,7 @@ public class CardForm{
                 writeSingleXmlNode(xsw, "Реквизиты_договора", documentPropsTextArea.getText());
                 writeSingleXmlNode(xsw, "Стоимость_подписки", subscriptionCostTextArea.getText());
                 writeSingleXmlNode(xsw, "Режим_доступа", accessModeTextArea.getText());
-                writeSingleXmlNode(xsw, "Количество_просмотров_в_день", viewNumTextArea.getText());
+                writeSingleXmlNode(xsw, "Количество_просмотров_в_день", viewNumStatTextArea.getText());
                 writeSingleXmlNode(xsw, "Тестовый_доступ", testAccessTextArea.getText());
                 writeSingleXmlNode(xsw, "Сроки_проведения", testTimeTextArea.getText());
                 writeSingleXmlNode(xsw, "Заключение_по_тестовому_доступу", testAccessConclusionTextArea.getText());
