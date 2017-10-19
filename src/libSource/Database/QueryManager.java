@@ -76,7 +76,7 @@ public class QueryManager {
         queryBuilder.append(" FROM " + MAINTABLE + " ");
         for (int i = 0; i < lst.size(); i++) {
             if (Objects.equals(lst.get(i).getAttributeTableName(), MAINTABLE))
-                continue;
+            continue;
 
             if (lst.get(i).getMidT().isEmpty()) {
                 queryBuilder.append(" INNER JOIN ").append(lst.get(i).getAttributeTableName());
@@ -90,7 +90,9 @@ public class QueryManager {
             }
         }
         query = queryBuilder.toString();
+        System.out.println(query);
         return query;
+
     }
 
     public String extendedSelect(AttributeList lst) {
