@@ -32,7 +32,6 @@ public class QueryManagerTest {
         Attribute_test.add(AAType_TEST);
         assertEquals(Q_TEST.extendedSelectFromMainTable(Attribute_test),"SELECT  access_type.access_type_value FROM web_resources  INNER JOIN access_type ON web_resources.resource_access_type = access_type.key ");
 
-
         //AttributeList содержит 2 аттрибута не содерж. maintable
         Attribute_test.add(AAMode_TEST);
         assertEquals(Q_TEST.extendedSelectFromMainTable(Attribute_test),"SELECT  access_type.access_type_value,  access_mode.access_mode_value FROM web_resources  INNER JOIN access_type ON web_resources.resource_access_type = access_type.key  INNER JOIN access_mode ON web_resources.resource_access_mode = access_mode.key ");

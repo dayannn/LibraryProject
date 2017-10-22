@@ -34,8 +34,11 @@ public class AttributeList
         return list.size();
     }
 
-    public  BaseAttribute get(int index) {
-        return list.get(index);
+    public BaseAttribute get(int index) {
+        if (index >= 0 && index < list.size())
+            return list.get(index);
+        else
+            return null;
     }
 
 
@@ -46,7 +49,8 @@ public class AttributeList
 
     public void remove (int index)
     {
-        list.remove(index);
+        if (index < list.size() && index >= 0)
+            list.remove(index);
     }
 
     public void set(int index, BaseAttribute attribute)
