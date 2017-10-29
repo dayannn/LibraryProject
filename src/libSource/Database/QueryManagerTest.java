@@ -154,4 +154,27 @@ public class QueryManagerTest {
 
     }
 
+    @org.junit.Test
+    public void getRoleForPair() throws Exception {
+        assertEquals(Q_TEST.getRoleForPair("", ""), "");
+        assertEquals(Q_TEST.getRoleForPair("login", ""), "");
+        assertEquals(Q_TEST.getRoleForPair("", "pass"), "");
+        assertEquals(Q_TEST.getRoleForPair("login", "pass"), " SELECT role FROM authentication WHERE login = \"login\" AND password = \"pass\" ");
+    }
+
+    @org.junit.Test
+    public void editValueInDictionary() throws Exception {
+        assertEquals(Q_TEST.editValueInDictionary("", "", -1), "");
+        assertEquals(Q_TEST.editValueInDictionary("dict", "", -1), "");
+        assertEquals(Q_TEST.editValueInDictionary("", "value", -1), "");
+        assertEquals(Q_TEST.editValueInDictionary("", "", 0), "");
+        assertEquals(Q_TEST.editValueInDictionary("", "", 1), "");
+        assertEquals(Q_TEST.editValueInDictionary("dict", "", 1), "");
+        assertEquals(Q_TEST.editValueInDictionary("", "value", 1), "");
+        assertEquals(Q_TEST.editValueInDictionary("dict", "value", -1), "");
+        assertEquals(Q_TEST.editValueInDictionary("dict", "value", 0), " UPDATE dict SET dict_value = \"value\" WHERE key = 0");
+        assertEquals(Q_TEST.editValueInDictionary("dict", "value", 1), " UPDATE dict SET dict_value = \"value\" WHERE key = 1");
+    }
+
+
 }

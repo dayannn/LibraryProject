@@ -373,10 +373,12 @@ public class QueryManager {
     }
 
     public String editValueInDictionary(String dict_name, String value, int id) {
+        if (dict_name.isEmpty() || value.isEmpty() || id < 0) return "";
         return " UPDATE " + dict_name + " SET " +dict_name + "_value = \"" + value + "\" WHERE key = " + String.valueOf(id);
     }
 
     public String getRoleForPair(String login, String pass) {
+        if (login.isEmpty() || pass.isEmpty()) return "";
         return " SELECT role FROM authentication WHERE login = \"" + login + "\" AND password = \"" + pass + "\" ";
     }
 }
