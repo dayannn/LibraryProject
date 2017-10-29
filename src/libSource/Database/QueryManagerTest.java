@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 public class QueryManagerTest {
     private final QueryManager Q_TEST = new QueryManager();
     private AttributeList Attribute_test = new AttributeList();
+    private AttributeList Attribute_testone = new AttributeList();
     private AttributeAccessType AAType_TEST = new AttributeAccessType("Свободный");
     private AttributeAccessMode AAMode_TEST = new AttributeAccessMode("Внутренний(в определенном месте))");
     private AttributeLanguage AALang_TEST = new AttributeLanguage("Язык");
@@ -176,4 +177,27 @@ public class QueryManagerTest {
         assertEquals(Q_TEST.getIDForSource(Attribute_test),"SELECT resource_id FROM web_resources WHERE resource_link = \"Ссылка\" AND resource_name = \"Имя\" AND resource_access_mode = \"Внутренний(в определенном месте))\" AND resource_access_type = \"Свободный\"");
 
     }
+    @org.junit.Test
+    public void getRoleForPair() throws Exception {
+        assertEquals(Q_TEST.getRoleForPair("", ""), "");
+        assertEquals(Q_TEST.getRoleForPair("login", ""), "");
+        assertEquals(Q_TEST.getRoleForPair("", "pass"), "");
+        assertEquals(Q_TEST.getRoleForPair("login", "pass"), " SELECT role FROM authentication WHERE login = \"login\" AND password = \"pass\" ");
+    }
+
+    @org.junit.Test
+    public void editValueInDictionary() throws Exception {
+        assertEquals(Q_TEST.editValueInDictionary("", "", -1), "");
+        assertEquals(Q_TEST.editValueInDictionary("dict", "", -1), "");
+        assertEquals(Q_TEST.editValueInDictionary("", "value", -1), "");
+        assertEquals(Q_TEST.editValueInDictionary("", "", 0), "");
+        assertEquals(Q_TEST.editValueInDictionary("", "", 1), "");
+        assertEquals(Q_TEST.editValueInDictionary("dict", "", 1), "");
+        assertEquals(Q_TEST.editValueInDictionary("", "value", 1), "");
+        assertEquals(Q_TEST.editValueInDictionary("dict", "value", -1), "");
+        assertEquals(Q_TEST.editValueInDictionary("dict", "value", 0), " UPDATE dict SET dict_value = \"value\" WHERE key = 0");
+        assertEquals(Q_TEST.editValueInDictionary("dict", "value", 1), " UPDATE dict SET dict_value = \"value\" WHERE key = 1");
+    }
+
+
 }
