@@ -3,7 +3,10 @@ package libSource;
 import libSource.Attributes.AttributeAccessMode;
 import libSource.Attributes.AttributeAccessType;
 import libSource.Attributes.AttributeLanguage;
+import libSource.Attributes.BaseAttribute;
 import org.junit.Test;
+
+import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
@@ -11,6 +14,32 @@ import static org.junit.Assert.*;
  * Created by dayan on 22.10.2017.
  */
 public class AttributeListTest {
+
+    @Test
+    public void constructor() throws Exception {
+        AttributeList AL_TEST_1 = new AttributeList();
+        AttributeList AL_TEST_2;
+        AttributeList AL_TEST_3;
+        AttributeAccessType AAType_TEST = new AttributeAccessType("Свободный");
+        AttributeAccessMode AAMode_TEST = new AttributeAccessMode("Внутренний(в определенном месте))");
+
+        AL_TEST_2 = new AttributeList(AL_TEST_1);
+        assertEquals(AL_TEST_2.size(), 0);
+
+        AL_TEST_1.add(AAType_TEST);
+        AL_TEST_1.add(AAMode_TEST);
+        AL_TEST_3 = new AttributeList(AL_TEST_1);
+        assertEquals(AL_TEST_1.get(0), AL_TEST_3.get(0));
+        assertEquals(AL_TEST_1.get(1), AL_TEST_3.get(1));
+        assertEquals(AL_TEST_1.size(), AL_TEST_3.size());
+    }
+
+    @Test
+    public void getIterator() throws Exception {
+        AttributeList AL_TEST = new AttributeList();
+        AL_TEST.getIterator();
+
+    }
 
 
     @Test
@@ -44,6 +73,20 @@ public class AttributeListTest {
 
     @Test
     public void add() throws Exception {
+        AttributeList AL_TEST = new AttributeList();
+        AttributeAccessType AAType_TEST = new AttributeAccessType("Свободный");
+        AttributeLanguage AALang_TEST = new AttributeLanguage("Язык");
+
+
+        AL_TEST.add(AALang_TEST);
+        Iterator<BaseAttribute> it = AL_TEST.getIterator();
+        assertEquals(it.next(), AALang_TEST);
+
+        AL_TEST.add(AAType_TEST);
+        it = AL_TEST.getIterator();
+        it.next();
+        assertEquals(it.next(), AAType_TEST);
+
     }
 
     @Test
@@ -91,6 +134,16 @@ public class AttributeListTest {
 
     @Test
     public void set() throws Exception {
+        AttributeList AL_TEST = new AttributeList();
+        AttributeAccessType AAType_TEST = new AttributeAccessType("Свободный");
+        AttributeAccessMode AAMode_TEST = new AttributeAccessMode("Внутренний(в определенном месте))");
+
+        AL_TEST.set(0, AAType_TEST);
+        assertEquals(AL_TEST.size(), 0);
+
+        AL_TEST.add(AAType_TEST);
+        AL_TEST.set(0, AAMode_TEST);
+        assertEquals(AL_TEST.get(0), AAMode_TEST);
     }
 
     @Test

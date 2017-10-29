@@ -55,7 +55,8 @@ public class AttributeList
 
     public void set(int index, BaseAttribute attribute)
     {
-        list.set(index, attribute);
+        if (index < list.size() && index >= 0)
+            list.set(index, attribute);
     }
 
     public void setAttributeValue (int index, String value)
