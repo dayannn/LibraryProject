@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 public class QueryManagerTest {
     private final QueryManager Q_TEST = new QueryManager();
     private AttributeList Attribute_test = new AttributeList();
+    private AttributeList Attribute_testone = new AttributeList();
     private AttributeAccessType AAType_TEST = new AttributeAccessType("Свободный");
     private AttributeAccessMode AAMode_TEST = new AttributeAccessMode("Внутренний(в определенном месте))");
     private AttributeLanguage AALang_TEST = new AttributeLanguage("Язык");
@@ -19,7 +20,6 @@ public class QueryManagerTest {
 
     @org.junit.Before
     public void setUp() throws Exception {
-
 
     }
 
@@ -51,10 +51,34 @@ public class QueryManagerTest {
         // содержит maintable (2 атрибута)
         Attribute_test.add(AALink_TEST);
         assertEquals(Q_TEST.extendedSelectFromMainTable(Attribute_test), "SELECT  web_resources.resource_name,  web_resources.resource_link FROM web_resources ");
+
     }
+
 
     @org.junit.Test
     public void extendedSelect() throws Exception {
+    }
+
+    @org.junit.Test
+    public void extendedSearch()throws Exception {
+        //System.out.println("HERE:");
+
+        Attribute_test.add(AALink_TEST);
+        assertEquals(Q_TEST.extendedSearch(Attribute_test), " WHERE  (  web_resources.resource_link LIKE '%Ссылка%' )");
+
+        Attribute_test.add(AAName_TEST);
+        assertEquals(Q_TEST.extendedSearch(Attribute_test), " WHERE  (  web_resources.resource_link LIKE '%Ссылка%' AND  web_resources.resource_name LIKE '%Имя%' )");
+
+        Attribute_test.add(AALang_TEST);
+        assertEquals(Q_TEST.extendedSearch(Attribute_test), " WHERE  (  web_resources.resource_link LIKE '%Ссылка%' AND  web_resources.resource_name LIKE '%Имя%' AND  language.language_value LIKE '%Язык%' )");
+
+        Attribute_test.add(AAMode_TEST);
+        assertEquals(Q_TEST.extendedSearch(Attribute_test), " WHERE  (  web_resources.resource_link LIKE '%Ссылка%' AND  web_resources.resource_name LIKE '%Имя%' AND  language.language_value LIKE '%Язык%' AND  access_mode.access_mode_value LIKE '%Внутренний(в определенном месте))%' )");
+
+        Attribute_test.add(AAType_TEST);
+        assertEquals(Q_TEST.extendedSearch(Attribute_test), " WHERE  (  web_resources.resource_link LIKE '%Ссылка%' AND  web_resources.resource_name LIKE '%Имя%' AND  language.language_value LIKE '%Язык%' AND  access_mode.access_mode_value LIKE '%Внутренний(в определенном месте))%' AND  access_type.access_type_value LIKE '%Свободный%' )");
+
+
     }
 
 }
