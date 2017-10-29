@@ -154,6 +154,8 @@ public class AttributeListTest {
         AL_TEST.add(AAType_TEST);
         AL_TEST.setAttributeValue(0, "По подписке");
         assertEquals(AL_TEST.get(0).getAttributeValue(), "По подписке");
+
+
     }
 
     @Test
@@ -163,6 +165,11 @@ public class AttributeListTest {
 
         AL_TEST.add(AAType_TEST);
         AL_TEST.setAttributeValue(AAType_TEST.getAttributeName(), "По подписке");
+        assertEquals(AL_TEST.get(0).getAttributeValue(), "По подписке");
+
+        AL_TEST.setAttributeValue("blabla", "blabla");
+        assertEquals(AL_TEST.size(), 1);
+        assertEquals(AL_TEST.get(0).getAttributeName(), "access_type_value");
         assertEquals(AL_TEST.get(0).getAttributeValue(), "По подписке");
     }
 
