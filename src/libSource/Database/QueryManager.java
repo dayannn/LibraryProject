@@ -336,10 +336,12 @@ public class QueryManager {
     }
 
     public String addDictValueInDictionary(String dict_name, String value) {
+        if (dict_name.isEmpty() || value.isEmpty()) return "";
         return " INSERT INTO " + dict_name + "(" + dict_name + "_value) VALUES (\"" + value + "\")";
     }
 
     public String findDictValueUsages(String dict_name, int id) {
+        if (dict_name.isEmpty() || id < 0) return "";
         String query = "";
         if ((dict_name.equals("language")) || (dict_name.equals("theme")) || (dict_name.equals("operator")))
             query =  " SELECT * FROM resource_" + dict_name + " WHERE " + dict_name + "_id = " + String.valueOf(id);
@@ -351,6 +353,7 @@ public class QueryManager {
 
 
     public String delDictValueFromDictionary(String dict_name, int id) {
+        if (dict_name.isEmpty() || id < 0) return "";
         return " DELETE FROM " + dict_name + " WHERE key = " + String.valueOf(id);// " INSERT INTO " + dict_name + "(" + dict_name + "_value) VALUES (\"" + value + "\")";
     }
 

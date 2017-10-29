@@ -54,11 +54,6 @@ public class QueryManagerTest {
 
     }
 
-
-    @org.junit.Test
-    public void extendedSelect() throws Exception {
-    }
-
     @org.junit.Test
     public void simpleSearchResource() throws Exception {
         // Пустой SEARCHQUERY
@@ -198,6 +193,38 @@ public class QueryManagerTest {
         assertEquals(Q_TEST.editValueInDictionary("dict", "value", 0), " UPDATE dict SET dict_value = \"value\" WHERE key = 0");
         assertEquals(Q_TEST.editValueInDictionary("dict", "value", 1), " UPDATE dict SET dict_value = \"value\" WHERE key = 1");
     }
+
+    @org.junit.Test
+    public void delDictValueFromDictionary() throws Exception {
+        assertEquals(Q_TEST.delDictValueFromDictionary("dict", -1), "");
+        assertEquals(Q_TEST.delDictValueFromDictionary("", -1), "");
+        assertEquals(Q_TEST.delDictValueFromDictionary("", 1), "");
+        assertEquals(Q_TEST.delDictValueFromDictionary("dict", 1), " DELETE FROM dict WHERE key = 1");
+    }
+
+    @org.junit.Test
+    public void findDictValueUsages() throws Exception {
+        assertEquals(Q_TEST.findDictValueUsages("dict", -1), "");
+        assertEquals(Q_TEST.findDictValueUsages("", -1), "");
+        assertEquals(Q_TEST.findDictValueUsages("", 1), "");
+
+        assertEquals(Q_TEST.findDictValueUsages("not_language", 1), " SELECT resource_not_language FROM web_resources WHERE resource_not_language = 1");
+        assertEquals(Q_TEST.findDictValueUsages("language", 1), " SELECT * FROM resource_language WHERE language_id = 1");
+        assertEquals(Q_TEST.findDictValueUsages("not_theme", 1), " SELECT resource_not_theme FROM web_resources WHERE resource_not_theme = 1");
+        assertEquals(Q_TEST.findDictValueUsages("theme", 1), " SELECT * FROM resource_theme WHERE theme_id = 1");
+        assertEquals(Q_TEST.findDictValueUsages("not_operator", 1), " SELECT resource_not_operator FROM web_resources WHERE resource_not_operator = 1");
+        assertEquals(Q_TEST.findDictValueUsages("operator", 1), " SELECT * FROM resource_operator WHERE operator_id = 1");
+
+    }
+
+    @org.junit.Test
+    public void addDictValueInDictionary() throws Exception {
+        assertEquals(Q_TEST.addDictValueInDictionary("dict", ""), "");
+        assertEquals(Q_TEST.addDictValueInDictionary("", "value"), "");
+        assertEquals(Q_TEST.addDictValueInDictionary("dict", "value"), " INSERT INTO dict(dict_value) VALUES (\"value\")");
+
+    }
+
 
 
 }
