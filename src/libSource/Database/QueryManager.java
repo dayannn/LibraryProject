@@ -172,7 +172,7 @@ public class QueryManager {
 
     public String addSourceInMainTable(AttributeList attributeList) {
         String query;
-        StringBuilder queryBuilder = new StringBuilder(" INSERT INTO " + MAINTABLE + " (");
+        StringBuilder queryBuilder = new StringBuilder("INSERT INTO " + MAINTABLE + " (");
         for (int i = 0; i < attributeList.size(); i++) {
 
             if (attributeList.get(i).getMidT().isEmpty()) {
@@ -278,6 +278,7 @@ public class QueryManager {
 
     public String deleteFromOtherTables(Integer ID) {
         String query = "";
+        if (ID < 0) return query;
         query = query + " DELETE FROM resource_theme WHERE resource_id = " + String.valueOf(ID) + "; ";
         query = query + " DELETE FROM resource_operator WHERE resource_id = " + String.valueOf(ID) + "; ";
         query = query + " DELETE FROM resource_language WHERE resource_id = " + String.valueOf(ID) + "; ";
