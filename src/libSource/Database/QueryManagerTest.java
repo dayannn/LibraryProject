@@ -10,7 +10,6 @@ import static org.junit.Assert.*;
 public class QueryManagerTest {
     private final QueryManager Q_TEST = new QueryManager();
     private AttributeList Attribute_test = new AttributeList();
-    private AttributeList Attribute_testone = new AttributeList();
     private AttributeAccessType AAType_TEST = new AttributeAccessType("Свободный");
     private AttributeAccessMode AAMode_TEST = new AttributeAccessMode("Внутренний(в определенном месте))");
     private AttributeLanguage AALang_TEST = new AttributeLanguage("Язык");
@@ -136,6 +135,7 @@ public class QueryManagerTest {
     public void extendedSearch()throws Exception {
         //System.out.println("HERE:");
 
+
         Attribute_test.add(AALink_TEST);
         assertEquals(Q_TEST.extendedSearch(Attribute_test), " WHERE  (  web_resources.resource_link LIKE '%Ссылка%' )");
 
@@ -154,4 +154,26 @@ public class QueryManagerTest {
 
     }
 
+    @org.junit.Test
+    public void getIDForSource() throws Exception {
+        // System.out.println("HERE:");
+
+        assertEquals(Q_TEST.getIDForSource(Attribute_test),"SELECT resource_id FROM web_resources WHERE ");
+
+        Attribute_test.add(AALink_TEST);
+        assertEquals(Q_TEST.getIDForSource(Attribute_test),"SELECT resource_id FROM web_resources WHERE resource_link = \"Ссылка\"");
+
+        Attribute_test.add(AAName_TEST);
+        assertEquals(Q_TEST.getIDForSource(Attribute_test),"SELECT resource_id FROM web_resources WHERE resource_link = \"Ссылка\" AND resource_name = \"Имя\"");
+
+        Attribute_test.add(AALang_TEST);
+        assertEquals(Q_TEST.getIDForSource(Attribute_test),"SELECT resource_id FROM web_resources WHERE resource_link = \"Ссылка\" AND resource_name = \"Имя\" AND ");
+
+        Attribute_test.add(AAMode_TEST);
+        assertEquals(Q_TEST.getIDForSource(Attribute_test),"SELECT resource_id FROM web_resources WHERE resource_link = \"Ссылка\" AND resource_name = \"Имя\" AND resource_access_mode = \"Внутренний(в определенном месте))\"");
+
+        Attribute_test.add(AAType_TEST);
+        assertEquals(Q_TEST.getIDForSource(Attribute_test),"SELECT resource_id FROM web_resources WHERE resource_link = \"Ссылка\" AND resource_name = \"Имя\" AND resource_access_mode = \"Внутренний(в определенном месте))\" AND resource_access_type = \"Свободный\"");
+
+    }
 }
