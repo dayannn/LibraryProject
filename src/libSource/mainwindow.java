@@ -34,10 +34,15 @@ public class mainwindow extends JFrame{
     private JButton addResourceButton;
     private JButton getbutton;
     private JButton extendedSearchButton;
+    private HelpForm helpForm;
     private JScrollPane jp;
 
     public DataBaseWorker getMgr() {
         return mgr;
+    }
+
+    public HelpForm getHelpForm() {
+        return helpForm;
     }
 
     public void setMgr(DataBaseWorker mgr) {
@@ -73,6 +78,7 @@ public class mainwindow extends JFrame{
         model = new DefaultTableModel();
         chgUser = new ChangeUser(this);
         cardForm = new CardForm(this);
+        helpForm = new HelpForm();
         changeUserButton.setText("Сменить режим доступа (опер.)");
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -318,7 +324,7 @@ public class mainwindow extends JFrame{
         helpMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new HelpForm();
+                helpForm.setVisible(true);
             }
         });
         aboutMenu.add(helpMenuItem);

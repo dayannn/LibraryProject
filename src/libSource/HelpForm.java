@@ -14,11 +14,17 @@ import java.net.MalformedURLException;
 public class HelpForm extends JFrame{
 
     JFrame frame;
+    private boolean IsVisible = true;
     private JEditorPane editorPane1;
     private JPanel panel1;
     private JScrollPane editorPaneScrollPane;
     JFXPanel fxPanel;
     WebView wv;
+
+    @Override
+    public boolean isVisible() {
+        return IsVisible;
+    }
 
     public HelpForm() {
 
