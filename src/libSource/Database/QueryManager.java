@@ -123,6 +123,7 @@ public class QueryManager {
     public String simpleSearchResource(AttributeList lstOut, String searchQuery) {
         return extendedSelectFromMainTable(lstOut) + " AND " +
                 "       ( resource_description LIKE  '%"+searchQuery+"%' OR" +
+                "         resource_link LIKE  '%"+searchQuery+"%' OR" +
                 "        resource_name LIKE         '%"+searchQuery+"%' )";
     }
 
