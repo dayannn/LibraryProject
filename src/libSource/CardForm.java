@@ -30,6 +30,11 @@ public class CardForm{
     private JButton editButton;
     private JButton saveButton;
     private JButton discardButton;
+
+    public JTabbedPane getTabbedPane1() {
+        return tabbedPane1;
+    }
+
     private JTabbedPane tabbedPane1;
     private JTextArea annotationTextArea;
     private JTextArea resourсeNameTextArea;

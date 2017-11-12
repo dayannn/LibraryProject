@@ -24,7 +24,6 @@ public class mainwindow extends JFrame{
     private JScrollPane sp;
 
 
-
     private JTable table1;
     private JButton openCardButton;
     private JTextField LinkEdit;
@@ -47,6 +46,11 @@ public class mainwindow extends JFrame{
 
     private DataBaseWorker mgr;
     private ChangeUser chgUser;
+
+    public CardForm getCardForm() {
+        return cardForm;
+    }
+
     private CardForm cardForm;
     private boolean UserRole = false;
     private boolean wasloaded = false;
