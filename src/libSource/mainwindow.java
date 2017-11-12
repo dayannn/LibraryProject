@@ -446,7 +446,8 @@ public class mainwindow extends JFrame{
         tablePopupMenu.setVisible(false);
     }
 
-    private void LALtoModel(DefaultTableModel tm, List<AttributeList> LAL) {
+    //private
+    public void LALtoModel(DefaultTableModel tm, List<AttributeList> LAL) {
         tm.setColumnCount(0);
         tm.setRowCount(0);
         tm.addColumn("ID(you can't see me)");
@@ -467,14 +468,15 @@ public class mainwindow extends JFrame{
         }
     }
 
-    private void hideIDColumn() {
+    // private
+    public void hideIDColumn() {
         table1.getColumnModel().getColumn(0).setResizable(false);
         table1.getColumnModel().getColumn(0).setMaxWidth(0);
         table1.getColumnModel().getColumn(0).setMinWidth(0);
         table1.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
 
-    private void updateTable(){
+    public void updateTable(){
         AttributeList temp = new AttributeList();
         temp.add(new AttributeID(""));
         temp.add(new AttributeName(""));

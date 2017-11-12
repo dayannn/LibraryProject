@@ -178,7 +178,6 @@ public class CardForm{
             tabbedPane1.remove(scrollp7);
             // librarian job
         }
-
     }
 
     private java.util.List<JTextArea> textAreasList = new ArrayList<>();
