@@ -39,13 +39,11 @@ public class searchTest {
                 = new TableRowSorter<>(tbl.getModel());
         rowSorter.setRowFilter(RowFilter.regexFilter("Нау"));
 
-        JTable oldTable = new JTable(tbl.getModel());
-        oldTable.setRowSorter(rowSorter);
-
+        // новая модель для поиска
         DefaultTableModel mdl = (DefaultTableModel) tbl.getModel();
         mw.LALtoModel(mdl, mw.getMgr().simpleSearch(lstOut, "Нау"));
 
-        TableModel old_mdl =  oldTable.getModel();
+        TableModel old_mdl =  tbl.getModel();
         assertEquals(old_mdl.getRowCount(), mdl.getRowCount());
         assertEquals(old_mdl.getColumnCount(), mdl.getColumnCount());
 
