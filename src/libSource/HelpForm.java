@@ -14,10 +14,11 @@ import java.net.MalformedURLException;
 public class HelpForm extends JFrame{
 
     JFrame frame;
-    private boolean IsVisible = true;
+    private boolean IsVisible = false;
     private JEditorPane editorPane1;
     private JPanel panel1;
     private JScrollPane editorPaneScrollPane;
+
     JFXPanel fxPanel;
     WebView wv;
 
@@ -35,6 +36,7 @@ public class HelpForm extends JFrame{
         com.sun.javafx.application.PlatformImpl.runLater ( new Runnable () {
             @Override
             public void run () {
+
                 wv = new WebView ();
                 try {
                     wv.getEngine().load ( f.toURI().toURL().toString());
@@ -45,7 +47,7 @@ public class HelpForm extends JFrame{
                 frame = new JFrame ( "Справка" );
                 frame.add (new JScrollPane (fxPanel));
                 frame.setDefaultCloseOperation ( JFrame.HIDE_ON_CLOSE );
-                frame.setVisible ( true );
+                //frame.setVisible ( true );
                 frame.pack ();
             }
         } );

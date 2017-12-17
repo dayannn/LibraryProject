@@ -87,6 +87,38 @@ public class QueryManagerTest {
     }
 
     @org.junit.Test
+    public void simpleSearchResourceTwo() throws Exception {
+        // Пустой SEARCHQUERY
+
+        //AttributeList не содержит аттрибутов
+        assertEquals(Q_TEST.simpleSearchResource(Attribute_test, ""),"SELECT  FROM web_resources  AND        ( resource_description LIKE  '%%' OR         resource_link LIKE  '%%' OR        resource_name LIKE         '%%' )");
+
+        //AttributeList содержит 1 аттрибутов, не сод.среднюю таблицу
+        Attribute_test.add(AAType_TEST);
+        assertEquals(Q_TEST.simpleSearchResource(Attribute_test, ""),"SELECT  access_type.access_type_value FROM web_resources  INNER JOIN access_type ON web_resources.resource_access_type = access_type.key  AND        ( resource_description LIKE  '%%' OR         resource_link LIKE  '%%' OR        resource_name LIKE         '%%' )");
+
+        //AttributeList содержит 2 аттрибута не содерж. maintable
+        Attribute_test.add(AAMode_TEST);
+        assertEquals(Q_TEST.simpleSearchResource(Attribute_test, ""),"SELECT  access_type.access_type_value,  access_mode.access_mode_value FROM web_resources  INNER JOIN access_type ON web_resources.resource_access_type = access_type.key  INNER JOIN access_mode ON web_resources.resource_access_mode = access_mode.key  AND        ( resource_description LIKE  '%%' OR         resource_link LIKE  '%%' OR        resource_name LIKE         '%%' )");
+
+        Attribute_test.remove(1);
+        Attribute_test.remove(0);
+
+        // содержит среднюю таблицу
+        Attribute_test.add(AALang_TEST);
+        assertEquals(Q_TEST.simpleSearchResource(Attribute_test, ""),"SELECT  group_concat(DISTINCT language.language_value) AS language_value FROM web_resources  INNER JOIN resource_language ON resource_language.resource_id = web_resources.resource_id  INNER JOIN language ON language.key = resource_language.language_id  AND        ( resource_description LIKE  '%%' OR         resource_link LIKE  '%%' OR        resource_name LIKE         '%%' )");
+        Attribute_test.remove(0);
+
+        // содержит maintable (1 атрибут)
+        Attribute_test.add(AAName_TEST);
+        assertEquals(Q_TEST.simpleSearchResource(Attribute_test, ""), "SELECT  web_resources.resource_name FROM web_resources  AND        ( resource_description LIKE  '%%' OR         resource_link LIKE  '%%' OR        resource_name LIKE         '%%' )");
+
+        // содержит maintable (2 атрибута)
+        Attribute_test.add(AALink_TEST);
+        assertEquals(Q_TEST.simpleSearchResource(Attribute_test, ""), "SELECT  web_resources.resource_name,  web_resources.resource_link FROM web_resources  AND        ( resource_description LIKE  '%%' OR         resource_link LIKE  '%%' OR        resource_name LIKE         '%%' )");
+    }
+
+    @org.junit.Test
     public void addSourceInMainTable() throws Exception {
         //AttributeList не содержит аттрибутов
         assertEquals(Q_TEST.addSourceInMainTable(Attribute_test),"INSERT INTO web_resources () VALUES (); ");

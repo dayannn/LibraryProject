@@ -36,6 +36,7 @@ public class mainwindow extends JFrame{
     private JButton extendedSearchButton;
     private HelpForm helpForm;
     private JScrollPane jp;
+    private JButton StatsButton;
 
     public DataBaseWorker getMgr() {
         return mgr;
@@ -57,6 +58,7 @@ public class mainwindow extends JFrame{
     }
 
     private CardForm cardForm;
+    private StatsForm statsForm;
     private boolean UserRole = false;
     private boolean wasloaded = false;
     private JPopupMenu tablePopupMenu;
@@ -75,6 +77,7 @@ public class mainwindow extends JFrame{
         setVisible(true);
 
 
+        statsForm = new StatsForm();
         model = new DefaultTableModel();
         chgUser = new ChangeUser(this);
         cardForm = new CardForm(this);
@@ -263,6 +266,14 @@ public class mainwindow extends JFrame{
                 cardForm.show(CardMode.ADDDITION);
             }
         });
+        StatsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                statsForm.setVisible(true);
+
+            }
+        });
     }
 
     public JTable getTable1() {
@@ -324,7 +335,7 @@ public class mainwindow extends JFrame{
         helpMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                helpForm.setVisible(true);
+                //helpForm.setVisible(true);
             }
         });
         aboutMenu.add(helpMenuItem);
