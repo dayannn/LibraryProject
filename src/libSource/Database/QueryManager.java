@@ -63,12 +63,12 @@ public class QueryManager {
     public String extendedSelectFromMainTable(AttributeList lst) {
         String query;
 
-        StringBuilder queryBuilder = new StringBuilder("SELECT ");
+        StringBuilder queryBuilder = new StringBuilder("SELECT");
         for (int i = 0; i < lst.size(); i++) {
             if (lst.get(i).getMidT().isEmpty()) {
                 queryBuilder.append(" ").append(lst.get(i).getAttributeTableName()).append(".").append(lst.get(i).getAttributeName());
             } else {
-                queryBuilder.append(" group_concat(DISTINCT ").append(lst.get(i).getAttributeTableName()).append(".").append(lst.get(i).getAttributeName()).append(") AS ").append(lst.get(i).getAttributeName());
+                queryBuilder.append(" group_concat(DISTINCT ").append(lst.get(i).getAttributeTableName()).append(".").append(lst.get(i).getAttributeName()).append(")AS ").append(lst.get(i).getAttributeName());
             }
 
             if (i != lst.size() - 1) queryBuilder.append(", ");
@@ -76,7 +76,7 @@ public class QueryManager {
         queryBuilder.append(" FROM " + MAINTABLE + " ");
         for (int i = 0; i < lst.size(); i++) {
             if (Objects.equals(lst.get(i).getAttributeTableName(), MAINTABLE))
-            continue;
+                continue;
 
             if (lst.get(i).getMidT().isEmpty()) {
                 queryBuilder.append(" INNER JOIN ").append(lst.get(i).getAttributeTableName());
@@ -89,6 +89,7 @@ public class QueryManager {
                 queryBuilder.append(" ON ").append(lst.get(i).getAttributeTableName()).append(".key = ").append(lst.get(i).getMidT()).append(".").append(lst.get(i).getAttributeTableName()).append("_id ");
             }
         }
+        queryBuilder.append(" WHERE web_resources.resource_deleted != 1 ");
         query = queryBuilder.toString();
         System.out.println(query);
         return query;
@@ -163,11 +164,12 @@ public class QueryManager {
 
     public String deleteRow(int ID) {
         String query = "";
-        query = query + " DELETE FROM archive WHERE resource_id = " + String.valueOf(ID) + "; ";
-        query = query + " DELETE FROM resource_theme WHERE resource_id = " + String.valueOf(ID) + "; ";
-        query = query + " DELETE FROM resource_operator WHERE resource_id = " + String.valueOf(ID) + "; ";
-        query = query + " DELETE FROM resource_language WHERE resource_id = " + String.valueOf(ID) + "; ";
-        query = query + " DELETE FROM " + MAINTABLE + " WHERE resource_id = " + String.valueOf(ID) + "; ";
+        //query = query + " DELETE FROM archive WHERE resource_id = " + String.valueOf(ID) + "; ";
+        //query = query + " DELETE FROM resource_theme WHERE resource_id = " + String.valueOf(ID) + "; ";
+        //query = query + " DELETE FROM resource_operator WHERE resource_id = " + String.valueOf(ID) + "; ";
+        //query = query + " DELETE FROM resource_language WHERE resource_id = " + String.valueOf(ID) + "; ";
+        //query = query + " DELETE FROM " + MAINTABLE + " WHERE resource_id = " + String.valueOf(ID) + "; ";
+        query = query + "UPDATE web_resources SET resource_deleted = 1 WHERE resource_id = " + String.valueOf(ID);
         return query;
     }
 

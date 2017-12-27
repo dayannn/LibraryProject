@@ -155,6 +155,7 @@ public class CardForm{
         this.curSrcID = curSrcID;
     }
 
+
     private boolean IsAdmin;
     private CardMode mode;
     private mainwindow _parent; // that's not very good, I suppose?
@@ -163,7 +164,7 @@ public class CardForm{
         return IsAdmin;
     }
 
-
+    //public void incViews()
     public void setAdmin(boolean admin) {
         IsAdmin = admin;
         //tabbedPane1.remove(ModifyTab);
@@ -753,6 +754,8 @@ public class CardForm{
 
         ArchiveList.setModel(listModel);
     }
+
+
 
     public void show(CardMode cardMode) {
         setMode(cardMode);

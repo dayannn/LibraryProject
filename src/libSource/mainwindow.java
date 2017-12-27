@@ -498,6 +498,7 @@ public class mainwindow extends JFrame{
 
         try {
             LALtoModel(model, mgr.getSomeResources(temp));
+
             table1.setModel(model);
             hideIDColumn();
         } catch (Exception e1) {

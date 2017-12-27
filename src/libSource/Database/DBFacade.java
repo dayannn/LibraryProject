@@ -81,6 +81,7 @@ public class DBFacade {
 
     public void deleteSource(int id) throws SQLException {
         dbManager.ExecQueryWOResultSet(queryManager.deleteRow(id));
+
     }
 
     public ResultSet getDictionary(String tableName) throws SQLException {

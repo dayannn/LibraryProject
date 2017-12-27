@@ -4,10 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class StatsForm extends JFrame {
-    private JPanel panel1;
+    private JPanel mainPanel;
+
 
     public StatsForm(){
-        setContentPane(panel1);
+        setContentPane(mainPanel);
         setTitle("Stats");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(300, 400));
