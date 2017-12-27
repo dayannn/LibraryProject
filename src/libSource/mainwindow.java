@@ -37,6 +37,7 @@ public class mainwindow extends JFrame{
     private HelpForm helpForm;
     private JScrollPane jp;
     private JButton StatsButton;
+    private JButton показатьУдалённыеРесурсыButton;
 
     public DataBaseWorker getMgr() {
         return mgr;
@@ -274,6 +275,12 @@ public class mainwindow extends JFrame{
 
             }
         });
+        показатьУдалённыеРесурсыButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateTableDeleted();
+            }
+        });
     }
 
     public JTable getTable1() {
@@ -296,19 +303,6 @@ public class mainwindow extends JFrame{
     }
 
     public static void main(String[] args) {
-
-       /* try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }*/
-
         new mainwindow();
     }
 
@@ -495,6 +489,27 @@ public class mainwindow extends JFrame{
         temp.add(new AttributeLink(""));
         temp.add(new AttributeTheme(""));
         temp.add(new AttributeAccessType(""));
+        temp.add(new AttributeDeleted("0"));
+
+        try {
+            LALtoModel(model, mgr.getSomeResources(temp));
+
+            table1.setModel(model);
+            hideIDColumn();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    public void updateTableDeleted(){
+        AttributeList temp = new AttributeList();
+        temp.add(new AttributeID(""));
+        temp.add(new AttributeName(""));
+        temp.add(new AttributeDescription(""));
+        temp.add(new AttributeLink(""));
+        temp.add(new AttributeTheme(""));
+        temp.add(new AttributeAccessType(""));
+        temp.add(new AttributeDeleted("1"));
 
         try {
             LALtoModel(model, mgr.getSomeResources(temp));

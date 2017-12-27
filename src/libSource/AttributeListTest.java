@@ -48,24 +48,23 @@ public class AttributeListTest {
         AttributeAccessType AAType_TEST = new AttributeAccessType("Свободный");
         AttributeAccessMode AAMode_TEST = new AttributeAccessMode("Внутренний(в определенном месте))");
         AttributeLanguage AALang_TEST = new AttributeLanguage("Язык");
-
-        assertEquals(AL_TEST.size(),0);
-
-        AL_TEST.add(AAType_TEST);
-        assertEquals(AL_TEST.size(), 1);
-
-        AL_TEST.add(AAMode_TEST);
-        AL_TEST.add(AALang_TEST);
-        assertEquals(AL_TEST.size(), 3);
-
-        AL_TEST.remove(1);
-        assertEquals(AL_TEST.size(), 2);
-
-        AL_TEST.remove(0);
-        AL_TEST.remove(0);
-        assertEquals(AL_TEST.size(),0);
-
         // removing from empty list
+        //
+        //        assertEquals(AL_TEST.size(),0);
+        //
+        //        AL_TEST.add(AAType_TEST);
+        //        assertEquals(AL_TEST.size(), 1);
+        //
+        //        AL_TEST.add(AAMode_TEST);
+        //        AL_TEST.add(AALang_TEST);
+        //        assertEquals(AL_TEST.size(), 3);
+        //
+        //        AL_TEST.remove(1);
+        //        assertEquals(AL_TEST.size(), 2);
+        //
+        //        AL_TEST.remove(0);
+        //        AL_TEST.remove(0);
+        //        assertEquals(AL_TEST.size(),0);
         AL_TEST.remove(0);
         AL_TEST.remove(0);
         assertEquals(AL_TEST.size(),0);
@@ -154,8 +153,6 @@ public class AttributeListTest {
         AL_TEST.add(AAType_TEST);
         AL_TEST.setAttributeValue(0, "По подписке");
         assertEquals(AL_TEST.get(0).getAttributeValue(), "По подписке");
-
-
     }
 
     @Test

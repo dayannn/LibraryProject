@@ -89,7 +89,14 @@ public class QueryManager {
                 queryBuilder.append(" ON ").append(lst.get(i).getAttributeTableName()).append(".key = ").append(lst.get(i).getMidT()).append(".").append(lst.get(i).getAttributeTableName()).append("_id ");
             }
         }
-        queryBuilder.append(" WHERE web_resources.resource_deleted != 1 ");
+        for (int i = 0; i < lst.size(); i++) {
+            if (Objects.equals(lst.get(i).getAttributeName(), "resource_deleted")) {
+                queryBuilder.append(" WHERE web_resources.resource_deleted = ");
+                queryBuilder.append(lst.get(i).getAttributeValue());
+                break;
+            }
+        }
+
         query = queryBuilder.toString();
         System.out.println(query);
         return query;
