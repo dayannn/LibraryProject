@@ -396,6 +396,11 @@ public class QueryManager {
     }
 
     public String getStats(int ID){
-        return "SELECT year, month, views_num FROM stats WHERE key = " + String.valueOf(ID);
+        return "SELECT year, month, views FROM statistics WHERE resorce_id = " + String.valueOf(ID);
+    }
+
+    public String addStats(Integer month, Integer year, Integer views_num, Integer ID){
+        return " INSERT INTO " + "statistics" + "(resorce_id, month, views, year) VALUES (" + String.valueOf(ID) +
+                ", " +  String.valueOf(month) + ", " + String.valueOf(views_num) + ", " + String.valueOf(year) + ");";
     }
 }

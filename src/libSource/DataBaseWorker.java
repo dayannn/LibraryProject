@@ -259,7 +259,7 @@ public class DataBaseWorker
         Vector<String> vect = new Vector<>(3);
         vect.add("year");
         vect.add("month");
-        vect.add("views_num");
+        vect.add("views");
 
         DefaultTableModel mdl = new DefaultTableModel(vect, 0);
 
@@ -267,9 +267,13 @@ public class DataBaseWorker
             Vector<String> v = new Vector<>(3);
             v.add(rs.getString("year"));
             v.add(rs.getString("month"));
-            v.add(rs.getString("views_num"));
+            v.add(rs.getString("views"));
         }
 
         return mdl;
     }
+
+    public void addStats (Integer month, Integer year, Integer view_nums, Integer ID) throws  SQLException{
+        dbFacade.addStats(month, year, view_nums, ID);
+    };
 }

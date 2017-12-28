@@ -131,4 +131,8 @@ public class DBFacade {
     public ResultSet getStats(int ID) throws SQLException{
         return dbManager.ExecQuery(queryManager.getStats(ID));
     }
+
+    public void addStats (Integer month, Integer year, Integer views_num, Integer ID) throws  SQLException{
+        dbManager.ExecQuery(queryManager.addStats(month, year, views_num, ID));
+    }
 }

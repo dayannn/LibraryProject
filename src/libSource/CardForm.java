@@ -534,7 +534,11 @@ public class CardForm{
                 Integer year = Integer.parseInt(statYearTextArea.getText());
                 Integer views_num = Integer.parseInt(viewNumStatTextArea.getText());
 
-
+                try {
+                    _parent.getMgr().addStats(month, year, views_num, getCurSrcID());
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
     }
