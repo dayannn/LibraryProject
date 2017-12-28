@@ -561,7 +561,7 @@ public class mainwindow extends JFrame{
 
                 cardForm.setArchive(mgr.getArchive(ID));
                 cardForm.setStatistics(mgr.getStats(ID));
-
+                cardForm.setStatTableColWidth();
             } catch (Exception e1) {
                 e1.printStackTrace();
             }

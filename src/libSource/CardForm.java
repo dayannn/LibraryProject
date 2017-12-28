@@ -539,12 +539,27 @@ public class CardForm{
 
                 try {
                     _parent.getMgr().addStats(month, year, views_num, getCurSrcID());
+
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+                try {
                     setStatistics(_parent.getMgr().getStats(getCurSrcID()));
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
+
+                setStatTableColWidth();
+
             }
         });
+    }
+
+    public void setStatTableColWidth(){
+        for (int i = 0; i < statisticsTable.getColumnCount(); i++){
+            statisticsTable.getColumnModel().getColumn(i).setWidth(100);
+        }
+        statisticsTable.updateUI();
     }
 
     private void setStatisticsDate(){
