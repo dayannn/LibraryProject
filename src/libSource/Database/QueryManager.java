@@ -348,7 +348,7 @@ public class QueryManager {
         query = query + " WHERE " + MAINTABLE + ".resource_id = " + String.valueOf(ID) + " ";
 
         return query;
-    }
+}
 
     public String getDictionariesInfo() {
         return " SELECT * FROM dictionary_info ORDER BY dict_description";
@@ -406,6 +406,14 @@ public class QueryManager {
 
     public String getStats(int ID){
         return "SELECT year, month, views FROM statistics WHERE resorce_id = " + String.valueOf(ID) + " ORDER BY year, month";
+    }
+
+    public String getStatsIDByDate(int year, int month) {
+        return "SELECT resorce_id, views FROM statistics WHERE year = " + String.valueOf(year) + " AND month = " + String.valueOf(month) + " ";
+    }
+
+    public String getResourceNameByID(int ID) {
+        return "SELECT resource_name FROM " + MAINTABLE + " WHERE resource_id = " + String.valueOf(ID) + " ";
     }
 
     public String checkIfStatsExist(Integer month, Integer year, Integer ID){

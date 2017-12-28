@@ -280,6 +280,34 @@ public class DataBaseWorker
         return mdl;
     }
 
+    public DefaultTableModel getStatsByDate(int year, int month) throws SQLException{
+        ResultSet rs = dbFacade.getResourceIDByDateFromStat(year, month);
+        // |  id  |  views  |
+        // |      |         |
+
+
+        Vector<String> vect = new Vector<>(2);
+        vect.add("Название ресурса");
+        vect.add("Количество просмотров");
+
+        DefaultTableModel mdl = new DefaultTableModel(vect, 0);
+
+        while(rs.next()) {
+            int ID = Integer.parseInt(rs.getString(1));
+            String views = rs.getString(2);
+
+            ResultSet rs2 = dbFacade.getResourceNameByID(ID);
+
+
+            Vector<String> v = new Vector<>(3);
+            v.add(rs2.getString(1));
+            v.add(views);
+            mdl.addRow(v);
+        }
+
+        return mdl;
+    }
+
     public void addStats (Integer month, Integer year, Integer view_nums, Integer ID) throws  SQLException{
         ResultSet rs = dbFacade.checkIfStatsExist(month, year, ID);
         if (rs.next())

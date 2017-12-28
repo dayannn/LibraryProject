@@ -76,12 +76,12 @@ public class mainwindow extends JFrame{
         setContentPane(panel1);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMyMenuBar();
-        setPreferredSize(new Dimension(800, 600));
+        setPreferredSize(new Dimension(800, 700));
         pack();
         setVisible(true);
 
 
-        statsForm = new StatsForm();
+        statsForm = new StatsForm(this);
         model = new DefaultTableModel();
         chgUser = new ChangeUser(this);
         cardForm = new CardForm(this);
@@ -275,7 +275,7 @@ public class mainwindow extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                statsForm.setVisible(true);
+                statsForm.show();
 
             }
         });
