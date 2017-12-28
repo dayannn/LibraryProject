@@ -126,7 +126,6 @@ public class CardForm{
     private JScrollPane statYearScrollPane;
     private JButton addStatsButton;
     private JTable statisticsTable;
-    private ChartPanel statChartPanel;
     private Archive archive;
     private int curSrcID;
     private ChangeDirectoryForm dictForm;
