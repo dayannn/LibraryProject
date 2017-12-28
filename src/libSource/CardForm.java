@@ -211,14 +211,15 @@ public class CardForm{
 
         textAreasList.add(providerTextArea);
         textAreasList.add(documentPropsTextArea);
-        textAreasList.add(viewNumStatTextArea);
+
 
 
         textAreasList.add(testAccessConclusionTextArea);
         textAreasList.add(testTimeTextArea);
 
-        textAreasList.add(statMonthTextArea);
-        textAreasList.add(statYearTextArea);
+       // textAreasList.add(statMonthTextArea);
+       // textAreasList.add(statYearTextArea);
+        // textAreasList.add(viewNumStatTextArea);
     }
 
     private void setFieldsUneditable(){
@@ -389,6 +390,8 @@ public class CardForm{
         frame.setContentPane(CardPanel);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
+
+
         ButtonGroup exportGroup = new ButtonGroup();  // настройка кнопок для экспорта
         exportGroup.add(txtRadioButton);
         exportGroup.add(xmlRadioButton);
@@ -536,6 +539,7 @@ public class CardForm{
 
                 try {
                     _parent.getMgr().addStats(month, year, views_num, getCurSrcID());
+                    setStatistics(_parent.getMgr().getStats(getCurSrcID()));
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }

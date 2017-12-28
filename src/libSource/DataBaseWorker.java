@@ -279,6 +279,12 @@ public class DataBaseWorker
     }
 
     public void addStats (Integer month, Integer year, Integer view_nums, Integer ID) throws  SQLException{
-        dbFacade.addStats(month, year, view_nums, ID);
+        ResultSet rs = dbFacade.checkIfStatsExist(month, year, ID);
+        if (rs.next())
+            dbFacade.updateStats(month, year, view_nums, ID);
+        else
+            dbFacade.addStats(month, year, view_nums, ID);
     };
+
+
 }

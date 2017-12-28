@@ -405,7 +405,18 @@ public class QueryManager {
     }
 
     public String getStats(int ID){
-        return "SELECT year, month, views FROM statistics WHERE resorce_id = " + String.valueOf(ID);
+        return "SELECT year, month, views FROM statistics WHERE resorce_id = " + String.valueOf(ID) + " ORDER BY year, month";
+    }
+
+    public String checkIfStatsExist(Integer month, Integer year, Integer ID){
+        return "SELECT * FROM statistics WHERE year = " + String.valueOf(year) + " AND month = " +
+                String.valueOf(month) + " AND resorce_id = " + String.valueOf(ID);
+    }
+
+    public String updateStats(Integer month, Integer year, Integer views_num, Integer ID){
+        return "UPDATE statistics SET views = " + String.valueOf(views_num) +
+                " WHERE year = " + String.valueOf(year) + " AND month = " +
+                String.valueOf(month) + " AND resorce_id = " + String.valueOf(ID);
     }
 
     public String addStats(Integer month, Integer year, Integer views_num, Integer ID){

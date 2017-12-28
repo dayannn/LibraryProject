@@ -137,7 +137,15 @@ public class DBFacade {
         return dbManager.ExecQuery(queryManager.getStats(ID));
     }
 
+    public ResultSet checkIfStatsExist (Integer month, Integer year, Integer ID) throws SQLException{
+        return dbManager.ExecQuery(queryManager.checkIfStatsExist(month, year, ID));
+    }
+
     public void addStats (Integer month, Integer year, Integer views_num, Integer ID) throws  SQLException{
         dbManager.ExecQuery(queryManager.addStats(month, year, views_num, ID));
+    }
+
+    public void updateStats (Integer month, Integer year, Integer views_num, Integer ID) throws  SQLException{
+        dbManager.ExecQuery(queryManager.updateStats(month, year, views_num, ID));
     }
 }

@@ -521,7 +521,7 @@ public class mainwindow extends JFrame{
         }
     }
 
-    private void getCardForTable() {
+    public void getCardForTable() {
         if (table1.getSelectedRow() >= 0) {
             int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
             try {
