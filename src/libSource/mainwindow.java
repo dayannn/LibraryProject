@@ -6,7 +6,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.sql.SQLException;
 import java.util.List;
@@ -23,6 +22,8 @@ public class mainwindow extends JFrame{
     private JTextField DescrEdit;
     private JScrollPane sp;
 
+    private boolean deletedResources;
+
 
     private JTable table1;
     private JButton openCardButton;
@@ -37,7 +38,7 @@ public class mainwindow extends JFrame{
     private HelpForm helpForm;
     private JScrollPane jp;
     private JButton StatsButton;
-    private JButton показатьУдалённыеРесурсыButton;
+    private JButton showDeletedResourcesButton;
 
     public DataBaseWorker getMgr() {
         return mgr;
@@ -62,11 +63,13 @@ public class mainwindow extends JFrame{
     private StatsForm statsForm;
     private boolean UserRole = false;
     private boolean wasloaded = false;
-    private JPopupMenu tablePopupMenu;
+    private JPopupMenu tableDeletePopupMenu;
+    private JPopupMenu tableRestorePopupMenu;
     private DefaultTableModel model;
     private JMenuBar menuBar;
 
     public mainwindow() {
+        deletedResources = false;
         table1.setDefaultEditor(Object.class, null);
         setTitle("Система паспортизации электронных ресурсов удаленного доступа");
         menuBar = new JMenuBar();
@@ -86,7 +89,8 @@ public class mainwindow extends JFrame{
         changeUserButton.setText("Сменить режим доступа (опер.)");
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        tablePopupMenu = new JPopupMenu();
+        tableDeletePopupMenu = new JPopupMenu();
+        tableRestorePopupMenu = new JPopupMenu();
 
 
         setUpPopupMenu();
@@ -275,7 +279,7 @@ public class mainwindow extends JFrame{
 
             }
         });
-        показатьУдалённыеРесурсыButton.addActionListener(new ActionListener() {
+        showDeletedResourcesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateTableDeleted();
@@ -343,17 +347,31 @@ public class mainwindow extends JFrame{
 
     private void setUpPopupMenu()
     {
-        JMenuItem deleteItem = new JMenuItem("Восстановить запись");
+        JMenuItem restoreItem = new JMenuItem("Восстановить запись");
+        JMenuItem deleteItem = new JMenuItem("Удалить запись");
+
         deleteItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int r = table1.getSelectedRow();
                 if (r < 0 || r > table1.getColumnCount())
                     return;
-                restoreSelectedRow(r);
+                    deleteSelectedRow(r);
             }
         });
-        tablePopupMenu.add(deleteItem);
+
+        restoreItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int r = table1.getSelectedRow();
+                if (r < 0 || r > table1.getColumnCount())
+                    return;
+                    restoreSelectedRow(r);
+            }
+        });
+
+        tableDeletePopupMenu.add(deleteItem);
+        tableRestorePopupMenu.add(restoreItem);
     }
 
     private void setArchivationTimer(){
@@ -443,12 +461,21 @@ public class mainwindow extends JFrame{
         if (table1.getSelectedRowCount() == 0) {
             return;
         }
-        tablePopupMenu.setVisible(true);
-        tablePopupMenu.show(e.getComponent(), e.getX(), e.getY());
+        if (deletedResources) {
+            tableRestorePopupMenu.setVisible(true);
+            tableRestorePopupMenu.show(e.getComponent(), e.getX(), e.getY());
+        } else {
+            tableDeletePopupMenu.setVisible(true);
+            tableDeletePopupMenu.show(e.getComponent(), e.getX(), e.getY());
+        }
     }
 
     private void hidePop() {
-        tablePopupMenu.setVisible(false);
+        if (deletedResources) {
+            tableRestorePopupMenu.setVisible(false);
+        } else {
+            tableDeletePopupMenu.setVisible(false);
+        }
     }
 
     //private
@@ -482,6 +509,7 @@ public class mainwindow extends JFrame{
     }
 
     public void updateTable(){
+        deletedResources = false;
         AttributeList temp = new AttributeList();
         temp.add(new AttributeID(""));
         temp.add(new AttributeName(""));
@@ -502,6 +530,7 @@ public class mainwindow extends JFrame{
     }
 
     public void updateTableDeleted(){
+        deletedResources = true;
         AttributeList temp = new AttributeList();
         temp.add(new AttributeID(""));
         temp.add(new AttributeName(""));
