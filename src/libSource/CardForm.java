@@ -126,6 +126,7 @@ public class CardForm{
     private JScrollPane statYearScrollPane;
     private JButton addStatsButton;
     private JTable statisticsTable;
+    private ChartPanel statsChartPanel;
     private Archive archive;
     private int curSrcID;
     private ChangeDirectoryForm dictForm;
@@ -831,6 +832,7 @@ public class CardForm{
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        statsChartPanel = new ChartPanel(null);
     }
 
     public Source getSource(){
