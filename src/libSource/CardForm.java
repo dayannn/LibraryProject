@@ -1,6 +1,7 @@
 package libSource;
 
 import libSource.Attributes.*;
+import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -124,6 +125,8 @@ public class CardForm{
     private JTextArea statYearTextArea;
     private JScrollPane statYearScrollPane;
     private JButton addStatsButton;
+    private JTable statisticsTable;
+    private ChartPanel statChartPanel;
     private Archive archive;
     private int curSrcID;
     private ChangeDirectoryForm dictForm;
@@ -524,6 +527,16 @@ public class CardForm{
                 }
             }
         });
+        addStatsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Integer month = Integer.parseInt(statMonthTextArea.getText());
+                Integer year = Integer.parseInt(statYearTextArea.getText());
+                Integer views_num = Integer.parseInt(viewNumStatTextArea.getText());
+
+
+            }
+        });
     }
 
     private void setStatisticsDate(){
@@ -755,6 +768,9 @@ public class CardForm{
         ArchiveList.setModel(listModel);
     }
 
+    public void setStatistics(DefaultTableModel tbl){
+        statisticsTable.setModel(tbl);
+    }
 
 
     public void show(CardMode cardMode) {

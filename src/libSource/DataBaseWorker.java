@@ -6,12 +6,10 @@ import libSource.Attributes.BaseAttribute;
 import libSource.Database.DBFacade;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class DataBaseWorker
 {
@@ -253,5 +251,25 @@ public class DataBaseWorker
             }
         }
         return role;
+    }
+
+    public DefaultTableModel getStats(int ID) throws SQLException{
+        ResultSet rs = dbFacade.getStats(ID);
+
+        Vector<String> vect = new Vector<>(3);
+        vect.add("year");
+        vect.add("month");
+        vect.add("views_num");
+
+        DefaultTableModel mdl = new DefaultTableModel(vect, 0);
+
+        while(rs.next()) {
+            Vector<String> v = new Vector<>(3);
+            v.add(rs.getString("year"));
+            v.add(rs.getString("month"));
+            v.add(rs.getString("views_num"));
+        }
+
+        return mdl;
     }
 }

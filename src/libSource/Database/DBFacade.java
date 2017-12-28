@@ -127,4 +127,8 @@ public class DBFacade {
     public ResultSet getRoleByLogin(String login, String pass) throws SQLException {
         return dbManager.ExecQuery(queryManager.getRoleForPair(login, pass));
     }
+
+    public ResultSet getStats(int ID) throws SQLException{
+        return dbManager.ExecQuery(queryManager.getStats(ID));
+    }
 }

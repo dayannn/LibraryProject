@@ -531,7 +531,7 @@ public class mainwindow extends JFrame{
                 cardForm.setFieldsBySourceIndexes(mgr.getCardIndexes(ID));
 
                 cardForm.setArchive(mgr.getArchive(ID));
-
+                cardForm.setStatistics(mgr.getStats(ID));
 
             } catch (Exception e1) {
                 e1.printStackTrace();
@@ -619,4 +619,5 @@ public class mainwindow extends JFrame{
             e.printStackTrace();
         }
     }
+
 }

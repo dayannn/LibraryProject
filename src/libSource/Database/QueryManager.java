@@ -394,4 +394,8 @@ public class QueryManager {
         if (login.isEmpty() || pass.isEmpty()) return "";
         return " SELECT role FROM authentication WHERE login = \"" + login + "\" AND password = \"" + pass + "\" ";
     }
+
+    public String getStats(int ID){
+        return "SELECT year, month, views_num FROM stats WHERE key = " + String.valueOf(ID);
+    }
 }
