@@ -402,7 +402,7 @@ public class QueryManager {
     }
 
     public String addStats(Integer month, Integer year, Integer views_num, Integer ID){
-        return " INSERT INTO " + "statistics" + "(resorce_id, month, views, year) VALUES (" + String.valueOf(ID) +
-                ", " +  String.valueOf(month) + ", " + String.valueOf(views_num) + ", " + String.valueOf(year) + ");";
+        return " INSERT INTO " + "statistics " + "(resorce_id, month, views, year) VALUES (" + String.valueOf(ID) +
+                ", " +  String.valueOf(month) + ", " + String.valueOf(views_num) + ", " + String.valueOf(year) + ")";
     }
 }

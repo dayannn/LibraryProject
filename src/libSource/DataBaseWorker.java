@@ -268,6 +268,7 @@ public class DataBaseWorker
             v.add(rs.getString("year"));
             v.add(rs.getString("month"));
             v.add(rs.getString("views"));
+            mdl.addRow(v);
         }
 
         return mdl;
