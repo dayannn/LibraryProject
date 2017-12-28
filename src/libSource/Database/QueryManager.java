@@ -91,8 +91,10 @@ public class QueryManager {
         }
         for (int i = 0; i < lst.size(); i++) {
             if (Objects.equals(lst.get(i).getAttributeName(), "resource_deleted")) {
-                queryBuilder.append(" WHERE web_resources.resource_deleted = ");
-                queryBuilder.append(lst.get(i).getAttributeValue());
+                if (!lst.get(i).getAttributeValue().isEmpty()) {
+                    queryBuilder.append(" WHERE web_resources.resource_deleted = ");
+                    queryBuilder.append(lst.get(i).getAttributeValue());
+                }
                 break;
             }
         }
