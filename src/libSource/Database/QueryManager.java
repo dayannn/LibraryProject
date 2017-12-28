@@ -182,6 +182,13 @@ public class QueryManager {
         return query;
     }
 
+    public String restoreRow(int ID) {
+        String query = "";
+        query = query + "UPDATE web_resources SET resource_deleted = 0 WHERE resource_id = " + String.valueOf(ID);
+        return query;
+    }
+
+
     public String addSourceInMainTable(AttributeList attributeList) {
         String query;
         StringBuilder queryBuilder = new StringBuilder("INSERT INTO " + MAINTABLE + " (");
