@@ -84,6 +84,11 @@ public class DBFacade {
 
     }
 
+    public void restoreSource(int id) throws SQLException {
+        dbManager.ExecQueryWOResultSet(queryManager.restoreRow(id));
+
+    }
+
     public ResultSet getDictionary(String tableName) throws SQLException {
         return dbManager.ExecQuery(queryManager.getDictionaryForTable(tableName));
     }

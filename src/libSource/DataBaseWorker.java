@@ -98,6 +98,10 @@ public class DataBaseWorker
         dbFacade.deleteSource(id);
     }
 
+    public void restoreSource(int id) throws SQLException {
+        dbFacade.restoreSource(id);
+    }
+
     public BaseSource getCard(int id) throws SQLException {
         BaseSource source = new Source();
         ResultSet rs = dbFacade.getCard(id);

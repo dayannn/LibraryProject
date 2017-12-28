@@ -343,14 +343,14 @@ public class mainwindow extends JFrame{
 
     private void setUpPopupMenu()
     {
-        JMenuItem deleteItem = new JMenuItem("Удалить запись");
+        JMenuItem deleteItem = new JMenuItem("Восстановить запись");
         deleteItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int r = table1.getSelectedRow();
                 if (r < 0 || r > table1.getColumnCount())
                     return;
-                deleteSelectedRow(r);
+                restoreSelectedRow(r);
             }
         });
         tablePopupMenu.add(deleteItem);
@@ -543,6 +543,17 @@ public class mainwindow extends JFrame{
         int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
         try {
             mgr.deleteSource(ID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ((DefaultTableModel)table1.getModel()).removeRow(row);
+    }
+
+    private void restoreSelectedRow(int row){
+        int ID = Integer.parseInt(table1.getValueAt(table1.getSelectedRow(), 0).toString());
+        try {
+            mgr.restoreSource(ID);
         } catch (Exception e) {
             e.printStackTrace();
         }
